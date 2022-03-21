@@ -59,6 +59,13 @@ passport.deserializeUser(User.deserializeUser());
 app.use('/', userRoutes);
 
 
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+
+require('./routes/dialogFlowRoutes')(app);
+
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
