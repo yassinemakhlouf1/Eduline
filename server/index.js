@@ -50,7 +50,8 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 /*app.use(mongoSanitize());*/
-app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+/*app.use(express.json());*/
 //////////////////////////////////////////////
 passport.use(new local_auth(User.authenticate()));
 passport.serializeUser(User.serializeUser());
