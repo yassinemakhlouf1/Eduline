@@ -69,9 +69,7 @@ app.use('/',courseASRoutes);
 app.use('/courseAS/domain',domainASRoutes);
 app.use('/courseAS/chapter',chapterASRoutes);
 
-app.use('/',courseASRoutes);
-app.use('/courseAS/domain',domainASRoutes);
-app.use('/courseAS/chapter',chapterASRoutes);
+
 
 
 
