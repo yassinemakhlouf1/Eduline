@@ -240,7 +240,7 @@ module.exports.DeleteUser = (req, res) => {
 }
 
 
-module.exports.find = (req, res) => {
+module.exports.UsersList = (req, res) => {
     if (req.query.id) {
       const id = req.query.id;
       User

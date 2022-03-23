@@ -1,0 +1,12 @@
+const express = require('express');
+const router = express.Router();
+const domainAS = require('../controllers/domainAS');
+//const { isLoggedIn } = require('../middleware');
+
+router.post('/createD', domainAS.create);
+router.get('/allDomainsAS', domainAS.DomainsASList);
+router.get('/DomainsAS/:id', domainAS.DomainsASFindOne);
+router.delete('/DelDomainsAS/:id', domainAS.DomainsASDel);
+router.put('/UpdateDomainsAS/:id', domainAS.DomainsASUpdate);
+
+module.exports = router;
