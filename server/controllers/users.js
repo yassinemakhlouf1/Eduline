@@ -9,8 +9,8 @@ const middleware = require("../middleware");
 
 //////SIGN UP
 module.exports.register = async (req, res, next) => {
-    const { email, username, password } = req.body;
-    const NewUser = new User({ email, username, emailToken: crypto.randomBytes(64).toString('hex') });
+    const { email, username, password ,name ,last_name,birth_date} = req.body;
+    const NewUser = new User({ email, username, emailToken: crypto.randomBytes(64).toString('hex'),name,last_name ,birth_date});
 
     if (req.body.adminCode === 'secretcode123') {
         NewUser.isAdmin = true;
