@@ -1,11 +1,11 @@
 import React from 'react';
 import ItemList from './ItemList';
 
-const Shop = () => (
+const Course = () => (
     <div>
-        <h1>Shop</h1>
+        <h1>Course</h1>
         <ItemList />
     </div>
 )
 
-export default Shop;
+export default Course;
