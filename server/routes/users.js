@@ -8,7 +8,7 @@ router.post('/register', users.register);
 
 router.post('/login', users.login);
 
-router.get('/find', users.find);
+router.get('/allUsers', users.UsersList);
 
 router.post('/logout', users.logout);
 
