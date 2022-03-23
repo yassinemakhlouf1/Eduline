@@ -8,13 +8,13 @@ const middleware = require("../middleware");
 
 
 //////SIGN UP
-module.exports.register = async (req, res, next) => {
-    const { email, username, password ,name ,last_name,birth_date} = req.body;
-    const NewUser = new User({ email, username, emailToken: crypto.randomBytes(64).toString('hex'),name,last_name ,birth_date});
+module.exports.register = async (req, res) => {
+    const { email, username, password } = req.body;
+    const NewUser = new User({ email, username, emailToken: crypto.randomBytes(64).toString('hex') });
 
     if (req.body.adminCode === 'secretcode123') {
         NewUser.isAdmin = true;
-        NewUser.Role='Admin'
+    
     }
     await User.register(NewUser, password, async (err, user) => {
         NewUser.isAdmin=false;
@@ -34,13 +34,13 @@ module.exports.register = async (req, res, next) => {
             subject: 'Node.js Email Verification',
             text:
                 'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                'http://' + req.headers.host + '/verify-email/' + NewUser.emailToken + '\n\n' +
+                'http://' + req.headers.host + '/verify-email/' + NewUser.emailToken + '\n\n' + //domain's name
                 'If you did not request this, please ignore this email .\n'
         };
         try {
             smtpTransport.sendMail(mailOptions, function (err) {
-                console.log('thanks for registration');
-                res.send('thanks for registration')
+                console.log('An email has been sent to your mail');
+                res.send('An email has been sent to your mail')//redirection
 
             })
         } catch (error) { console.log(error) };
@@ -64,8 +64,8 @@ module.exports.verifyEmail = (req, res) => {
 };
 
 ////////SIGN IN
-module.exports.login = (req, res, next) => {
-    passport.authenticate('local', { session: false }, (err, user, info) => {
+module.exports.login = (req, res) => {
+    passport.authenticate('local', { session: false }, (err, user) => {
         if (err || !user) {
             return res.status(400).json({
                 message: 'Username or password is wrong'
@@ -80,7 +80,7 @@ module.exports.login = (req, res, next) => {
             if (err) {
                 res.send(err);
             }
-            // generate a signed son web token with the contents of user object and return it in the response
+            // generate a signed json web token with the contents of user object and return it in the response
             const token = jwt.sign(user.toJSON(), 'secret code');
             return res.json({ user, token });
         });
@@ -101,7 +101,7 @@ module.exports.forgot = (req, res, next) => {
             crypto.randomBytes(20, function (err, buf) {
                 var token = buf.toString('hex');
                 done(err, token);
-            });
+            });//Token creation
         },
         function (token, done) {
             User.findOne({ email: req.body.email }, function (err, user) {
@@ -116,7 +116,7 @@ module.exports.forgot = (req, res, next) => {
                     done(err, token, user);
                 });
             });
-        },
+        },//generating token and saving it to the user schema
         function (token, user, done) {
             var smtpTransport = nodemailer.createTransport({
                 service: 'Gmail',
@@ -183,13 +183,13 @@ module.exports.PostResetToken = (req, res) => {
             var smtpTransport = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
-                    user: '4twin6@gmail.com',
-                    pass: 'twintwin'
+                    user: process.env.EMAIL,
+                    pass: process.env.PASSWORD_EMAIL
                 }
             });
             var mailOptions = {
                 to: user.email,
-                from: '4twin6@gmail.com',
+                from: process.env.EMAIL,
                 subject: 'Your password has been changed',
                 text: 'Hello,\n\n' +
                     'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
@@ -240,34 +240,11 @@ module.exports.DeleteUser = (req, res) => {
 }
 
 
-module.exports.find = (req, res) => {
-    if (req.query.id) {
-      const id = req.query.id;
-      User
-        .findById(id)
-        .then((data) => {
-          if (!data) {
-            res.status(404).send({ message: "Not found user with id" + id });
-          } else {
-            res.send(data);
-          }
-        })
-        .catch((err) => {
-          res
-            .status(500)
-            .send({ message: "Error retrieving user with id " + id });
-        });
-    } else {
-      User
-        .find()
-        .then((user) => {
-          res.send(user);
-        })
-        .catch((err) => {
-          res.status(500).send({
-            message:
-              err.message || "Error Occured while retriving user Information",
-          });
-        });
-    }
-  };
+
+
+module.exports.UsersList = async (req, res) => {
+    const users = await User.find({});
+    res.send({ users });
+};
+
+

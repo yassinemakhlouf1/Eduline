@@ -4,13 +4,16 @@ if (process.env.NODE_ENV !== "production") {
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const local_auth = require('passport-local');
+const local_auth = require('passport-local');//passport 'version' applied
 const session = require('express-session');
 const User = require('./models/user');
-const MongoDBStore = require('connect-mongodb-session')(session)
+const MongoDBStore = require('connect-mongodb-session')(session)//session: to stay connected
 const userRoutes = require('./routes/users');
-const mongoSanitize = require('express-mongo-sanitize');
+const mongoSanitize = require('express-mongo-sanitize');//for application security
 
+const courseASRoutes = require('./routes/courseAS');
+const domainASRoutes = require('./routes/domainAS');
+const chapterASRoutes =require('./routes/chapterAS');
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
 
@@ -49,21 +52,20 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
-/*app.use(mongoSanitize());*/
-app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+
+app.use(mongoSanitize());
+app.use(express.urlencoded({extended: true}));
 //////////////////////////////////////////////
-passport.use(new local_auth(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(new local_auth(User.authenticate()));//passport version 
+passport.serializeUser(User.serializeUser());//parsing
+passport.deserializeUser(User.deserializeUser());//
 
 app.use('/', userRoutes);
+app.use('/',courseASRoutes);
+app.use('/courseAS/domain',domainASRoutes);
+app.use('/courseAS/chapter',chapterASRoutes);
 
-
-const bodyParser = require('body-parser');
-
-app.use(bodyParser.json());
-
-require('./routes/dialogFlowRoutes')(app);
 
 
 

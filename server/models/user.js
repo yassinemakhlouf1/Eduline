@@ -8,12 +8,18 @@ const UserSchema = new Schema({
         unique: true
     },
     isAdmin: {
-      type: Boolean,
+      type: Boolean,  
       default:false
   },
-    Role: {
-        type: String,  
-    },
+  isFormateur: {
+    type: Boolean,
+    default:false
+},
+isApprenant: {
+  type: Boolean,
+  default:false
+},
+   
     password:{
       type: String,
     },
