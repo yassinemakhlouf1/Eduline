@@ -14,6 +14,7 @@ const mongoSanitize = require('express-mongo-sanitize');//for application securi
 const courseASRoutes = require('./routes/courseAS');
 const domainASRoutes = require('./routes/domainAS');
 const chapterASRoutes =require('./routes/chapterAS');
+
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
 
@@ -52,10 +53,12 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
-app.set("view engine", "ejs");
 
-app.use(mongoSanitize());
-app.use(express.urlencoded({extended: true}));
+
+app.set("view engine", "ejs");
+/*app.use(mongoSanitize());*/
+app.use(express.urlencoded({ extended: true }));
+
 //////////////////////////////////////////////
 passport.use(new local_auth(User.authenticate()));//passport version 
 passport.serializeUser(User.serializeUser());//parsing
@@ -66,6 +69,9 @@ app.use('/',courseASRoutes);
 app.use('/courseAS/domain',domainASRoutes);
 app.use('/courseAS/chapter',chapterASRoutes);
 
+app.use('/',courseASRoutes);
+app.use('/courseAS/domain',domainASRoutes);
+app.use('/courseAS/chapter',chapterASRoutes);
 
 
 
