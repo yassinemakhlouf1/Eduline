@@ -9,6 +9,7 @@ const session = require('express-session');
 const User = require('./models/user');
 const MongoDBStore = require('connect-mongodb-session')(session)
 const userRoutes = require('./routes/users');
+const forumRoutes = require('./routes/forums.js');
 const mongoSanitize = require('express-mongo-sanitize');
 
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
@@ -50,17 +51,21 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 /*app.use(mongoSanitize());*/
-app.use(express.json());
+//app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 //////////////////////////////////////////////
 passport.use(new local_auth(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use('/', userRoutes);
+app.use('/user', userRoutes);
+app.use('/forums', forumRoutes);
 
 
-
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Serving on port ${port}`)
-})
+});
