@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Landing = () => (
+const Home = () => (
     <div style={{ textAlign: 'center' }}>
         <h1>Hi, I'm Yasminos, Eduline's virtual assistant !! </h1>
         I'm here to help you find your need.
     </div>
 )
 
-export default Landing;
+export default Home;
