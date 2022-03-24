@@ -5,6 +5,8 @@ import Message from './Message';
 
 class Chatbot extends Component {
 
+    messagesEnd;
+    talkInput;
     constructor(props) {
         super(props);
 
@@ -56,6 +58,11 @@ class Chatbot extends Component {
         this.df_event_query('Welcome');
     }
 
+    componentDidUpdate() {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+        this.talkInput.focus();
+    }
+
 
     renderMessages(stateMessages) {
         if (stateMessages) {
@@ -81,7 +88,10 @@ class Chatbot extends Component {
                 <div id="chatbot" style={{ height: '100%', width: '100%', overflow: 'auto' }}>
                     <h2>Chatbot</h2>
                     {this.renderMessages(this.state.messages)}
-                    <input type="text" onKeyPress={this._handleInputKeyPress}  />
+                    <div ref={(el) => { this.messagesEnd = el; }}
+                         style={{ float:"left", clear: "both" }}>
+                    </div>
+                    <input type="text" ref={(input) => { this.talkInput = input; }} onKeyPress={this._handleInputKeyPress}  />
                 </div>
             </div>
         )
