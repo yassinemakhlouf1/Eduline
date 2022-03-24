@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import useStyles from './styles';
 import { createForum, updateForum } from "../../actions/forums";
 
-const Form = ({ currentId, setCurrentId }) => {
+const Form = ({ currentId }) => {
     const [forumData, setForumData] = useState({ title: '', description: '', tags: '', selectedFile: '' });
     const forum = useSelector((state) => currentId ? state.forums.forums.find((p) => p._id === currentId) : null);
     const classes = useStyles();
@@ -29,7 +29,6 @@ const Form = ({ currentId, setCurrentId }) => {
         clear();
     };
     const clear = () => {
-        setCurrentId(null);
         setForumData({ title: '', description: '', tags: '', selectedFile: '' });
     };
     if(!user?.result.username) {

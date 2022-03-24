@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Forum from "./Forum/Forum";
 import useStyles from './styles';
 
-const Forums = ({ setCurrentId }) => {
+const Forums = () => {
     const { forums, isLoading } = useSelector((state) => state.forums);
     const classes = useStyles();
     if(!forums.length && !isLoading) return 'No Forums';
@@ -14,7 +14,7 @@ const Forums = ({ setCurrentId }) => {
                 {
                     forums.map((forum) => (
                         <Grid key={forum._id} item xs={12} sm={12} md={6} lg={3}>
-                            <Forum forum={forum} setCurrentId={setCurrentId} />
+                            <Forum forum={forum} />
                         </Grid>
                     ))
                 }

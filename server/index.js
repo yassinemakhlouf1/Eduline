@@ -11,6 +11,7 @@ const MongoDBStore = require('connect-mongodb-session')(session)
 const userRoutes = require('./routes/users');
 const forumRoutes = require('./routes/forums.js');
 const mongoSanitize = require('express-mongo-sanitize');
+const cors = require('cors');
 
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
@@ -21,6 +22,7 @@ db.once("open", () => {
     console.log("Database Connected");
 })
 const app = express();
+app.use(cors());
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
 const store = new MongoDBStore({

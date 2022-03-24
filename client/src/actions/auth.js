@@ -6,6 +6,8 @@ export const signin = (formData, history) => async (dispatch) => {
         const { data } = await api.signIn(formData);
         dispatch({ type: AUTH, data });
         history('/');
+        console.log(formData);
+        console.log(data);
     } catch (error) {
         console.log(error);
     }

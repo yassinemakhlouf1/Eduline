@@ -75,7 +75,7 @@ const Forum = ({ forum, setCurrentId }) => {
                     <Likes />
                 </Button>
                 {(user?.result?.googleId === forum?.creator || user?.result?._id === forum?.creator) && (
-                    <Button size="small" color="primary" onClick={() => dispatch(deleteForum(forum._id))}>
+                    <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(deleteForum(forum._id))}>
                         <DeleteIcon fontSize="small" />
                         Delete
                     </Button>
