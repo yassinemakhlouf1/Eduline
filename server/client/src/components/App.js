@@ -23,7 +23,7 @@ const App = () => (
                <Route exact path="/test_evaluation" component={Test} />
 
                <Chatbot />
-               <Footer />
+               
            </div>
        </BrowserRouter>
     </div>
