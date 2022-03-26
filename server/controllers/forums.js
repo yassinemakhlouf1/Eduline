@@ -1,7 +1,7 @@
-const Forum = require("../models/forum.js");
-const mongoose = require("mongoose");
-
-module.exports.getForums = async (req, res) => {
+import Forum from "../models/forum.js";
+import mongoose from "mongoose";
+/*
+export const getForums = async (req, res) => {
     const { page } = req.query;
     try {
         const LIMIT = 8;
@@ -16,7 +16,7 @@ module.exports.getForums = async (req, res) => {
     }
 };
 
-module.exports.getForum = async (req, res) => {
+export const getForum = async (req, res) => {
     const { id } = req.params;
     try {
         const forum =  await Forum.findById(id);
@@ -25,8 +25,147 @@ module.exports.getForum = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
+*/
 
-module.exports.getForumsBySearch = async (req, res) => {
+export const getForums = async (req, res) => {
+    const { page } = req.query;
+    try {
+        const LIMIT = 8;
+        const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
+        const total = await Forum.countDocuments({});
+        const forums =  await Forum.aggregate([
+            {
+                $lookup: {
+                    from: "comments",
+                    let: { forumid: "$_id" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $eq: ["$forumid", "$$forumid"],
+                                },
+                            },
+                        },
+                        {
+                            $project: {
+                                _id: 1,
+                                comment: 1,
+                                createdAt: 1,
+                            },
+                        },
+                    ],
+                    as: "comments",
+                },
+            },
+            {
+                $lookup: {
+                    from: "answers",
+                    let: { forumid: "$_id" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $eq: ["$forumid", "$$forumid"],
+                                },
+                            },
+                        },
+                        {
+                            $project: {
+                                _id: 1,
+                                //comment: 1,
+                                //createdAt: 1,
+                            },
+                        },
+                    ],
+                    as: "answersDetails",
+                },
+            },
+            {
+                $project: {
+                    __v: 0,
+                },
+            },
+        ]).sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+        //console.log(Forum);
+        res.status(200).json({ data: forums, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
+
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
+
+export const getForum = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const forum =  await Forum.aggregate([
+            {
+                $match: { _id: mongoose.Types.ObjectId(id) },
+            },
+            {
+                $lookup: {
+                    from: "answers",
+                    let: { forumid: "$_id" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $eq: ["$forumid", "$$forumid"],
+                                },
+                            },
+                        },
+                        {
+                            $project: {
+                                _id: 1,
+                                creator: 1,
+                                answer: 1,
+                                forumid: 1,
+                                createdAt: 1,
+                            },
+                        },
+                    ],
+                    as: "answersDetails",
+                },
+            },
+            {
+                $lookup: {
+                    from: "comments",
+                    let: { forumid: "$_id" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $eq: ["$forumid", "$$forumid"],
+                                },
+                            },
+                        },
+                        {
+                            $project: {
+                                _id: 1,
+                                forumid:1,
+                                creator: 1,
+                                name: 1,
+                                content: 1,
+                                createdAt: 1,
+                            },
+                        },
+                    ],
+                    as: "comments",
+                },
+            },
+            {
+                $project: {
+                    __v: 0,
+                },
+            },
+        ]);
+        res.status(200).json(forum);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
+/**/
+
+export const getForumsBySearch = async (req, res) => {
     const { searchQuery, tags } = req.query;
     try {
         const title = new RegExp(searchQuery, 'i'); // Test test TEST -> test
@@ -37,10 +176,9 @@ module.exports.getForumsBySearch = async (req, res) => {
     }
 };
 
-module.exports.createForum = async (req, res) => {
+export const createForum = async (req, res) => {
     const forum = req.body;
-    const newForum = new Forum({ ...forum, creator: req.userId, createdAt: new Date().toISOString() });
-
+    const newForum = new Forum({ ...forum, createdAt: new Date().toISOString() });
     try {
         await newForum.save();
         res.status(201).json(newForum);
@@ -50,7 +188,7 @@ module.exports.createForum = async (req, res) => {
     }
 };
 
-module.exports.updateForum = async (req, res) => {
+export const updateForum = async (req, res) => {
     const { id: _id } = req.params;
     const forum = req.body;
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No forum with that id!!');
@@ -59,14 +197,14 @@ module.exports.updateForum = async (req, res) => {
     res.json(updatedForum);
 };
 
-module.exports.deleteForum = async (req, res) => {
+export const deleteForum = async (req, res) => {
     const { id } = req.params;
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No forum with that id!!');
     await Forum.findByIdAndRemove(id);
     res.json({ message: 'Forum deleted successfully' });
 };
 
-module.exports.likeForum = async (req, res) => {
+export const likeForum = async (req, res) => {
     const { id } = req.params;
     if(!req.userId) return res.json({ message: 'Unauthenticated' });
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No forum with that id!!');
@@ -82,12 +220,12 @@ module.exports.likeForum = async (req, res) => {
     res.json(updatedForum);
 };
 
-module.exports.commentForum = async (req, res) => {
+export const commentForum = async (req, res) => {
     const { id } = req.params;
     const { value } = req.body;
     const forum = await Forum.findById(id);
     forum.comments.push(value);
     const updatedForum = await Forum.findByIdAndUpdate(id, forum, { new: true });
 
-    res.json(updateForum);
-}
+    res.json(updatedForum);
+};

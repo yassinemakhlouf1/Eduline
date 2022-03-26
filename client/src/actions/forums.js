@@ -6,8 +6,8 @@ export const getForum = (id) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
         const { data } = await api.fetchForum(id);
-        //console.log(data);
-        dispatch({ type: FETCH_FORUM, payload: data });
+        //console.log(data[0].answersDetails);
+        dispatch({ type: FETCH_FORUM, payload: data[0] });
         dispatch({ type: END_LOADING });
     } catch (error) {
         console.log(error);

@@ -18,7 +18,8 @@ export const deleteForum = (id) => API.delete(`/forums/${id}`);
 export const likeForum = (id) => API.patch(`/forums/${id}/likeForum`);
 export const comment = (value, id) => API.post(`/forums/${id}/commentForum`, { value });
 
-export const createComment = (newComment, idForum) => API.post(`/forums/${idForum}/comment`, newComment);
+export const createComment = (newComment, id) => API.post(`/forums/${id}`, newComment);
+export const deleteComment = (id) => API.delete(`/forums/comments/${id}`);
 
 export const signIn = (formData) => API.post('/user/login', formData);
 export const signUp = (formData) => API.post('/user/register', formData);

@@ -1,29 +1,30 @@
-const express = require('express');
+import express from 'express';
+import { register, login, find, logout, forgot, PostResetToken, editUser, verifyEmail, profile, GetResetToken, DeleteUser } from '../controllers/users.js';
 const router = express.Router();
-const users = require('../controllers/users');
-const { isLoggedIn } = require('../middleware');
+//const users = require('../controllers/users');
+//const { isLoggedIn } = require('../middleware');
 
 
-router.post('/register', users.register);
+router.post('/register', register);
 
-router.post('/login', users.login);
+router.post('/login', login);
 
-router.get('/find', users.find);
+router.get('/find', find);
 
-router.post('/logout', users.logout);
+router.post('/logout', logout);
 
-router.post('/forgot', users.forgot);
+router.post('/forgot', forgot);
 
-router.post('/reset/:token', users.PostResetToken);
+router.post('/reset/:token', PostResetToken);
 
-router.post('/edit/:id', users.editUser);
+router.post('/edit/:id', editUser);
 
-router.get('/verify-email/:token', users.verifyEmail);
+router.get('/verify-email/:token', verifyEmail);
 
-router.get('/profile/:id', users.profile);
+router.get('/profile/:id', profile);
 
-router.get('/reset/:token', users.GetResetToken);
+router.get('/reset/:token', GetResetToken);
 
-router.delete('/:id', users.DeleteUser);
+router.delete('/:id', DeleteUser);
 
-module.exports = router;
+export default router;

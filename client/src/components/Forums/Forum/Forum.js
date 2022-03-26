@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, CardActions, CardMedia, Button, Typography, ButtonBase } from "@material-ui/core";
+import { Card, CardActions, CardMedia, Button, Typography, ButtonBase, CardContent, Avatar } from "@material-ui/core";
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -18,7 +18,7 @@ const Forum = ({ forum, setCurrentId }) => {
     const history = useNavigate();
     const user = JSON.parse(localStorage.getItem('profile'));
     const [likes, setLikes] = useState(forum?.likes);
-    const userId = user?.result.googleId || user?.result?._id
+    const userId = user?.user?._id
     const hasLikedForum = forum.likes.find((like) => like === userId);
     
     const handleLike = async () => {
@@ -27,6 +27,7 @@ const Forum = ({ forum, setCurrentId }) => {
             setLikes(forum.likes.filter((id) => id !== userId));
         } else {
             setLikes([ ...forum.likes, userId ]);
+            console.log(userId);
         }
     };
 
@@ -47,35 +48,35 @@ const Forum = ({ forum, setCurrentId }) => {
           history(`/forums/${forum._id}`);
       };
 
+      const truncate = (str, n) => {
+          return str?.length > n ? str.substr(0, n-1) + "..." : str;
+      };
+
     return (
         <Card className={classes.card} raised elevation={6}>
             <CardMedia className={classes.media} image={!forum.selectedFile ? blue : forum.selectedFile} title={forum.title} />
             <div className={classes.overlay}>
-                <Typography variant="h6">{forum.name}</Typography>
+                <div className={classes.profile}>
+                    <Avatar alt={forum.name}>{forum.name.charAt(0)}</Avatar>
+                    <Typography variant="h6">{forum.name}</Typography>
+                </div>
                 <Typography variant="body2">{moment(forum.createdAt).fromNow()}</Typography>
+                <Typography variant="body2">{forum.answersDetails.length} Answers</Typography>
+                <Typography variant="body2">{forum.comments.length} Comments</Typography>
             </div>
-            {(user?.result?.googleId === forum?.creator || user?.result?._id === forum?.creator) && (
-                <div className={classes.overlay2}>
-                    <Button style={{color: 'white'}} size="small" onClick={() => {
-                        setCurrentId(forum._id);
-                        history('/form');
-                        }}>
-                        <MoreHorizIcon fontSize="medium" />
-                    </Button>
-                </div>
-            )}
             <ButtonBase className={classes.cardAction} onClick={openForum}>
-                <Typography className={classes.title} variant="h5" gutterBottom>{forum.title}</Typography>
-                <div className={classes.details}>
+                <Typography className={classes.title} variant="h5" gutterBottom>{truncate(forum.title, 25)}</Typography>
+                <CardContent>
+                    <Typography variant="body2" color="textSecondary" component="p">{truncate(forum.description, 90)}</Typography>
                     <Typography variant="body2" color="textSecondary">{forum.tags.map((tag) => `#${tag} `)}</Typography>
-                </div>
+                </CardContent>
             </ButtonBase>
             <CardActions className={classes.cardActions}>
-                <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
+                <Button size="small" color="primary" disabled={!user?.user} onClick={handleLike}>
                     <Likes />
                 </Button>
-                {(user?.result?.googleId === forum?.creator || user?.result?._id === forum?.creator) && (
-                    <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(deleteForum(forum._id))}>
+                {(user?.user?._id === forum?.creator) && (
+                    <Button size="small" color="primary" disabled={!user?.user} onClick={() => dispatch(deleteForum(forum._id))}>
                         <DeleteIcon fontSize="small" />
                         Delete
                     </Button>

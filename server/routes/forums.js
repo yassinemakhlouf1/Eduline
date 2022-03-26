@@ -1,18 +1,18 @@
-const express = require('express');
+import express from 'express';
 
-const { isLoggedIn } = require('../middleware');
+import { isLoggedIn } from '../middleware.js';
 //import auth from '../middleware/auth.js';
-const forums = require("../controllers/forums.js");
+import { getForumsBySearch, getForums, getForum, createForum, updateForum, deleteForum, likeForum, commentForum } from "../controllers/forums.js";
 const router = express.Router();
 
-router.get('/search', forums.getForumsBySearch);
-router.get('/', forums.getForums);
-router.get('/:id', forums.getForum);
+router.get('/search', getForumsBySearch);
+router.get('/', getForums);
+router.get('/:id', getForum);
 
-router.post('/', forums.createForum); // you need to be loged in to create a post
-router.patch('/:id', isLoggedIn, forums.updateForum);
-router.delete('/:id', isLoggedIn, forums.deleteForum);
-router.patch('/:id/likeForum', isLoggedIn, forums.likeForum);
-router.post('/:id/commentForum', isLoggedIn, forums.commentForum);
+router.post('/', createForum); // you need to be loged in to create a post
+router.patch('/:id', updateForum);
+router.delete('/:id', deleteForum);
+router.patch('/:id/likeForum', likeForum);
+router.post('/:id/commentForum', commentForum);
 
-module.exports = router;
+export default router;

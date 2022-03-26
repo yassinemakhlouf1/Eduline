@@ -9,7 +9,7 @@ import { createForum, updateForum } from "../../actions/forums";
 
 const Form = ({ currentId }) => {
     const [forumData, setForumData] = useState({ title: '', description: '', tags: '', selectedFile: '' });
-    const forum = useSelector((state) => currentId ? state.forums.forums.find((p) => p._id === currentId) : null);
+    const forum = useSelector((state) => currentId ? state.forums.forums.find((f) => f._id === currentId) : null);
     const classes = useStyles();
     const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
@@ -22,16 +22,16 @@ const Form = ({ currentId }) => {
     const handleSubmit = (e) =>{
         e.preventDefault();
         if (currentId) {
-            dispatch(updateForum(currentId, { ...forumData, name: user?.result?.username }));
+            dispatch(updateForum(currentId, { ...forumData, name: user?.user?.username }));
         } else {
-            dispatch(createForum({ ...forumData, name: user?.result?.username }, history));
+            dispatch(createForum({ ...forumData, name: user?.user?.username, creator: user?.user?._id }, history));
         }
         clear();
     };
     const clear = () => {
         setForumData({ title: '', description: '', tags: '', selectedFile: '' });
     };
-    if(!user?.result.username) {
+    if(!user?.user.username) {
         return (
             <Paper className={classes.paper}>
                 <Typography variant="h6" align="center">

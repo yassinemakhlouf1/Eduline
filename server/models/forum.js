@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const forumSchema = mongoose.Schema({
     title: String,
@@ -6,17 +6,21 @@ const forumSchema = mongoose.Schema({
     name: String,
     creator: String,
     tags: [String],
+    selectedFile: String,
     likes: {
         type: [String],
         default: []
     },
-    comments: {
-        type: [String],
-        default: []
+    commentid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
     },
     createdAt: {
         type: Date,
         default: new Date()
     },
 });
-module.exports = mongoose.model('Forum', forumSchema);
+const Forum = mongoose.model('Forum', forumSchema);
+
+export default Forum;
+//module.exports = mongoose.model('Forum', forumSchema);

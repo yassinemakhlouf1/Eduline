@@ -1,15 +1,14 @@
-const User = require('./models/user');
-
-module.exports = {
-    isLoggedIn: (req, res, next) => {
+//const User = require('./models/user');
+import jwt from 'jsonwebtoken';
+    export const isLoggedIn = (req, res, next) => {
         if (!req.isAuthenticated()) {
             req.session.returnTo = req.originalUrl;
             console.log('You must be signed in first!');
             return res.send('You must be signed in first!');
         }
         next();
-    },
-    isAdmin: function (req, res, next) {
+    };
+    export const isAdmin = (req, res, next) => {
         if (req.isAuthenticated()) {
                 if (req.user.isAdmin) {
                     next();
@@ -21,5 +20,4 @@ module.exports = {
         } else {
             return console.log("You have to login !");
         }
-    }
-}
+    };

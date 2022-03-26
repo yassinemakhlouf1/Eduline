@@ -20,7 +20,8 @@ const Navbar = () => {
     };
 
     useEffect(() => {
-        const token = user?.emailToken;
+        const token = user?.token;
+        //console.log(user);
         if(token) {
             const decodedToken = decode(token);
             if(decodedToken.exp * 1000 < new Date().getTime()) logout()
@@ -42,8 +43,8 @@ const Navbar = () => {
                 
                 {user ? (
                     <div className={classes.profile}>
-                        <Avatar className={classes.purple} alt={user.result.username} src={user.result.imageUrl}>{user.result.username}</Avatar>
-                        <Typography className={classes.userName} variant="h6">{user.result.username}</Typography>
+                    <Avatar className={classes.purple} alt={user.user.username} src={user.user.imageUrl}>{user.user.username.charAt(0)}</Avatar>
+                        <Typography className={classes.userName} variant="h6">{user.user.username}</Typography>
                         <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Logout</Button>
                     </div>
                 ) : (

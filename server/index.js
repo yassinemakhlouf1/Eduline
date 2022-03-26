@@ -1,17 +1,23 @@
+import dotenv from 'dotenv';
+
 if (process.env.NODE_ENV !== "production") {
-    require('dotenv').config();
+    dotenv.config();
 }
-const express = require('express');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const local_auth = require('passport-local');
-const session = require('express-session');
-const User = require('./models/user');
-const MongoDBStore = require('connect-mongodb-session')(session)
-const userRoutes = require('./routes/users');
-const forumRoutes = require('./routes/forums.js');
-const mongoSanitize = require('express-mongo-sanitize');
-const cors = require('cors');
+import express from 'express';
+import mongoose from 'mongoose';
+import passport from 'passport';
+import local_auth from 'passport-local';
+import session from 'express-session';
+import User from './models/user.js';
+//const MongoDBStore = require('connect-mongodb-session')(session)
+import connect from 'connect-mongodb-session';
+const MongoDBStore = connect(session);
+import userRoutes from './routes/users.js';
+import forumRoutes from './routes/forums.js';
+import answerRoutes from './routes/answers.js';
+import commentRoutes from './routes/comments.js';
+import mongoSanitize from 'express-mongo-sanitize';
+import cors from 'cors';
 
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
@@ -55,9 +61,10 @@ app.use(passport.session());
 /*app.use(mongoSanitize());*/
 //app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 //////////////////////////////////////////////
 passport.use(new local_auth(User.authenticate()));
 passport.serializeUser(User.serializeUser());
@@ -65,6 +72,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use('/user', userRoutes);
 app.use('/forums', forumRoutes);
+app.use('/answers', answerRoutes);
+app.use('/forums', commentRoutes);
 
 
 const port = process.env.PORT || 5000;

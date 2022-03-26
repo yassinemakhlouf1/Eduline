@@ -59,7 +59,7 @@ const ForumsHome = () => {
                     <Grid item xs={12} sm={6} md={3}>
                         <Grid item >
                             <Button 
-                                disabled={!user?.result?._id && !user?.result?.googleId} 
+                                disabled={!user?.user?._id} 
                                 className={classes.appBarSearch} 
                                 fullWidth 
                                 variant="contained" 

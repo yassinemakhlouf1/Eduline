@@ -36,6 +36,12 @@ export default makeStyles({
   grid: {
     display: 'flex',
   },
+  profile: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '110px',
+    alignItems: 'center',
+  },
   details: {
     display: 'flex',
     justifyContent: 'space-between',
