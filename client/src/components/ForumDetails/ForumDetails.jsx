@@ -42,7 +42,7 @@ const ForumDetails = () => {
                 <div className={classes.section}>
                     <Typography variant="h3" component="h2">{forum.title}</Typography>
                     <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{forum.tags.map((tag) => `#${tag} `)}</Typography>
-                    <Typography gutterBottom variant="body1" component="p">{forum.description}</Typography>
+                    <Typography gutterBottom variant="body1" component="p">{forum.description.split("\n").map((i,key) => { return <div key={key}>{i}</div>; })}</Typography>
                     <Typography variant="h6">Created by: {forum.name}</Typography>
                     <Typography variant="body1">{moment(forum.createdAt).fromNow()}</Typography>
                     <Divider style={{ margin: '20px 0' }} />

@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@material-ui/core';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
-import { getForumsBySearch } from '../../actions/forums';
+import { getForums, getForumsBySearch } from '../../actions/forums';
 import Pagination from '../Pagination';
 
 import Forums from "../Forums/Forums";
 //import Form from "../Forms/Form";
 
 import useStyles from './styles';
+import forums from "../../reducers/forums";
 //import Sidebar from "./Sidebar";
 //import { Public, Stars, Favorite } from "@material-ui/icons";
 
@@ -29,7 +30,7 @@ const ForumsHome = () => {
     const [search, setSearch] = useState('');
     const [tags, setTags] = useState([]);
     const user = JSON.parse(localStorage.getItem('profile'));
-
+    const { forums } = useSelector((state) => state.forums);
     const searchForum = () => {
         if(search.trim() || tags) {
             dispatch(getForumsBySearch({ search, tags: tags.join(',') }));
@@ -89,6 +90,7 @@ const ForumsHome = () => {
                             <Button onClick={searchForum} className={classes.searchButton} variant="contained" color="primary">Search</Button>
                         </AppBar>
                         {/*<Form currentId={currentId} setCurrentId={setCurrentId} />*/}
+                        <Paper elevation={6} className={classes.pagination}>Total posted Forums: {forums?.length} {forums.length === 1 ? 'Forum' : 'Forums'}</Paper>
                         {(!searchQuery && !tags.length) && (
                             <Paper elevation={6} className={classes.pagination}>
                                 <Pagination page={page} />

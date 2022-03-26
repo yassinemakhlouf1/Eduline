@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
-import { Typography, TextField, Button } from "@material-ui/core";
+import { Typography, TextField, Button, Avatar, Paper } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment';
 
 import useStyles from './styles';
 import { commentForum } from '../../actions/forums';
@@ -34,14 +35,22 @@ const CommentSection = ({ forum }) => {
 
     return (
         <div>
-            <div className={classes.commentsOutlerContainer}>
+            <div className={classes.commentsOuterContainer}>
                 <div className={classes.commentsInnerContainer}>
                     <Typography gutterBottom variant="h6">Comments</Typography>
                     {comments?.map((c, i) => (
-                        <Typography key={i} gutterBottom variant="subtitle1">
-                            <strong>{c.name} : </strong>
-                            {c.content} {handleDeleteComment(i)}
-                        </Typography>
+                        <Paper className={classes.profile} elevation={6} key={i} spacing={1} style={{minHeight: '100px'}}>
+                            <div style={{ padding: '10px' }}>
+                                <strong>{c.name} : </strong>
+                                {c.content.split("\n").map((i,key) => {
+                                    return <div key={key}>{i.length > 50 ? i.split(' ').map((j,key) => { return <div key={key}>{j}</div>; }) : i}</div>;
+                                })}
+                            </div>
+                            <div  style={{display: 'flex', justifyContent:'flex-end'}}>{moment(c.createdAt).fromNow()}</div>
+                            <div>
+                                {handleDeleteComment(i)}
+                            </div>
+                        </Paper>
                     ))}
                     <div ref={commentsRef} />
                 </div>
