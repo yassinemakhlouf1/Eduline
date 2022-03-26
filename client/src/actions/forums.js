@@ -68,11 +68,21 @@ export const deleteForum = (id) => async (dispatch) => {
         console.log(error);
     }
 };
-
+/*
 export const likeForum = (id) => async (dispatch) => {
     try {
         const { data } = await api.likeForum(id);
         dispatch({ type: LIKE, payload: data });
+    } catch (error) {
+        console.log(error);
+    }
+};*/
+
+export const likeForum = (value, id) => async (dispatch) => {
+    try {
+        const { data } = await api.likeForum(value, id);
+        dispatch({ type: LIKE, payload: data });
+        //return data.comments;
     } catch (error) {
         console.log(error);
     }

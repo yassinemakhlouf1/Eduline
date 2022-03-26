@@ -205,7 +205,7 @@ export const deleteForum = async (req, res) => {
 };
 
 export const likeForum = async (req, res) => {
-    const { id } = req.params;
+    /*const { id } = req.params;
     if(!req.userId) return res.json({ message: 'Unauthenticated' });
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No forum with that id!!');
     const forum = await Forum.findById(id);
@@ -215,6 +215,20 @@ export const likeForum = async (req, res) => {
     } else {
         forum.likes = forum.likes.filter((id) => id !== String(req.userId));
     }
+    const updatedForum = await Forum.findByIdAndUpdate(id, forum, { new: true });*/
+    //console.log(req.body)
+    //res.json(updatedForum);
+    const { id } = req.params;
+    const { value } = req.body;
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No forum with that id!!');
+    const forum = await Forum.findById(id);
+    const index = forum.likes.findIndex((id) => id === String(value));
+    if(index === -1){
+        forum.likes.push(value);
+    } else {
+        forum.likes = forum.likes.filter((id) => id !== String(value));
+    }
+    //forum.likes.push(value);
     const updatedForum = await Forum.findByIdAndUpdate(id, forum, { new: true });
 
     res.json(updatedForum);

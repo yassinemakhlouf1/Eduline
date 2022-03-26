@@ -15,7 +15,7 @@ export const fetchForumsBySearch = (searchQuery) => API.get(`/forums/search?sear
 export const createForum = (newForum) => API.post('/forums', newForum);
 export const updateForum = (id, updatedForum) => API.patch(`/forums/${id}`, updatedForum);
 export const deleteForum = (id) => API.delete(`/forums/${id}`);
-export const likeForum = (id) => API.patch(`/forums/${id}/likeForum`);
+export const likeForum = (value, id) => API.patch(`/forums/${id}/likeForum`, { value });
 export const comment = (value, id) => API.post(`/forums/${id}/commentForum`, { value });
 
 export const createComment = (newComment, id) => API.post(`/forums/${id}`, newComment);

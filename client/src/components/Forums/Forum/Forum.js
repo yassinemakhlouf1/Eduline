@@ -22,12 +22,12 @@ const Forum = ({ forum, setCurrentId }) => {
     const hasLikedForum = forum.likes.find((like) => like === userId);
     
     const handleLike = async () => {
-        dispatch(likeForum(forum._id));
+        dispatch(likeForum(userId, forum._id));
         if(hasLikedForum) {
             setLikes(forum.likes.filter((id) => id !== userId));
         } else {
             setLikes([ ...forum.likes, userId ]);
-            console.log(userId);
+            //console.log(userId);
         }
     };
 
@@ -61,8 +61,8 @@ const Forum = ({ forum, setCurrentId }) => {
                     <Typography variant="h6">{forum.name}</Typography>
                 </div>
                 <Typography variant="body2">{moment(forum.createdAt).fromNow()}</Typography>
-                <Typography variant="body2">{forum.answersDetails.length} Answers</Typography>
-                <Typography variant="body2">{forum.comments.length} Comments</Typography>
+                <Typography variant="body2">{forum?.answersDetails?.length} Answers</Typography>
+                <Typography variant="body2">{forum?.comments?.length} Comments</Typography>
             </div>
             <ButtonBase className={classes.cardAction} onClick={openForum}>
                 <Typography className={classes.title} variant="h5" gutterBottom>{truncate(forum.title, 25)}</Typography>
