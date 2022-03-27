@@ -26,7 +26,6 @@ const Forum = ({ forum, setCurrentId }) => {
             setLikes(forum.likes.filter((id) => id !== userId));
         } else {
             setLikes([ ...forum.likes, userId ]);
-            //console.log(userId);
         }
     };
 
@@ -72,6 +71,7 @@ const Forum = ({ forum, setCurrentId }) => {
             </ButtonBase>
             <CardActions className={classes.cardActions}>
                 <Button size="small" color="primary" disabled={!user?.user} onClick={handleLike}>
+                {/*<Button size="small" color="primary" disabled={!user?.user} onClick={() => dispatch(likeForum(userId, forum._id))}>*/}
                     <Likes />
                 </Button>
                 {(user?.user?._id === forum?.creator) && (

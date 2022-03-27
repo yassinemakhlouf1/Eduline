@@ -19,13 +19,13 @@ const ForumDetails = () => {
     useEffect(() => {
         dispatch(getForum(id));
     }, [id]);
-/*
+
     useEffect(() => {
         if(forum) {
-            dispatch(getForumsBySearch({ search: 'none', tags: forum?.tags.join(',') }));
+            dispatch(getForumsBySearch({ search: 'none', tags: forum?.tags }));
         }
     }, [forum]);
-*/
+
     if(!forum) return null;
     if(isLoading) {
         return <Paper elevation={6} className={classes.loadingPaper}>
@@ -61,14 +61,14 @@ const ForumDetails = () => {
                     <Typography gutterBottom variant="h5">You might also like:</Typography>
                     <Divider />
                     <div className={classes.recommendedForums}>
-                        {/*recommandedForums.map(({ title, name, likes, selectedFile , _id }) => (
+                        {recommandedForums.map(({ title, name, likes, selectedFile , _id }) => (
                             <div style={{ margin: '20px', cursor: 'pointer' }} onClick={() => openForum(_id)} key={_id}>
-                            <Typography gutterBottom variant="h6">{title}</Typography>
-                            <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                            <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
+                            <Typography gutterBottom variant="h6">{name}</Typography>
+                            <Typography gutterBottom variant="subtitle1">{title}</Typography>
+                            <Typography gutterBottom variant="subtitle2">Likes: {likes.length}</Typography>
                             <img src={selectedFile} width="200px" alt="forumImage" />
                             </div>
-                        ))*/}
+                        ))}
                     </div>
                 </div>
             )}

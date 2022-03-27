@@ -82,7 +82,6 @@ export const likeForum = (value, id) => async (dispatch) => {
     try {
         const { data } = await api.likeForum(value, id);
         dispatch({ type: LIKE, payload: data });
-        //return data.comments;
     } catch (error) {
         console.log(error);
     }
@@ -91,7 +90,6 @@ export const likeForum = (value, id) => async (dispatch) => {
 export const commentForum = (value, id) => async (dispatch) => {
     try {
         const { data } = await api.comment(value, id);
-        //console.log(data);
         dispatch({ type: COMMENT, payload: data });
         return data.comments;
     } catch (error) {

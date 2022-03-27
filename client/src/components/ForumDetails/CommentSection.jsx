@@ -5,9 +5,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import moment from 'moment';
 
 import useStyles from './styles';
-import { commentForum } from '../../actions/forums';
 import { useNavigate } from "react-router-dom";
 import { createComment, deleteComment } from "../../actions/comments";
+import { getForum } from "../../actions/forums";
 
 const CommentSection = ({ forum }) => {
     const classes = useStyles();
@@ -18,12 +18,12 @@ const CommentSection = ({ forum }) => {
     const commentsRef = useRef();
     const history = useNavigate();
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        dispatch(createComment({ ...commentData, name: user?.user?.username, creator: user?.user?._id }, forum?._id, history));
-        console.log(forum?.comments);
-        setComments(forum?.comments);
+    const handleClick = async () => {
+        dispatch(createComment({ ...commentData, name: user?.user?.username, creator: user?.user?._id }, forum?._id));
+        const newForum = await dispatch(getForum(forum._id));
+        setComments(newForum.comments);
         setCommentData({ content: '' });
+        commentsRef.current.scrollIntoView({ behavior: 'smooth' });
     };
 
     const handleDeleteComment = (i) => {
@@ -39,8 +39,9 @@ const CommentSection = ({ forum }) => {
                 <div className={classes.commentsInnerContainer}>
                     <Typography gutterBottom variant="h6">Comments</Typography>
                     {comments?.map((c, i) => (
-                        <Paper className={classes.profile} elevation={6} key={i} spacing={1} style={{minHeight: '100px'}}>
+                        <Paper className={classes.profile} elevation={3} key={i} spacing={1} style={{minHeight: '100px'}}>
                             <div style={{ padding: '10px' }}>
+                                {/*<Avatar alt={forum.name}>{forum.name.charAt(0)}</Avatar>*/}
                                 <strong>{c.name} : </strong>
                                 {c.content.split("\n").map((i,key) => {
                                     return <div key={key}>{i.length > 50 ? i.split(' ').map((j,key) => { return <div key={key}>{j}</div>; }) : i}</div>;

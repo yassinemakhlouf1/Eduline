@@ -1,11 +1,13 @@
 import { COMMENT2, DELETE } from '../constants/actionTypes';
 import * as api from '../api/index.js';
+import { getForum } from './forums';
 
-export const createComment = (comment, id, history) => async (dispatch) => {
+export const createComment = (comment, id) => async (dispatch) => {
     try {
         const { data } = await api.createComment(comment, id);
         dispatch({ type: COMMENT2, payload: data });
-        history(`/forums/${data.forumid}`);
+        //const { forum } = getForum(id);
+        //console.log(forum);
     } catch (error) {
         console.log(error);
     }
