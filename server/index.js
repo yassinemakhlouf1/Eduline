@@ -51,13 +51,25 @@ const sessionConfig = {
     }
 }
 
+
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
+
+
 app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.set("view engine", "ejs");
 /*app.use(mongoSanitize());*/
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 //////////////////////////////////////////////
 passport.use(new local_auth(User.authenticate()));
 passport.serializeUser(User.serializeUser());
@@ -65,7 +77,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use('/', userRoutes);
 
-app.use('/',courseASRoutes);
+app.use('/aa',courseASRoutes);
 app.use('/courseAS/domain',domainASRoutes);
 app.use('/courseAS/chapter',chapterASRoutes);
 app.use('/calendar',calenderASRoutes);
