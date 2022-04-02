@@ -9,8 +9,7 @@ router.post('/register', register);
 
 router.post('/login', login);
 
-router.get('/find', find);
-
+router.get('/allUsers', users.UsersList);
 router.post('/logout', logout);
 
 router.post('/forgot', forgot);
