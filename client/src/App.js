@@ -10,6 +10,10 @@ import Register from './Components/login/Register';
 import ForumDetails from './Components/ForumDetails/ForumDetails';
 import ForumsHome from './Components/ForumsHome/ForumsHome';
 import Form from './Components/Form/Form';
+import Course from './Components/course/Course';
+import Chatbot from './Components/chatbot/chatbot';
+
+
 
 function App() {
   return (
@@ -24,9 +28,12 @@ function App() {
             <Route path="/forums/search" exact element={<ForumsHome />} />
             <Route path="/forums/:id" element={<ForumDetails />} />
             <Route path="/form" exact element={<Form />} />
+            <Route path="/course" exact element={<Course />} />
           </Route>
 
         </Routes>
+
+        
       </BrowserRouter>
     </>
   );
@@ -38,6 +45,7 @@ function Layout() {
       <div >
         <Outlet />
       </div>
+      <Chatbot />
       <Footer />
     </>
   );
