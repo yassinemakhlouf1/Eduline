@@ -11,7 +11,7 @@ export default function Footer() {
             <h5>
               QUICK LINKS
             </h5>
-            <ul className="navbar-nav  ">
+            <ul className="navbar-nav">
               <li className="nav-item active">
                 <a className="nav-link" href="index.html">Home <span className="sr-only">(current)</span></a>
               </li>
@@ -51,10 +51,10 @@ export default function Footer() {
             </h5>
             <div className="info_contact">
               
-              <a href="">
+              <a>
                 EdulineInfo@gmail.com
               </a>
-              <a href="">
+              <a>
                 Call : +216 93493156
               </a>
             </div>

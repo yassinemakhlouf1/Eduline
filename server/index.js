@@ -11,6 +11,9 @@ const MongoDBStore = require('connect-mongodb-session')(session)
 const userRoutes = require('./routes/users');
 const mongoSanitize = require('express-mongo-sanitize');
 
+const forumRoutes = require('./routes/forums.js');
+const answerRoutes = require('./routes/answers.js');
+const commentRoutes = require('./routes/comments.js');
 const calenderASRoutes = require('./routes/calender');
 const courseASRoutes = require('./routes/courseAS');
 const domainASRoutes = require('./routes/domainAS');
@@ -81,6 +84,9 @@ app.use('/aa',courseASRoutes);
 app.use('/courseAS/domain',domainASRoutes);
 app.use('/courseAS/chapter',chapterASRoutes);
 app.use('/calendar',calenderASRoutes);
+app.use('/forums', forumRoutes);
+app.use('/answers', answerRoutes);
+app.use('/forums', commentRoutes);
 
 const bodyParser = require('body-parser');
 
