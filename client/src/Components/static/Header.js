@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import React from 'react'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 export default function Header() {
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('user-info')));
-  const dispatch = useDispatch();
-    const history = useNavigate();
-    const location = useLocation();
-    const logout = () => {
-        dispatch({ type: 'LOGOUT' });
-        history('/');
-        setUser(null);
-    };
-  // const logout = () => {
-  //   localStorage.removeItem("user-info");
+  const navigate=useNavigate();
+ 
+  
+  const logout=()=>{
+   navigate('home');
+    setUser(null);
+    sessionStorage.clear();
+    localStorage.clear();
+    console.log('test');
     
-  // };
+
+  }
   return (
 	  
 	  <><head>
