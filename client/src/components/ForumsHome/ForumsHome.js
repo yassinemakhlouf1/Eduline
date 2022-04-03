@@ -47,57 +47,68 @@ const ForumsHome = () => {
     const handleAdd = (tag) => setTags([...tags, tag]);
     const handleDelete = (tagToDelete) => setTags([tags.filter((tag) => tag !== tagToDelete)]);
     return (
-        <Grow in>
-            <Container maxWidth="xl">
-                <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
-                    <Grid item xs={12} sm={6} md={9}>
-                        {/*<AppBar className={classes.appBarSearch} position="static" style={{ backgroundColor: 'lightgrey', color: 'darkblue', fontWeight: 'bold' }}>All | My | Followed</AppBar>*/}
-                        {/*<Sidebar />*/}
-                        <Forums setCurrentId={setCurrentId} />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Grid item >
-                            <Button 
-                                disabled={!user?.user?._id}
-                                className={classes.appBarSearch} 
-                                fullWidth 
-                                variant="contained" 
-                                color="primary"
-                                component={Link} to="/form">
-                                    Ask Question
-                            </Button>
+        <section class="event_section layout_padding">
+            <div class="container">
+                <div class="heading_container">
+                    <h3>
+                    Forums
+                    </h3>
+                    <p>
+                    Total posted Forums: {forums?.length} {forums.length === 1 ? 'Forum' : 'Forums'}
+                    </p>
+                </div>
+                <Grow in>
+                    <Container maxWidth="xl">
+                        <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
+                            <Grid item xs={12} sm={6} md={9}>
+                                {/*<AppBar className={classes.appBarSearch} position="static" style={{ backgroundColor: 'lightgrey', color: 'darkblue', fontWeight: 'bold' }}>All | My | Followed</AppBar>*/}
+                                {/*<Sidebar />*/}
+                                <Forums setCurrentId={setCurrentId} />
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <Grid item >
+                                    <Button 
+                                        disabled={!user?.user?._id}
+                                        className={classes.appBarSearch} 
+                                        fullWidth 
+                                        variant="contained" 
+                                        style={{ backgroundColor: '#133e3f', color: 'white' }}
+                                        component={Link} to="/form">
+                                            Ask Question
+                                    </Button>
+                                </Grid>
+                                <AppBar className={classes.appBarSearch} position="static" color="inherit">
+                                    <TextField 
+                                        name="search" 
+                                        variant="outlined" 
+                                        label="Search Forums" 
+                                        onKeyPress={handleKeyPress} 
+                                        fullWidth 
+                                        value={search} 
+                                        onChange={(e) => setSearch(e.target.value)} 
+                                    />
+                                    <ChipInput
+                                        style={{ margin: '10px 0' }}
+                                        value={tags}
+                                        onAdd={handleAdd}
+                                        onDelete={handleDelete}
+                                        label="Search Tags"
+                                        variant="outlined"
+                                    />
+                                    <Button onClick={searchForum} className={classes.searchButton} variant="contained" style={{ backgroundColor: '#133e3f', color: 'white' }}>Search</Button>
+                                </AppBar>
+                                {(!searchQuery && !tags.length) && (
+                                    <Paper elevation={6} className={classes.pagination}>
+                                        <Pagination page={page} />
+                                    </Paper>
+                                )}
+                            </Grid>
                         </Grid>
-                        <AppBar className={classes.appBarSearch} position="static" color="inherit">
-                            <TextField 
-                                name="search" 
-                                variant="outlined" 
-                                label="Search Memories" 
-                                onKeyPress={handleKeyPress} 
-                                fullWidth 
-                                value={search} 
-                                onChange={(e) => setSearch(e.target.value)} 
-                            />
-                            <ChipInput
-                                style={{ margin: '10px 0' }}
-                                value={tags}
-                                onAdd={handleAdd}
-                                onDelete={handleDelete}
-                                label="Search Tags"
-                                variant="outlined"
-                            />
-                            <Button onClick={searchForum} className={classes.searchButton} variant="contained" color="primary">Search</Button>
-                        </AppBar>
-                        {/*<Form currentId={currentId} setCurrentId={setCurrentId} />*/}
-                        <Paper elevation={6} className={classes.pagination}>Total posted Forums: {forums?.length} {forums.length === 1 ? 'Forum' : 'Forums'}</Paper>
-                        {(!searchQuery && !tags.length) && (
-                            <Paper elevation={6} className={classes.pagination}>
-                                <Pagination page={page} />
-                            </Paper>
-                        )}
-                    </Grid>
-                </Grid>
-            </Container>
-        </Grow>
+                    </Container>
+                </Grow>
+            </div>
+        </section>
+        
     );
 }
 export default ForumsHome;
