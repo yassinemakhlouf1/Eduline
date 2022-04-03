@@ -1,13 +1,12 @@
-import express from "express";
+const express = require("express");
 
-import { createAnswer } from "../controllers/answers.js";
-//import { auth } from '../middleware/auth.js';
+const answers = require("../controllers/answers.js");
 
 const router = express.Router();
 
 //router.get('/', getAnswers);
 
 
-router.post('/', createAnswer); // you need to be loged in to create a post
+router.post('/', answers.createAnswer);
 
-export default router;
+module.exports = router;

@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const forumSchema = mongoose.Schema({
+const forumSchema = new mongoose.Schema({
     title: String,
     description: String,
     name: String,
@@ -20,7 +20,4 @@ const forumSchema = mongoose.Schema({
         default: new Date()
     },
 });
-const Forum = mongoose.model('Forum', forumSchema);
-
-export default Forum;
-//module.exports = mongoose.model('Forum', forumSchema);
+module.exports = mongoose.model('Forum', forumSchema);

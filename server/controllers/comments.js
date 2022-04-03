@@ -1,7 +1,7 @@
-import Comment from "../models/comment.js";
-import mongoose from "mongoose";
+const Comment = require("../models/comment.js");
+const mongoose = require("mongoose");
 
-export const createComment = async (req, res) => {
+module.exports.createComment = async (req, res) => {
     const comment = req.body;
     const newComment = new Comment({ ...comment, forumid: req.params.id, createdAt: new Date().toISOString() });
 
@@ -14,7 +14,7 @@ export const createComment = async (req, res) => {
     }
 };
 
-export const deleteComment = async (req, res) => {
+module.exports.deleteComment = async (req, res) => {
     const { id } = req.params;
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No comment with that id!!');
     await Comment.findByIdAndRemove(id);

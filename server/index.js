@@ -1,24 +1,19 @@
-import dotenv from 'dotenv';
-
 if (process.env.NODE_ENV !== "production") {
-    dotenv.config();
+    require('dotenv').config();
 }
-import express from 'express';
-import mongoose from 'mongoose';
-import passport from 'passport';
-import local_auth from 'passport-local';
-import session from 'express-session';
-import User from './models/user.js';
-//const MongoDBStore = require('connect-mongodb-session')(session)
-import connect from 'connect-mongodb-session';
-const MongoDBStore = connect(session);
-import userRoutes from './routes/users.js';
-import forumRoutes from './routes/forums.js';
-import answerRoutes from './routes/answers.js';
-import commentRoutes from './routes/comments.js';
-import mongoSanitize from 'express-mongo-sanitize';
-import cors from 'cors';
+const express = require('express');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const local_auth = require('passport-local');
+const session = require('express-session');
+const User = require('./models/user');
+const MongoDBStore = require('connect-mongodb-session')(session)
+const userRoutes = require('./routes/users');
+const mongoSanitize = require('express-mongo-sanitize');
 
+const forumRoutes = require('./routes/forums.js');
+const answerRoutes = require('./routes/answers.js');
+const commentRoutes = require('./routes/comments.js');
 const calenderASRoutes = require('./routes/calender');
 const courseASRoutes = require('./routes/courseAS');
 const domainASRoutes = require('./routes/domainAS');
@@ -33,7 +28,6 @@ db.once("open", () => {
     console.log("Database Connected");
 })
 const app = express();
-app.use(cors());
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
 const store = new MongoDBStore({
@@ -78,26 +72,21 @@ app.use(passport.session());
 
 app.set("view engine", "ejs");
 /*app.use(mongoSanitize());*/
-//app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-import bodyParser from 'body-parser';
-
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(express.json());
 //////////////////////////////////////////////
 passport.use(new local_auth(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use('/forums', forumRoutes);
-app.use('/answers', answerRoutes);
-app.use('/forums', commentRoutes);
 app.use('/', userRoutes);
 
 app.use('/aa',courseASRoutes);
 app.use('/courseAS/domain',domainASRoutes);
 app.use('/courseAS/chapter',chapterASRoutes);
 app.use('/calendar',calenderASRoutes);
+app.use('/forums', forumRoutes);
+app.use('/answers', answerRoutes);
+app.use('/forums', commentRoutes);
 
 const bodyParser = require('body-parser');
 
@@ -105,7 +94,9 @@ app.use(bodyParser.json());
 
 require('./routes/dialogFlowRoutes')(app);
 
-const port = process.env.PORT || 5000;
+
+
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Serving on port ${port}`)
-});
+})

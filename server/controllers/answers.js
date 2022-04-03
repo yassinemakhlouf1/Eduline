@@ -1,7 +1,7 @@
-import Answer from"../models/answer.js";
-import mongoose from"mongoose";
+const Answer = require("../models/answer.js");
+const mongoose = require("mongoose");
 
-export const getAnswers = async (req, res) => {
+module.exports.getAnswers = async (req, res) => {
     try {
         const answers =  await Answer.find();
         res.status(200).json({ data: answers });
@@ -11,7 +11,7 @@ export const getAnswers = async (req, res) => {
     }
 };
 
-export const createAnswer = async (req, res) => {
+module.exports.createAnswer = async (req, res) => {
     const answer = req.body;
     const newAnswer = new Answer({ ...answer, createdAt: new Date().toISOString() });
 

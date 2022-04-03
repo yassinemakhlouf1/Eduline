@@ -1,10 +1,9 @@
-import express from "express";
+const express = require("express");
 
-import { createComment, deleteComment } from "../controllers/comments.js";
-//import auth from '../middleware/auth.js';
+const comments = require("../controllers/comments.js");
 
 const router = express.Router();
 
-router.post('/:id', createComment); // you need to be loged in to create a comment
-router.delete('/comments/:id', deleteComment);
-export default router;
+router.post('/:id', comments.createComment); // you need to be loged in to create a comment
+router.delete('/comments/:id', comments.deleteComment);
+module.exports = router;

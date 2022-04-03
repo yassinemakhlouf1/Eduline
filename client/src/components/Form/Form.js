@@ -11,7 +11,8 @@ const Form = ({ currentId }) => {
     const [forumData, setForumData] = useState({ title: '', description: '', tags: '', selectedFile: '' });
     const forum = useSelector((state) => currentId ? state.forums.forums.find((f) => f._id === currentId) : null);
     const classes = useStyles();
-    const user = JSON.parse(localStorage.getItem('profile'));
+    const user = JSON.parse(localStorage.getItem('user-info'));
+    //const result = JSON.parse(user);
     const dispatch = useDispatch();
     const history = useNavigate();
 

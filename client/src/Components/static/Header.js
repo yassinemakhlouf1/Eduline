@@ -1,7 +1,6 @@
 import React from 'react'
-import { useEffect,useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 export default function Header() {
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('user-info')));
   const navigate=useNavigate();
@@ -38,7 +37,7 @@ export default function Header() {
 
           <div className="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
             <ul className="navbar-nav  ml-auto">
-              <li className="nav-item active">
+              <li className="nav-item">
                 <a className="nav-link" href="/home">Home <span className="sr-only">(current)</span></a>
               </li>
               <li className="nav-item">
@@ -48,7 +47,7 @@ export default function Header() {
                 <a className="nav-link" href="course.html"> Courses </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="event.html"> Events </a>
+                <a className="nav-link" href="/forums"> Forums </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="contact.html">Contact us</a>
@@ -56,7 +55,7 @@ export default function Header() {
              {user ? (
                
                <li className="nav-item" >
-               <a className="nav-link"  onClick={logout} >Logout</a>
+               <a className="nav-link" onClick={logout} >Logout</a>
              </li>
              )
               :(
@@ -76,73 +75,6 @@ export default function Header() {
       </div>
     </header>
 
-
-
-    <section className=" slider_section position-relative">
-      <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-        <ol className="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <div className="container">
-              <div className="row">
-                <div className="col">
-                  <div className="detail-box">
-                    <div>
-                      <h1>
-                        E D U C A T I O N
-                      </h1>
-                      <a href="">
-                        Read More
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="carousel-item ">
-            <div className="container">
-              <div className="row">
-                <div className="col">
-                  <div className="detail-box">
-                    <div>
-                      <h1>
-                        E D U C A T I O N
-                      </h1>
-                      <a href="">
-                        Read More
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="carousel-item ">
-            <div className="container">
-              <div className="row">
-                <div className="col">
-                  <div className="detail-box">
-                    <div>
-                      <h1>
-                        E D U C A T I O N
-                      </h1>
-                      <a href="">
-                        Read More
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 		</>
 		

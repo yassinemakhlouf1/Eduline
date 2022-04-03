@@ -4,16 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
-import { getForums, getForumsBySearch } from '../../actions/forums';
+import { getForumsBySearch } from '../../actions/forums';
 import Pagination from '../Pagination';
 
 import Forums from "../Forums/Forums";
-//import Form from "../Forms/Form";
 
 import useStyles from './styles';
 import forums from "../../reducers/forums";
-//import Sidebar from "./Sidebar";
-//import { Public, Stars, Favorite } from "@material-ui/icons";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -29,7 +26,8 @@ const ForumsHome = () => {
     const classes = useStyles();
     const [search, setSearch] = useState('');
     const [tags, setTags] = useState([]);
-    const user = JSON.parse(localStorage.getItem('profile'));
+    const user = JSON.parse(localStorage.getItem('user-info'));
+    //const result = JSON.parse(user);
     const { forums } = useSelector((state) => state.forums);
     const searchForum = () => {
         if(search.trim() || tags) {
@@ -60,7 +58,6 @@ const ForumsHome = () => {
                     <Grid item xs={12} sm={6} md={3}>
                         <Grid item >
                             <Button 
-                                disabled={!user?.user?._id} 
                                 className={classes.appBarSearch} 
                                 fullWidth 
                                 variant="contained" 

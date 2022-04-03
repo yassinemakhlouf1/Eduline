@@ -1,10 +1,10 @@
-import User from '../models/user.js';
-import passport from 'passport';
-import jwt from 'jsonwebtoken';
-import nodemailer from "nodemailer";
-import async from "async";
-import crypto from "crypto";
-//import middleware from "../middleware.js";
+const User = require('../models/user');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const nodemailer = require("nodemailer");
+const async = require("async");
+const crypto = require("crypto");
+const middleware = require("../middleware");
 
 
 //////SIGN UP
@@ -48,7 +48,7 @@ module.exports.register = async (req, res, next) => {
     })
 };
 //////VERIFIYING THE EMAIL
-export const verifyEmail = (req, res) => {
+module.exports.verifyEmail = (req, res) => {
     User.findOne({ emailToken: req.params.token }, function (err, user) {
         if (!user) {
             console.log('Verification mail token is invalid.');
@@ -94,14 +94,14 @@ module.exports.login = (req, res, next) => {
 }
 
 /////LOGOUT
-export const logout = (req, res) => {
+module.exports.logout = (req, res) => {
     req.logout();
     res.send('BYY!!')
     console.log('GoodBye!');
 }
 
 //////FORGET PASSWORD
-export const forgot = (req, res, next) => {
+module.exports.forgot = (req, res, next) => {
     async.waterfall([
         function (done) {
             crypto.randomBytes(20, function (err, buf) {
@@ -151,7 +151,7 @@ export const forgot = (req, res, next) => {
     });
 };
 /////VERIFYING FORGET PASSWORD TOKEN
-export const GetResetToken = (req, res) => {
+module.exports.GetResetToken = (req, res) => {
     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (err, user) {
         if (!user) {
             console.log('Password reset token is invalid or has expired.');
@@ -160,7 +160,7 @@ export const GetResetToken = (req, res) => {
     });
 };
 ////////SAVING THE NEW PASSWORD
-export const PostResetToken = (req, res) => {
+module.exports.PostResetToken = (req, res) => {
     async.waterfall([
         function (done) {
             User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (err, user) {
@@ -210,7 +210,7 @@ export const PostResetToken = (req, res) => {
     });
 };
 //////MODIFY PROFILE
-export const editUser = async (req, res) => {
+module.exports.editUser = async (req, res) => {
     User.findOne({ id: req.params.id }, function (err, Modifieduser) {
         if (!Modifieduser) {
             console.log('email invalid.');
@@ -226,7 +226,7 @@ export const editUser = async (req, res) => {
 
 };
 
-export const profile = (req, res) => {
+module.exports.profile = (req, res) => {
     User.findOne({ _id: req.params.id }, function (err, FoundUser) {
         if (err) { return err }
         res.send(FoundUser);
@@ -234,7 +234,7 @@ export const profile = (req, res) => {
 }
 
 
-export const DeleteUser = (req, res) => {
+module.exports.DeleteUser = (req, res) => {
     User.findByIdAndDelete(req.params.id, (err) => {
         if (err) {
             res.send(err);

@@ -11,9 +11,10 @@ import { getForum } from "../../actions/forums";
 
 const CommentSection = ({ forum }) => {
     const classes = useStyles();
-    const [commentData, setCommentData] = useState({ content: '' })
+    const [commentData, setCommentData] = useState({ content: '' });
     const [comments, setComments] = useState(forum?.comments);
-    const user = JSON.parse(localStorage.getItem('profile'));
+    const user = JSON.parse(localStorage.getItem('user-info'));
+    //const result = JSON.parse(user);
     const dispatch = useDispatch();
     const commentsRef = useRef();
     const history = useNavigate();

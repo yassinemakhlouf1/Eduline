@@ -1,5 +1,5 @@
-import Forum from "../models/forum.js";
-import mongoose from "mongoose";
+const Forum = require("../models/forum.js");
+const mongoose = require("mongoose");
 /*
 export const getForums = async (req, res) => {
     const { page } = req.query;
@@ -27,7 +27,7 @@ export const getForum = async (req, res) => {
 };
 */
 
-export const getForums = async (req, res) => {
+module.exports.getForums = async (req, res) => {
     const { page } = req.query;
     try {
         const LIMIT = 8;
@@ -94,7 +94,7 @@ export const getForums = async (req, res) => {
     }
 };
 
-export const getForum = async (req, res) => {
+module.exports.getForum = async (req, res) => {
     const { id } = req.params;
     try {
         const forum =  await Forum.aggregate([
@@ -165,7 +165,7 @@ export const getForum = async (req, res) => {
 };
 /**/
 
-export const getForumsBySearch = async (req, res) => {
+module.exports.getForumsBySearch = async (req, res) => {
     const { searchQuery, tags } = req.query;
     try {
         const title = new RegExp(searchQuery, 'i'); // Test test TEST -> test
@@ -176,7 +176,7 @@ export const getForumsBySearch = async (req, res) => {
     }
 };
 
-export const createForum = async (req, res) => {
+module.exports.createForum = async (req, res) => {
     const forum = req.body;
     const newForum = new Forum({ ...forum, createdAt: new Date().toISOString() });
     try {
@@ -188,7 +188,7 @@ export const createForum = async (req, res) => {
     }
 };
 
-export const updateForum = async (req, res) => {
+module.exports.updateForum = async (req, res) => {
     const { id: _id } = req.params;
     const forum = req.body;
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No forum with that id!!');
@@ -197,14 +197,14 @@ export const updateForum = async (req, res) => {
     res.json(updatedForum);
 };
 
-export const deleteForum = async (req, res) => {
+module.exports.deleteForum = async (req, res) => {
     const { id } = req.params;
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No forum with that id!!');
     await Forum.findByIdAndRemove(id);
     res.json({ message: 'Forum deleted successfully' });
 };
 
-export const likeForum = async (req, res) => {
+module.exports.likeForum = async (req, res) => {
     /*const { id } = req.params;
     if(!req.userId) return res.json({ message: 'Unauthenticated' });
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No forum with that id!!');
@@ -234,7 +234,7 @@ export const likeForum = async (req, res) => {
     res.json(updatedForum);
 };
 
-export const commentForum = async (req, res) => {
+module.exports.commentForum = async (req, res) => {
     const { id } = req.params;
     const { value } = req.body;
     const forum = await Forum.findById(id);

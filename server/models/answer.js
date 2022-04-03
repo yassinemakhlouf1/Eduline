@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const answerSchema = new mongoose.Schema({
     forumid: {
@@ -22,7 +22,4 @@ const answerSchema = new mongoose.Schema({
     },
 });
 
-const Answer = mongoose.model('Answer', answerSchema);
-
-export default Answer;
-//module.exports = mongoose.model('Answer', answerSchema);
+module.exports = mongoose.model('Answer', answerSchema);
