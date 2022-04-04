@@ -11,6 +11,14 @@ const MongoDBStore = require('connect-mongodb-session')(session)
 const userRoutes = require('./routes/users');
 const mongoSanitize = require('express-mongo-sanitize');
 
+const forumRoutes = require('./routes/forums.js');
+const answerRoutes = require('./routes/answers.js');
+const commentRoutes = require('./routes/comments.js');
+const calenderASRoutes = require('./routes/calender');
+const courseASRoutes = require('./routes/courseAS');
+const domainASRoutes = require('./routes/domainAS');
+const chapterASRoutes =require('./routes/chapterAS');
+
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
 
@@ -46,9 +54,23 @@ const sessionConfig = {
     }
 }
 
+
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
+
+
 app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.set("view engine", "ejs");
 /*app.use(mongoSanitize());*/
 app.use(express.json());
 //////////////////////////////////////////////
@@ -57,6 +79,20 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use('/', userRoutes);
+
+app.use('/aa',courseASRoutes);
+app.use('/courseAS/domain',domainASRoutes);
+app.use('/courseAS/chapter',chapterASRoutes);
+app.use('/calendar',calenderASRoutes);
+app.use('/forums', forumRoutes);
+app.use('/answers', answerRoutes);
+app.use('/forums', commentRoutes);
+
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+
+require('./routes/dialogFlowRoutes')(app);
 
 
 
