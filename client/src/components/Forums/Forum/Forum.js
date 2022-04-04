@@ -59,9 +59,9 @@ const Forum = ({ forum, setCurrentId }) => {
                     <Avatar alt={forum.name}>{forum.name.charAt(0)}</Avatar>
                     <Typography variant="h6">{forum.name}</Typography>
                 </div>
-                <Typography variant="body2">{moment(forum.createdAt).fromNow()}</Typography>
-                <Typography variant="body2">{forum?.answersDetails?.length} Answers</Typography>
-                <Typography variant="body2">{forum?.comments?.length} Comments</Typography>
+                <Typography variant="body2" style={{ color: 'white' }}>{moment(forum.createdAt).fromNow()}</Typography>
+                <Typography variant="body2" style={{ color: 'white' }}>{forum?.answersDetails?.length} Answers</Typography>
+                <Typography variant="body2" style={{ color: 'white' }}>{forum?.comments?.length} Comments</Typography>
             </div>
             <ButtonBase className={classes.cardAction} onClick={openForum}>
                 <Typography className={classes.title} variant="h5" gutterBottom>{truncate(forum.title, 25)}</Typography>
@@ -71,12 +71,11 @@ const Forum = ({ forum, setCurrentId }) => {
                 </CardContent>
             </ButtonBase>
             <CardActions className={classes.cardActions}>
-                <Button size="small" color="primary" disabled={!user?.user} onClick={handleLike}>
-                {/*<Button size="small" color="primary" disabled={!user?.user} onClick={() => dispatch(likeForum(userId, forum._id))}>*/}
+                <Button size="small" style={{ color: '#133e3f' }} disabled={!user?.user} onClick={handleLike}>
                     <Likes />
                 </Button>
                 {(user?.user?._id === forum?.creator) && (
-                    <Button size="small" color="primary" disabled={!user?.user} onClick={() => dispatch(deleteForum(forum._id))}>
+                    <Button size="small"  style={{ color: '#133e3f' }} disabled={!user?.user} onClick={() => dispatch(deleteForum(forum._id))}>
                         <DeleteIcon fontSize="small" />
                         Delete
                     </Button>

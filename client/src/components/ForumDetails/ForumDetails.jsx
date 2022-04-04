@@ -46,7 +46,6 @@ const ForumDetails = () => {
                     <Typography variant="h6">Created by: {forum.name}</Typography>
                     <Typography variant="body1">{moment(forum.createdAt).fromNow()}</Typography>
                     <Divider style={{ margin: '20px 0' }} />
-                    {/*<Comment forum={forum} />*/}
                     <CommentSection forum={forum} />
                     <Divider style={{ margin: '20px 0' }} />
                     <Typography variant="body1"><strong>Anser - coming soon!</strong></Typography>
