@@ -29,7 +29,7 @@ const CommentSection = ({ forum }) => {
 
     const handleDeleteComment = (i) => {
         return (user?.user?._id === forum?.comments[i]?.creator) && (
-        <Button size="small" color="secondary" disabled={!user?.user} onClick={() => dispatch(deleteComment(forum?.comments[i]?._id))} >
+        <Button size="small"  style={{ color: '#4bc5b8' }} disabled={!user?.user} onClick={() => dispatch(deleteComment(forum?.comments[i]?._id))} >
             <DeleteIcon fontSize="small" />
         </Button>
     )};
@@ -68,7 +68,7 @@ const CommentSection = ({ forum }) => {
                             value={commentData.content}
                             onChange={(e) => setCommentData({ ...commentData, content: e.target.value })}
                         />
-                        <Button style={{ marginTop: '10px' }} fullWidth disabled={!commentData.content} variant="contained" onClick={handleClick} color="primary">
+                        <Button style={{ marginTop: '10px', backgroundColor: '#133e3f', color: 'white' }} fullWidth disabled={!commentData.content} variant="contained" onClick={handleClick}>
                             Comment
                         </Button>
                     </div>
