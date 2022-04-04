@@ -18,6 +18,10 @@ const calenderASRoutes = require('./routes/calender');
 const courseASRoutes = require('./routes/courseAS');
 const domainASRoutes = require('./routes/domainAS');
 const chapterASRoutes =require('./routes/chapterAS');
+var apiRoutes = require('./routes/api')
+var teacherRoutes = require('./routes/teacher')
+var studentRoutes = require('./routes/student')
+var adminRoutes = require('./routes/admin')
 
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
@@ -88,11 +92,41 @@ app.use('/forums', forumRoutes);
 app.use('/answers', answerRoutes);
 app.use('/forums', commentRoutes);
 
+app.use('/api', apiRoutes);
+app.use('/admin', adminRoutes);
+app.use('/student', studentRoutes);
+app.use('/teacher', teacherRoutes);
+
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
 require('./routes/dialogFlowRoutes')(app);
+
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server,
+    {
+        cors:
+        {
+            origin: '*',
+            methods: ["GET", "POST"],
+            allowedHeaders: ["my-custom-header"],
+            credentials: true
+        }
+    });
+app.set('io', io);
+io.on('connection', socket => {
+
+    console.log("new  sockeet connection...");
+    socket.emit("test event", "hey utsav");
+
+});
+
+
+
+
+
 
 
 

@@ -12,7 +12,8 @@ const UserSchema = new Schema({
       default:false
   },
     Role: {
-        type: String,  
+        type: String,
+        default: 'user'
     },
     password:{
       type: String,
@@ -44,8 +45,12 @@ const UserSchema = new Schema({
       last_name: {
         type: String,
       },
+      blocked: {
+        type: Boolean, default: false
+    }
+}, { timestamp: true }      
 
-});
+      );
 UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', UserSchema);
