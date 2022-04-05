@@ -117,9 +117,13 @@ module.exports.getForum = async (req, res) => {
                             $project: {
                                 _id: 1,
                                 creator: 1,
+                                name: 1,
                                 answer: 1,
                                 forumid: 1,
+                                votesPlus: 1,
+                                votesMoin: 1,
                                 createdAt: 1,
+                                votes: 1,
                             },
                         },
                     ],

@@ -8,6 +8,7 @@ import { CircularProgress, Divider, Paper, Typography } from "@material-ui/core"
 import CommentSection from "./CommentSection";
 //import Comment from "./Comment";
 import { getForum, getForumsBySearch } from "../../actions/forums";
+import AnswersSection from "./AnswersSection";
 
 const ForumDetails = () => {
     const { forum, forums, isLoading } = useSelector((state) => state.forums);
@@ -48,13 +49,14 @@ const ForumDetails = () => {
                     <Divider style={{ margin: '20px 0' }} />
                     <CommentSection forum={forum} />
                     <Divider style={{ margin: '20px 0' }} />
-                    <Typography variant="body1"><strong>Anser - coming soon!</strong></Typography>
-                    <Divider style={{ margin: '20px 0' }} />
                 </div>
                 <div className={classes.imageSection}>
                     <img className={classes.media} src={forum.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={forum.title} />
                 </div>
             </div>
+                    <Divider style={{ margin: '20px 0' }} />
+                    <AnswersSection forum={forum} />
+                    <Divider style={{ margin: '20px 0' }} />
             {(recommandedForums.length) && (
                 <div className={classes.section}>
                     <Typography gutterBottom variant="h5">You might also like:</Typography>

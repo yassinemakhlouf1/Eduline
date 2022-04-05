@@ -51,8 +51,8 @@ const Form = ({ currentId }) => {
                 <div className={classes.fileInput}>
                     <FileBase type="file" multiple={false} onDone={({ base64 }) => setForumData({ ...forumData, selectedFile: base64 })} />
                 </div>
-                <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth >Submit</Button>
-                <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth >Clear</Button>
+                <Button className={classes.buttonSubmit} variant="contained" size="large" type="submit" fullWidth  style={{ marginTop: '10px', backgroundColor: '#133e3f', color: 'white' }} >Submit</Button>
+                <Button variant="contained" size="small" onClick={clear} fullWidth >Clear</Button>
             </form>
         </Paper>
     );

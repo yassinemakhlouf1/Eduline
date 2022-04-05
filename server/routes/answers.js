@@ -8,5 +8,7 @@ const router = express.Router();
 
 
 router.post('/', answers.createAnswer);
+//ajouter votes et delete routers
 
+router.patch('/:id/plusVote', answers.plusVote);
 module.exports = router;
