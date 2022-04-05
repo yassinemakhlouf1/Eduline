@@ -16,7 +16,6 @@ const Forum = ({ forum, setCurrentId }) => {
     const classes = useStyles();
     const history = useNavigate();
     const user = JSON.parse(localStorage.getItem('user-info'));
-    //const result = JSON.parse(user);
     const [likes, setLikes] = useState(forum?.likes);
     const userId = user?.user?._id
     const hasLikedForum = forum.likes.find((like) => like === userId);

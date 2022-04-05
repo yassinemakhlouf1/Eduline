@@ -43,3 +43,20 @@ module.exports.plusVote = async (req, res) => {
 
     res.json(updatedAnswer);
 };
+
+module.exports.moinVote = async (req, res) => {
+    
+    const { id } = req.params;
+    const { value } = req.body;
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No answer with that id!!');
+    const answer = await Answer.findById(id);
+    const index = answer.votesMoin.findIndex((id) => id === String(value));
+    if(index === -1){
+        answer.votesMoin.push(value);
+    } else {
+        answer.votesMoin = answer.votesMoin.filter((id) => id !== String(value));
+    }
+    const updatedAnswer = await Answer.findByIdAndUpdate(id, answer, { new: true });
+
+    res.json(updatedAnswer);
+};

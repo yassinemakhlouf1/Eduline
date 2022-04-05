@@ -19,11 +19,11 @@ const AnswersSection = ({ forum }) => {
     const dispatch = useDispatch();
     const answersRef = useRef();
     const history = useNavigate();
-    const [votesPlus, setVotesPlus] = useState(forum?.answersDetails?.votesPlus);
-    const [votesMoin, setVotesMoin] = useState(forum?.answersDetails?.votesMoin);
+    const [votesPlus, setVotesPlus] = useState(answers?.votesPlus);
+    const [votesMoin, setVotesMoin] = useState(answers?.votesMoin);
     const userId = user?.user?._id
-    const hasVotedPlus = forum?.answersDetails?.votesPlus?.find((votesPlus) => votesPlus === userId);
-    const hasVotedMoin = forum?.answersDetails?.votesMoin?.find((votesMoin) => votesMoin === userId);
+    const hasVotedPlus = answers?.votesPlus?.find((votesPlus) => votesPlus === userId);
+    const hasVotedMoin = answers?.votesMoin?.find((votesMoin) => votesMoin === userId);
 
     const handleClick = async () => {
         
@@ -31,23 +31,6 @@ const AnswersSection = ({ forum }) => {
         setAnswers(newAnswers);
         setAnswerData({ answer: '' });
         //answersRef.current.scrollIntoView({ behavior: 'smooth' });
-    };
-
-    const handlePlusVote = async () => {
-        dispatch(PlusVote(userId, forum._id));
-        if(hasVotedPlus) {
-            setVotesPlus(forum?.answersDetails?.votesPlus.filter((id) => id !== userId));
-        } else {
-            setVotesPlus([ ...forum?.answersDetails?.votesPlus, userId ]);
-        }
-    };
-    const handleMoinVote = async (i) => {
-        dispatch(MoinVote(userId, forum._id));
-        if(hasVotedMoin) {
-            setVotesMoin(forum?.answersDetails[i]?.votesMoin.filter((id) => id !== userId));
-        } else {
-            setVotesMoin([ ...forum?.answersDetails[i]?.votesMoin, userId ]);
-        }
     };
 
     return (
@@ -61,9 +44,28 @@ const AnswersSection = ({ forum }) => {
                         <Divider style={{ margin: '20px 0' }} />
                             <div style={{display: 'flex', marginRight: '100px', padding: '10px'}}>
                                 <div style={{display: 'flex', flexDirection:'column'}}>
-                                <button style={{ fontSize: '2rem', color: 'grey', backgroundColor: 'white', border: '0' }} onClick={handlePlusVote}>▲</button>
-                                <p style={{ fontSize: '2rem', color: 'grey', padding: '10px' }}>{forum?.answersDetails[i]?.votesPlus?.length - forum?.answersDetails[i]?.votesMoin?.length}</p>
-                                <button style={{ fontSize: '2rem', color: 'grey', backgroundColor: 'white', border: '0' }} onClick={handleMoinVote}>▼</button>
+                                <button disabled={answers[i].votesMoin == userId} style={{ fontSize: '2rem', color: 'grey', backgroundColor: 'white', border: '0' }} onClick={
+                                    () => {
+                                        dispatch(PlusVote(userId, answers[i]?._id));
+                                        if(hasVotedPlus) {
+                                            setVotesPlus(answers?.votesPlus.filter((id) => id !== userId));
+                                        } else {
+                                            setVotesPlus([ ...answers?.votesPlus, userId ]);
+                                        }
+                                        console.log(votesPlus);
+                                    }
+                                }>▲</button>
+                                <p style={{ fontSize: '2rem', color: 'grey', padding: '10px' }}>{Number(answers[i]?.votesPlus?.length - answers[i]?.votesMoin?.length)}</p>
+                                <button disabled={answers[i].votesPlus == userId} style={{ fontSize: '2rem', color: 'grey', backgroundColor: 'white', border: '0' }} onClick={
+                                    () => {
+                                        dispatch(MoinVote(userId, answers[i]?._id));
+                                        if(hasVotedMoin) {
+                                            setVotesMoin(answers?.votesMoin.filter((id) => id !== userId));
+                                        } else {
+                                            setVotesMoin([ ...answers?.votesMoin, userId ]);
+                                        }
+                                    }
+                                }>▼</button>
                                 </div>
                                 <div style={{display: 'flex', flexDirection:'row', padding: '10px'}}>
                                 <Avatar alt={c?.name}>{c?.name?.charAt(0)}</Avatar>
