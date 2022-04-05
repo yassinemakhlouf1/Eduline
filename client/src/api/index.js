@@ -21,5 +21,11 @@ export const comment = (value, id) => API.post(`/forums/${id}/commentForum`, { v
 export const createComment = (newComment, id) => API.post(`/forums/${id}`, newComment);
 export const deleteComment = (id) => API.delete(`/forums/comments/${id}`);
 
+//à corriger
+export const createAnswer = (newAnswer) => API.post(`/answers`, newAnswer);
+export const deleteAnswer = (id) => API.delete(`/answers/${id}`);
+export const plusVote = (value, id) => API.patch(`/answers/${id}/plusVote`, { value });
+export const moinVote = (value, id) => API.patch(`/answers/${id}/moinVote`, { value });
+
 export const signIn = (formData) => API.post('/user/login', formData);
 export const signUp = (formData) => API.post('/user/register', formData);

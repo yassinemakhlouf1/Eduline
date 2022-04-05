@@ -8,7 +8,11 @@ const answerSchema = new mongoose.Schema({
     answer: String,
     name: String,
     creator: String,
-    votes: {
+    votesPlus: {
+        type: [String],
+        default: []
+    },
+    votesMoin: {
         type: [String],
         default: []
     },

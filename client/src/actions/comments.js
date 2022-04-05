@@ -6,8 +6,9 @@ export const createComment = (comment, id) => async (dispatch) => {
     try {
         const { data } = await api.createComment(comment, id);
         dispatch({ type: COMMENT2, payload: data });
-        //const { forum } = getForum(id);
-        //console.log(forum);
+        const forum = await api.fetchForum(data.forumid);
+        //console.log(forum.data[0].comments);
+        return forum.data[0].comments;
     } catch (error) {
         console.log(error);
     }

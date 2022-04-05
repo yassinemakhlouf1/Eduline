@@ -4,7 +4,6 @@ export default makeStyles((theme) => ({
   media: {
     borderRadius: '20px',
     objectFit: 'cover',
-    height: '90%',
     maxWidth: '600px',
 
   },
@@ -49,7 +48,7 @@ export default makeStyles((theme) => ({
     height: '200px',
     overflowY: 'auto',
     marginRight: '30px',
-    minWidth: '50%',
+    width: '100%',
   },
   profile: {
     display: 'flex',
