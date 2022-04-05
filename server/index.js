@@ -11,10 +11,17 @@ const MongoDBStore = require('connect-mongodb-session')(session)//session: to st
 const userRoutes = require('./routes/users');
 const mongoSanitize = require('express-mongo-sanitize');//for application security
 
+const forumRoutes = require('./routes/forums.js');
+const answerRoutes = require('./routes/answers.js');
+const commentRoutes = require('./routes/comments.js');
 const calenderASRoutes = require('./routes/calender');
 const courseASRoutes = require('./routes/courseAS');
 const domainASRoutes = require('./routes/domainAS');
 const chapterASRoutes =require('./routes/chapterAS');
+var apiRoutes = require('./routes/api')
+var teacherRoutes = require('./routes/teacher')
+var studentRoutes = require('./routes/student')
+var adminRoutes = require('./routes/admin')
 
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
@@ -51,6 +58,18 @@ const sessionConfig = {
     }
 }
 
+
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
+
+
 app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -58,18 +77,52 @@ app.use(passport.session());
 
 app.set("view engine", "ejs");
 /*app.use(mongoSanitize());*/
-app.use(express.urlencoded({ extended: true }));
 
+app.use(express.json());
 //////////////////////////////////////////////
 passport.use(new local_auth(User.authenticate()));//passport version 
 passport.serializeUser(User.serializeUser());//parsing
 passport.deserializeUser(User.deserializeUser());//
 
 app.use('/', userRoutes);
-app.use('/',courseASRoutes);
+
+app.use('/aa',courseASRoutes);
 app.use('/courseAS/domain',domainASRoutes);
 app.use('/courseAS/chapter',chapterASRoutes);
 app.use('/calendar',calenderASRoutes);
+app.use('/forums', forumRoutes);
+app.use('/answers', answerRoutes);
+app.use('/forums', commentRoutes);
+
+app.use('/api', apiRoutes);
+app.use('/admin', adminRoutes);
+app.use('/student', studentRoutes);
+app.use('/teacher', teacherRoutes);
+
+
+
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server,
+    {
+        cors:
+        {
+            origin: '*',
+            methods: ["GET", "POST"],
+            allowedHeaders: ["my-custom-header"],
+            credentials: true
+        }
+    });
+app.set('io', io);
+io.on('connection', socket => {
+
+    console.log("new  sockeet connection...");
+    socket.emit("test event", "hey utsav");
+
+});
+
+
+
 
 
 

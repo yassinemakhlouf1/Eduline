@@ -8,14 +8,16 @@ const middleware = require("../middleware");
 
 
 //////SIGN UP
-module.exports.register = async (req, res) => {
-    const { email, username, password } = req.body;
-    const NewUser = new User({ email, username, emailToken: crypto.randomBytes(64).toString('hex') });
 
+module.exports.register = async (req, res, next) => {
+    const { email, username, password ,name ,last_name,birth_date} = req.body;
+    const NewUser = new User({ email, username, emailToken: crypto.randomBytes(64).toString('hex'),name,last_name ,birth_date});
+    
     if (req.body.adminCode === 'secretcode123') {
         NewUser.isAdmin = true;
     
     }
+    console.log(NewUser.email);
     await User.register(NewUser, password, async (err, user) => {
         NewUser.isAdmin=false;
         let smtpTransport = nodemailer.createTransport({
@@ -64,9 +66,12 @@ module.exports.verifyEmail = (req, res) => {
 };
 
 ////////SIGN IN
-module.exports.login = (req, res) => {
-    passport.authenticate('local', { session: false }, (err, user) => {
+module.exports.login = (req, res, next) => {
+  
+    passport.authenticate('local', { session: false }, (err, user, info) => {
+        
         if (err || !user) {
+            console.log("aab");
             return res.status(400).json({
                 message: 'Username or password is wrong'
             });
@@ -82,6 +87,8 @@ module.exports.login = (req, res) => {
             }
             // generate a signed json web token with the contents of user object and return it in the response
             const token = jwt.sign(user.toJSON(), 'secret code');
+
+            console.log("connected");
             return res.json({ user, token });
         });
     })(req, res);

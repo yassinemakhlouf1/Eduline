@@ -11,15 +11,10 @@ const UserSchema = new Schema({
       type: Boolean,  
       default:false
   },
-  isFormateur: {
-    type: Boolean,
-    default:false
-},
-isApprenant: {
-  type: Boolean,
-  default:false
-},
-   
+    Role: {
+        type: String,
+        default: 'user'
+    },
     password:{
       type: String,
     },
@@ -50,8 +45,12 @@ isApprenant: {
       last_name: {
         type: String,
       },
+      blocked: {
+        type: Boolean, default: false
+    }
+}, { timestamp: true }      
 
-});
+      );
 UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', UserSchema);
