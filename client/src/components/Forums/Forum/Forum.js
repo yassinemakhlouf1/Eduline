@@ -16,7 +16,6 @@ const Forum = ({ forum, setCurrentId }) => {
     const classes = useStyles();
     const history = useNavigate();
     const user = JSON.parse(localStorage.getItem('user-info'));
-    //const result = JSON.parse(user);
     const [likes, setLikes] = useState(forum?.likes);
     const userId = user?.user?._id
     const hasLikedForum = forum.likes.find((like) => like === userId);
@@ -67,7 +66,7 @@ const Forum = ({ forum, setCurrentId }) => {
                 <Typography className={classes.title} variant="h5" gutterBottom>{truncate(forum.title, 25)}</Typography>
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">{truncate(forum.description, 90)}</Typography>
-                    <Typography variant="body2" color="textSecondary">{forum.tags.map((tag) => `#${tag} `)}</Typography>
+                    <Typography variant="body2" style={{ color: '#4bc5b8' }}>{forum.tags.map((tag) => `#${tag} `)}</Typography>
                 </CardContent>
             </ButtonBase>
             <CardActions className={classes.cardActions}>

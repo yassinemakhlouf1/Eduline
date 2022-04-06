@@ -13,6 +13,16 @@ export const getForum = (id) => async (dispatch) => {
         console.log(error);
     }
 };
+export const getCommentsFromForum = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.fetchForum(id);
+        dispatch({ type: FETCH_FORUM, payload: data[0] });
+        console.log(data[0].comments);
+        return data[0].comments;
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 export const getForums = (page) => async (dispatch) => {
     try {
