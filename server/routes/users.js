@@ -14,6 +14,8 @@ router.post('/logout', users.logout);
 
 router.post('/forgot', users.forgot);
 
+router.post('/reset/:id', users.ResetPass);
+
 router.post('/reset/:token', users.PostResetToken);
 
 router.post('/edit/:id', users.editUser);

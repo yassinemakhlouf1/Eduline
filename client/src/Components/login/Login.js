@@ -11,7 +11,7 @@ export default function Login() {
 
     const navigate=useNavigate();
     useEffect(()=>  {if(localStorage.getItem('user-info')){
-      navigate('/')}
+      navigate('/home')}
     },[])
    
     const handleSubmit =async (e)=>{
@@ -68,7 +68,9 @@ export default function Login() {
                 <input type="password" placeholder="Password" onChange={(e)=>{
                     setPassword(e.target.value);
                 }} autoComplete="on"  />
+                 <a>Reset Password</a>
               </div>
+             
               <button  type="submit">Login</button>
             </form>
           </div>
