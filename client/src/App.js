@@ -11,7 +11,7 @@ import ForumDetails from './Components/ForumDetails/ForumDetails';
 import ForumsHome from './Components/ForumsHome/ForumsHome';
 import Form from './Components/Form/Form';
 import Course from './Components/course/Course';
-import Chatbot from './Components/chatbot/chatbot';
+import Chatbot from "./Components/chatbot/chatbot";
 
 
 
@@ -45,7 +45,7 @@ function Layout() {
       <div >
         <Outlet />
       </div>
-      <Chatbot />
+      <Chatbot></Chatbot>
       <Footer />
     </>
   );

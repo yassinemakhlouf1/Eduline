@@ -66,7 +66,7 @@ class Chatbot extends Component {
 
 
     render() {
-        return (
+        return (           
             <div style={{height: 400, width: 400, float: 'right'}}>
                 <div id="chatbot" style={{height: '100%', width: '100%', overflow: 'auto'}}>
                     <h2>Chatbot</h2>
