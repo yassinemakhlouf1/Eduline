@@ -27,13 +27,6 @@ const CommentSection = ({ forum }) => {
         //commentsRef.current.scrollIntoView({ behavior: 'smooth' });
     };
 
-    const handleDeleteComment = (i) => {
-        return (user?.user?._id === forum?.comments[i]?.creator) && (
-        <Button size="small"  style={{ color: '#4bc5b8' }} disabled={!user?.user} onClick={() => {dispatch(deleteComment(forum?.comments[i]?._id)); const newForum = dispatch(getForum(forum._id)); setComments(newForum);}} >
-            <DeleteIcon fontSize="small" />
-        </Button>
-    )};
-
     return (
         <div>
             <div className={classes.commentsOuterContainer}>
@@ -50,7 +43,14 @@ const CommentSection = ({ forum }) => {
                             </div>
                             <div style={{display: 'flex', justifyContent:'flex-end'}}>{moment(c.createdAt).fromNow()}</div>
                             <div>
-                                {handleDeleteComment(i)}
+                                {(user?.user?._id === forum?.comments[i]?.creator) && (
+                                    <Button size="small"  style={{ color: '#4bc5b8' }} disabled={!user?.user} onClick={async () => {
+                                        const newComments = await dispatch(deleteComment(forum?.comments[i]?._id)); 
+                                        setComments(newComments);
+                                        }} >
+                                        <DeleteIcon fontSize="small" />
+                                    </Button>
+                                )}
                             </div>
                         </Paper>
                     ))}
