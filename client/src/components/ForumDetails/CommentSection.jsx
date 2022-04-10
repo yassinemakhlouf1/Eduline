@@ -38,7 +38,7 @@ const CommentSection = ({ forum }) => {
                                 <Avatar alt={c.name}>{c.name.charAt(0)}</Avatar>
                                 <strong style={{ padding: '10px' }}>{c.name} : </strong>
                                 {c.content.split("\n").map((i,key) => {
-                                    return <div key={key} style={{ padding: '10px' }}>{i.length > 50 ? i.split(' ').map((j,key) => { return <div key={key}>{j}</div>; }) : i}</div>;
+                                    return <div key={key} style={{ padding: '10px' }}>{i}</div>;
                                 })}
                             </div>
                             <div style={{display: 'flex', justifyContent:'flex-end'}}>{moment(c.createdAt).fromNow()}</div>

@@ -30,7 +30,7 @@ export const getForum = async (req, res) => {
 module.exports.getForums = async (req, res) => {
     const { page } = req.query;
     try {
-        const LIMIT = 8;
+        const LIMIT = 6;
         const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
         const total = await Forum.countDocuments({});
         const forums =  await Forum.aggregate([
