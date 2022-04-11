@@ -16,7 +16,6 @@ const Forum = ({ forum, setCurrentId }) => {
     const classes = useStyles();
     const history = useNavigate();
     const user = JSON.parse(localStorage.getItem('user-info'));
-    //const result = JSON.parse(user);
     const [likes, setLikes] = useState(forum?.likes);
     const userId = user?.user?._id
     const hasLikedForum = forum.likes.find((like) => like === userId);
@@ -59,24 +58,23 @@ const Forum = ({ forum, setCurrentId }) => {
                     <Avatar alt={forum.name}>{forum.name.charAt(0)}</Avatar>
                     <Typography variant="h6">{forum.name}</Typography>
                 </div>
-                <Typography variant="body2">{moment(forum.createdAt).fromNow()}</Typography>
-                <Typography variant="body2">{forum?.answersDetails?.length} Answers</Typography>
-                <Typography variant="body2">{forum?.comments?.length} Comments</Typography>
+                <Typography variant="body2" style={{ color: 'white' }}>{moment(forum.createdAt).fromNow()}</Typography>
+                <Typography variant="body2" style={{ color: 'white' }}>{forum?.answersDetails?.length} Answers</Typography>
+                <Typography variant="body2" style={{ color: 'white' }}>{forum?.comments?.length} Comments</Typography>
             </div>
             <ButtonBase className={classes.cardAction} onClick={openForum}>
                 <Typography className={classes.title} variant="h5" gutterBottom>{truncate(forum.title, 25)}</Typography>
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">{truncate(forum.description, 90)}</Typography>
-                    <Typography variant="body2" color="textSecondary">{forum.tags.map((tag) => `#${tag} `)}</Typography>
+                    <Typography variant="body2" style={{ color: '#4bc5b8' }}>{forum.tags.map((tag) => `#${tag} `)}</Typography>
                 </CardContent>
             </ButtonBase>
             <CardActions className={classes.cardActions}>
-                <Button size="small" color="primary" disabled={!user?.user} onClick={handleLike}>
-                {/*<Button size="small" color="primary" disabled={!user?.user} onClick={() => dispatch(likeForum(userId, forum._id))}>*/}
+                <Button size="small" style={{ color: '#133e3f' }} disabled={!user?.user} onClick={handleLike}>
                     <Likes />
                 </Button>
                 {(user?.user?._id === forum?.creator) && (
-                    <Button size="small" color="primary" disabled={!user?.user} onClick={() => dispatch(deleteForum(forum._id))}>
+                    <Button size="small"  style={{ color: '#133e3f' }} disabled={!user?.user} onClick={() => dispatch(deleteForum(forum._id))}>
                         <DeleteIcon fontSize="small" />
                         Delete
                     </Button>
