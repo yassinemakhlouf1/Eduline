@@ -45,7 +45,7 @@ function Layout() {
       <div >
         <Outlet />
       </div>
-      <Chatbot></Chatbot>
+        <Chatbot />
       <Footer />
     </>
   );
