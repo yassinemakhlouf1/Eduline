@@ -89,7 +89,7 @@ body {
 }
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
-  padding: 45px 15px 15px;
+  /*padding: 45px 15px 15px;*/
   color: #ffffff;
   text-align: center;
   position: relative;
@@ -132,10 +132,12 @@ a:focus {
 }
 
 .custom_nav-container .nav_search-btn {
+  position: relative;
+  bottom: 8px;
   background-image: url(../images/search-icon.png);
   background-size: 20px;
   background-repeat: no-repeat;
-  background-position-y: 7px;
+  /*background-position-y: 7px;*/
   width: 35px;
   height: 35px;
   padding: 0;
@@ -156,6 +158,8 @@ a:focus {
 }
 
 .navbar-brand h3 {
+  position:relative;
+  bottom: 6px;
   color: #ffffff;
   font-weight: bold;
   text-transform: uppercase;
