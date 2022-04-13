@@ -59,9 +59,7 @@ export default function Header() {
               <li className="nav-item">
                 <a className="nav-link" href="/home">Home</a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="about.html"> About </a>
-              </li>
+              
               <li className="nav-item">
                 <a className="nav-link" href="/CourseAs"> Courses </a>
               </li>
@@ -72,7 +70,7 @@ export default function Header() {
                 <a className="nav-link" href="/forums"> Forums </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="contact.html">Contact us</a>
+                <a className="nav-link" href="/contact">Contact us</a>
               </li>
              {user ? (
                

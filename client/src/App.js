@@ -17,9 +17,11 @@ import CoursASCH from "./Components/CourseAs/CoursASCH";
 import Quiz from "./Components/quiz/Quiz";
 import Course from './Components/course/Course';
 import Chatbot from "./Components/chatbot/chatbot";
+import Contact from "./Components/Contact/Contact";
 
 function App() {
   return (
+    <>
       <BrowserRouter>
         <Routes >
           <Route path="/" element={<Layout />} >
@@ -37,12 +39,14 @@ function App() {
             <Route path="/forums/:id" element={<ForumDetails />} />
             <Route path="/form" exact element={<Form />} />
             <Route path="/course" exact element={<Course />} />
+            <Route path="/contact"  element={<Contact />} />
           </Route>
 
         </Routes>
 
         
       </BrowserRouter>
+    </>
   );
 }
 function Layout() {
