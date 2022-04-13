@@ -20,7 +20,6 @@ import Chatbot from "./Components/chatbot/chatbot";
 
 function App() {
   return (
-    <>
       <BrowserRouter>
         <Routes >
           <Route path="/" element={<Layout />} >
@@ -44,7 +43,6 @@ function App() {
 
         
       </BrowserRouter>
-    </>
   );
 }
 function Layout() {
