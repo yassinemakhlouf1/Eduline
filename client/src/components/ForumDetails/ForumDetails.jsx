@@ -36,19 +36,19 @@ const ForumDetails = () => {
 
     const recommandedForums = forums.filter(({ _id }) => _id !== forum._id);
     
-    const openForum = (_id) => history(`/forums/${_id}`);
+    const openForum = (_id) => history(`/forums/forum/${_id}`);
 
     const ReadMore = ({children = 100}) => {
         const text = children;
         const [isShow, setIsShowLess] = useState(true);
-        const result = isShow ? text.slice(0, 100) : text;
+        const result = (isShow) ? text.slice(0, 300) : text;
         const toggleIsShow = () => {
             setIsShowLess((!isShow));
         };
         return (
             <p>
-                {result}
-                <span onClick={toggleIsShow} style={{ color: '#4bc5b8' }}>{isShow ? 'Show More' : 'Show Less'}</span>
+                {result.split("\n").map((i,key) => { return <div key={key} style={{ marginLeft: '30px', color: 'black' }}>{i}</div>; })}
+                {(text.length > 300) && (<span onClick={toggleIsShow} style={{ color: '#4bc5b8' }}>{isShow ? 'Show More' : 'Show Less'}</span>)}
             </p>
         )
     };
@@ -61,7 +61,7 @@ const ForumDetails = () => {
                         <div className={classes.section}>
                             <Typography variant="h3" component="h2">{forum.title}</Typography>
                             <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{forum.tags.map((tag) => `#${tag} `)}</Typography>
-                            <Typography gutterBottom variant="body1" component="h2"><ReadMore>{forum.description.split("\n").map((i,key) => { return <div key={key} style={{ marginLeft: '30px' }}>{i}</div>; })}</ReadMore></Typography>
+                            <Typography gutterBottom variant="body1" component="h2"><ReadMore>{forum.description}</ReadMore></Typography>
                             <Typography variant="h6">Created by: {forum.name}</Typography>
                             <Typography variant="body1">{moment(forum.createdAt).fromNow()}</Typography>
                             <Divider style={{ margin: '20px 0' }} />

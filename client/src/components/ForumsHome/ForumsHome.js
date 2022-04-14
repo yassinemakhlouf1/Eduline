@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
-import { getForumsBySearch } from '../../actions/forums';
+import { getForumsBySearch, getForumsByUser } from '../../actions/forums';
 import Pagination from '../Pagination';
 
 import Forums from "../Forums/Forums";
@@ -26,7 +26,6 @@ const ForumsHome = () => {
     const [search, setSearch] = useState('');
     const [tags, setTags] = useState([]);
     const user = JSON.parse(localStorage.getItem('user-info'));
-    //const result = JSON.parse(user);
     const { forums } = useSelector((state) => state.forums);
     const [all, setAll] = useState(false);
     const [my, setMy] = useState(false);
@@ -47,7 +46,13 @@ const ForumsHome = () => {
         }
     };
 
-    const myForums = forums.filter(({ userId }) => userId !== forums.creator);
+    const MyForums = () => {
+        setAll(false); 
+        setMy(true); 
+        setFollowed(false);
+        dispatch(getForumsByUser(user.user._id));
+        history(`/forums/${user.user._id}`);
+    };
 
     const handleAdd = (tag) => setTags([...tags, tag]);
     const handleDelete = (tagToDelete) => setTags([tags.filter((tag) => tag !== tagToDelete)]);
@@ -56,7 +61,7 @@ const ForumsHome = () => {
             <div class="container">
                 <div class="heading_container">
                     <h3>
-                    Forums
+                    {my ? 'My Forums' : 'Forums'}
                     </h3>
                     <p>
                     Total posted Forums: {forums?.length} {forums.length === 1 ? 'Forum' : 'Forums'}
@@ -85,8 +90,8 @@ const ForumsHome = () => {
                                     </Button>
                                 </Grid>
                                 <AppBar className={classes.appBarSearch} position="static" style={{ display:'flex', flexDirection: 'row', justifyContent: 'space-around', backgroundColor: 'white', color: 'black', fontWeight: 'bold' }}>
-                                    <Button onClick={() => {setAll(true); setMy(false); setFollowed(false);}}>All</Button>
-                                    <Button onClick={() => {setAll(false); setMy(true); setFollowed(false);}}>My Forums</Button>
+                                    <Button onClick={() => {setAll(true); setMy(false); setFollowed(false);}}>{all ? <strong>All</strong> : 'All'}</Button>
+                                    <Button onClick={MyForums}>{my ? <strong>My Forums</strong> : 'My Forums'}</Button>
                                     <Button onClick={() => {setAll(false); setMy(false); setFollowed(true);}}>Followed</Button>
                                 </AppBar>
                                 <AppBar className={classes.appBarSearch} position="static" color="inherit">
@@ -109,7 +114,7 @@ const ForumsHome = () => {
                                     />
                                     <Button onClick={searchForum} className={classes.searchButton} variant="contained" style={{ backgroundColor: '#133e3f', color: 'white' }}>Search</Button>
                                 </AppBar>
-                                {(!searchQuery && !tags.length) && (
+                                {(!searchQuery && !tags.length && !my) && (
                                     <Paper elevation={6} className={classes.pagination}>
                                         <Pagination page={page} />
                                     </Paper>

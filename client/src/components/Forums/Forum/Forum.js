@@ -43,7 +43,7 @@ const Forum = ({ forum, setCurrentId }) => {
       };
 
       const openForum = () => {
-          history(`/forums/${forum._id}`);
+          history(`/forums/forum/${forum._id}`);
       };
 
       const truncate = (str, n) => {
