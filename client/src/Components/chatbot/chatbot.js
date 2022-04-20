@@ -5,6 +5,7 @@ import axios from "axios/index";
 
 import Message from './Message';
 import Card from './Card';
+import QuickReplies from './QuickReplies';
 
 class Chatbot extends Component {
 
@@ -99,7 +100,19 @@ class Chatbot extends Component {
                     </div>
                 </div>
             </div> 
-        }
+
+        } else if (message.msg &&
+            message.msg.payload &&
+            message.msg.payload.fields &&
+            message.msg.payload.fields.quick_replies
+        )   {
+                return <QuickReplies
+                text={message.msg.payload.fields.text ? message.msg.payload.fields.text : null}
+                key={i}
+                replyClick={this._handleQuickReplyPayload}
+                speaks={message.speaks}
+                payload={message.msg.payload.fields.quick_replies.listValue.values}/>;
+            }
     }
 
     renderMessages(stateMessages) {
