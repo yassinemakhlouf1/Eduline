@@ -44,7 +44,7 @@ export default function Header() {
       <header class="header_section">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="/">
               <h3>
                 EDULINE
               </h3>
@@ -63,7 +63,7 @@ export default function Header() {
                 <a className="nav-link" href="about.html"> About </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="course.html"> Courses </a>
+                <a className="nav-link" href="/course"> Courses </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/forums"> Forums </a>
