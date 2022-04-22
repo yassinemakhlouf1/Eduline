@@ -7,11 +7,11 @@ export default function DomainsDetail() {
   //const user = (localStorage.getItem('user-info'));
   //const result = JSON.parse(user);
   //console.log(user.user);
-  const [domains,setDomains]=useState();
+  const [courses,setCourses]=useState();
   useEffect(()=>{
     const fetchData = async () => {
       const result = await getCourseASId(id);
-      setDomains(result);
+      setCourses(result);
     };
     fetchData();
   }, []);
@@ -23,28 +23,27 @@ export default function DomainsDetail() {
        {title} 
         </h3>
         <p>
-          Upcoming Education Events to feed your brain.
+        Événements éducatifs à venir pour nourrir votre cerveau.
         </p>
       </div>
       <div class="event_container">
-      {domains?.map((domain)=>(
+      {courses?.map((course)=>(
         <div class="box">
           <div class="img-box">
-            <img src={"/uploads/"+domain.image} alt="" />
+            <img src={"/uploads/"+course.image} alt="" />
           </div>
           <div class="detail-box">
             <h4>
-            {domain.Name} 
+            {course.Name} 
             </h4>
             <h6>
-            {domain.Description} 
+            {course.Description} 
             </h6>
           </div>
           <div class="date-box">
             <h3>
-              <span>
-              {domain.image}
-              </span>
+              <div className="login_form"> <a href={'/Chp/'+course._id+'/'+course.Name}>REJOINDRE</a></div>
+           
               
             </h3>
           </div>

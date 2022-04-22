@@ -9,5 +9,6 @@ router.get('/CoursesAS/:id', courseAS.CoursesASFindOne);
 router.get('/CoursesASIdDomain/:id', courseAS.CoursesASListByIdDomain);
 router.delete('/DelCoursesAS/:id', courseAS.CoursesASDel);
 router.put('/UpdateCoursesAS/:id', courseAS.CoursesASUpdate);
+router.put('/addChToCourse/:idCor/:idCh', courseAS.addTolist);
 
 module.exports = router;

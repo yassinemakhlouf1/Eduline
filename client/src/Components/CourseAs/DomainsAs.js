@@ -33,7 +33,7 @@ export default function DomainsAs() {
           {domains?.map((domain)=>(
             <div class="box">
             <img src={"uploads/"+domain.image} alt="" />
-            <a href={"/CoursASCH/"+domain._id+"/"+domain.Name} class="">
+            <a href={"/domain/"+domain._id+"/"+domain.Name} class="">
               <img src="images/link.png" alt="" />
             </a>
             <h5>

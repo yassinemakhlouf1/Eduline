@@ -935,6 +935,7 @@ a:focus {
 /* Chp Video */
 .player-wrapper {
   position: relative;
+  text-align: center;
   padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
 }
 

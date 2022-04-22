@@ -78,7 +78,7 @@ export const getDomainAS = async () => {
 };
 export const getCourseASId = async (id) => {
   try {
-    const { data } = await axios.get(url + "/CoursesASIdDomain/"+id);
+    const { data } = await axios.get(url + "CoursesASIdDomain/"+id);
     return data;
   } catch (error) {
     console.log(error);
@@ -97,3 +97,10 @@ export const uploadImg = async (img) => {
   }
   
 };
+export const getChapterCId = async (id) => {
+  try {
+    const { data } = await axios.get(url + "chapter/getCourseChp/"+id);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }}

@@ -38,7 +38,7 @@ function App() {
             <Route path="/DomainsAs" element={<DomainsAs />} />
             <Route path="/domain/:id/:title" exact element={<DomainsDetail />} />
             <Route path="/AddCourseAS" element={<AddCourseAS />} />
-            <Route path="/Chp" element={<CourseAsDetails/>}/>
+            <Route path="/Chp/:id/:title" element={<CourseAsDetails/>}/>
             <Route path="home" element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />

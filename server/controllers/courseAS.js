@@ -113,3 +113,17 @@ exports.CoursesASUpdate = (req, res) => {
       });
     });
 };
+module.exports.addTolist = async (req, res) => {
+  const domain = await CourseAS.findByIdAndUpdate(req.params.idCor,{ $push: { Chapter: req.params.idCh }})
+  
+  CourseAS.findById(req.params.idCor).then((data) => {
+     
+          res.send(data.Chapter);
+     
+  }).catch((err) => {
+    res.status(500).send({
+      message:
+        err.message 
+    });
+  });  
+};
