@@ -10,8 +10,9 @@ exports.create = async (req, res) => {
     const courseAS = new CourseAS({
       Name:req.body.Name,
       Description:req.body.Description,
-      Domain:req.body.Domain,
-      Chapter:req.body.Chapter
+      Domain:req.params.idDomain,
+      Chapter:req.params.idChapter,
+      image:req.params.image
     });
     courseAS.save(courseAS)
     .then((data) => {
@@ -35,6 +36,20 @@ module.exports.CoursesASList = async (req, res) => {
       else{
           res.send(data);
       }
+  });  
+};
+module.exports.CoursesASListByIdDomain = async (req, res) => {
+  const id=req.params.id;
+  console.log(id)
+  CourseAS.find({Domain:id}).then((data) => {
+     
+          res.send(data);
+     
+  }).catch((err) => {
+    res.status(500).send({
+      message:
+        err.message 
+    });
   });  
 };
 module.exports.CoursesASFindOne = async (req, res) => {
@@ -83,6 +98,7 @@ exports.CoursesASUpdate = (req, res) => {
     Chapter:req.body.Chapter,
     _id:id
   });
+
   CourseAS.findByIdAndUpdate(id, courseAS, { useFindAndModify: false })
     .then(data => {
       if (!data) {

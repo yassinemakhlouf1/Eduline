@@ -68,7 +68,7 @@ export default function Login() {
                 <input type="password" placeholder="Password" onChange={(e)=>{
                     setPassword(e.target.value);
                 }} autoComplete="on"  />
-                 <a>Reset Password</a>
+                 <a href='/reset'>Reset Password</a>
               </div>
              
               <button  type="submit">Login</button>

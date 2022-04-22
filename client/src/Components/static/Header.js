@@ -61,7 +61,7 @@ export default function Header() {
               </li>
               
               <li className="nav-item">
-                <a className="nav-link" href="/CourseAs"> Courses </a>
+                <a className="nav-link" href="/DomainsAs"> Courses </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/course"> CoursesChatBot </a>

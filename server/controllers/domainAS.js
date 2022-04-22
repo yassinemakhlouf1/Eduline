@@ -9,6 +9,7 @@ exports.create = async (req, res) => {
     const domainAS = new DomainAS({
       Name:req.body.Name,
       Description:req.body.Description,
+      image:req.body.image
     });
     domainAS.save(domainAS)
     .then((data) => {
@@ -47,6 +48,34 @@ module.exports.DomainsASFindOne = async (req, res) => {
     });
   });  
 };
+module.exports.DomainsASgetListC = async (req, res) => {
+  const id=req.params.id;
+  DomainAS.findById(id).then((data) => {
+     
+          res.send(data.courseAS);
+     
+  }).catch((err) => {
+    res.status(500).send({
+      message:
+        err.message 
+    });
+  });  
+};
+module.exports.addTolist = async (req, res) => {
+  const domain = await DomainAS.findByIdAndUpdate(req.params.idD,{ $push: { courseAS: req.params.idC }})
+  
+  DomainAS.findById(req.params.idD).then((data) => {
+     
+          res.send(data.courseAS);
+     
+  }).catch((err) => {
+    res.status(500).send({
+      message:
+        err.message 
+    });
+  });  
+};
+
 module.exports.DomainsASDel = async (req, res) => {
   const id=req.params.id;
   DomainAS.findByIdAndDelete(id).then((data) => {
@@ -76,6 +105,7 @@ exports.DomainsASUpdate = (req, res) => {
   const domainAS = new DomainAS({
     Name:req.body.Name,
     Description:req.body.Description,
+    Image:req.body.Image,
     _id:id
   });
   DomainAS.findByIdAndUpdate(id, domainAS, { useFindAndModify: false })

@@ -22,6 +22,7 @@ var apiRoutes = require('./routes/api')
 var teacherRoutes = require('./routes/teacher')
 var studentRoutes = require('./routes/student')
 var adminRoutes = require('./routes/admin')
+var uploadImgRoutes = require('./routes/uploadImg')
 
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
@@ -84,7 +85,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use('/', userRoutes);
 
-app.use('/aa',courseASRoutes);
+app.use('/courseAS',courseASRoutes);
 app.use('/courseAS/domain',domainASRoutes);
 app.use('/courseAS/chapter',chapterASRoutes);
 app.use('/calendar',calenderASRoutes);
@@ -96,6 +97,7 @@ app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);
 app.use('/student', studentRoutes);
 app.use('/teacher', teacherRoutes);
+app.use('/upload', uploadImgRoutes);
 
 const bodyParser = require('body-parser');
 

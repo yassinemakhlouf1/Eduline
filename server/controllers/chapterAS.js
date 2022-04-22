@@ -6,10 +6,13 @@ exports.create = async (req, res) => {
       res.status(400).send({ message: "Content can not be empty!" });
       return;
     }
+    console.log(req.params.body)
     const chapterAS = new ChapterAS({
       Name:req.body.Name,
       Description:req.body.Description,
+      Liens:req.body.Liens
     });
+    console.log(chapterAS)
     chapterAS.save(chapterAS)
     .then((data) => {
       res.send(data);
@@ -75,6 +78,7 @@ exports.ChaptersASUpdate = (req, res) => {
   const chapterAS = new ChapterAS({
     Name:req.body.Name,
     Description:req.body.Description,
+    Liens:req.body.Liens,
     _id:id
   });
   ChapterAS.findByIdAndUpdate(id, chapterAS, { useFindAndModify: false })

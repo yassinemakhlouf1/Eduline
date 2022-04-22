@@ -12,12 +12,17 @@ import Reset from './Components/login/Reset';
 import ForumDetails from './Components/ForumDetails/ForumDetails';
 import ForumsHome from './Components/ForumsHome/ForumsHome';
 import Form from './Components/Form/Form';
-import CourseAs from "./Components/CourseAs/CourseAs";
+import DomainsAs from "./Components/CourseAs/DomainsAs";
 import CoursASCH from "./Components/CourseAs/CoursASCH";
 import Quiz from "./Components/quiz/Quiz";
 import Course from './Components/course/Course';
 import Chatbot from "./Components/chatbot/chatbot";
 import Contact from "./Components/Contact/Contact";
+import AddCourseAS from "./Components/CourseAs/AddCourseAS";
+import CourseAsDetails from "./Components/CourseAs/CourseAsDetails";
+import Testimg from "./Components/CourseAs/Testimg";
+import DomainsDetail from "./Components/CourseAs/DomainsDetail";
+
 
 function App() {
   return (
@@ -25,12 +30,15 @@ function App() {
       <BrowserRouter>
         <Routes >
           <Route path="/" element={<Layout />} >
-
+          <Route path="/CoursASCH/" element={<CoursASCH />} />
+             <Route path="/img" element={<Testimg />} />
              <Route path="/quiz" element={<Quiz />} />
              <Route path="/reset" element={<Reset />} />
              <Route path="/reset/:id" element={<Forgot />} />
-            <Route path="/CourseAs" element={<CourseAs />} />
-            <Route path="/CoursASCH" element={<CoursASCH />} />
+            <Route path="/DomainsAs" element={<DomainsAs />} />
+            <Route path="/domain/:id/:title" exact element={<DomainsDetail />} />
+            <Route path="/AddCourseAS" element={<AddCourseAS />} />
+            <Route path="/Chp" element={<CourseAsDetails/>}/>
             <Route path="home" element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
