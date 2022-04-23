@@ -6,7 +6,6 @@ export const addCoursAS = async (cours,idDomain,Chapter,data11) => {
       
         const chp =  await addChapitreAS(Chapter);
         const resultUp=  await uploadImg(data11);
-        localStorage.setItem('course',resultUp.filename);
       const { data } = await axios.post(
         url + "create/"+idDomain+"/"+chp._id+"/"+resultUp.filename,
         cours
@@ -18,6 +17,16 @@ export const addCoursAS = async (cours,idDomain,Chapter,data11) => {
     }
     
   };
+  /*Domain*/
+export const DelCourse = async (id) => {
+  try {
+    const { data } = await axios.delete(url + "/DelCoursesAS/"+id);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+  
+};
 
   export const getCourseAS = async () => {
     try {
@@ -28,6 +37,7 @@ export const addCoursAS = async (cours,idDomain,Chapter,data11) => {
     }
     
   };
+
 
   /* Chapitres */
   export const addChapitreAS = async (chapitre) => {
@@ -55,14 +65,25 @@ export const getChapitreAS = async () => {
   
 };
  /* domain */
- export const addDomainAS = async (domain) => {
+ export const addDomainAS = async (domain,img) => {
+   
     try {
-  
+      const resultUp=  await uploadImg(img);
     const { data } = await axios.post(
-      url + "domain/createD",
+      url + "domain/createD/"+resultUp.filename,
       domain
     );
 
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+  
+};
+/*Domain*/
+export const DelDomain = async (id) => {
+  try {
+    const { data } = await axios.delete(url + "domain/DelDomainsAS/"+id);
     return data;
   } catch (error) {
     console.log(error);
@@ -107,3 +128,4 @@ export const getChapterCId = async (id) => {
   } catch (error) {
     console.log(error);
   }}
+

@@ -9,8 +9,9 @@ exports.create = async (req, res) => {
     const domainAS = new DomainAS({
       Name:req.body.Name,
       Description:req.body.Description,
-      image:req.body.image
+      image:req.params.img
     });
+    console.log(domainAS.Name);
     domainAS.save(domainAS)
     .then((data) => {
       res.send(data);

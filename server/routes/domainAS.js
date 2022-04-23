@@ -3,7 +3,7 @@ const router = express.Router();
 const domainAS = require('../controllers/domainAS');
 //const { isLoggedIn } = require('../middleware');
 
-router.post('/createD', domainAS.create);
+router.post('/createD/:img', domainAS.create);
 router.get('/allDomainsAS', domainAS.DomainsASList);
 router.get('/allDomainsASCourses/:id', domainAS.DomainsASgetListC);
 router.put('/allDomainsASCourses/:idD/:idC', domainAS.addTolist);

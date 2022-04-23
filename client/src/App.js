@@ -22,6 +22,7 @@ import AddCourseAS from "./Components/CourseAs/AddCourseAS";
 import CourseAsDetails from "./Components/CourseAs/CourseAsDetails";
 import Testimg from "./Components/CourseAs/Testimg";
 import DomainsDetail from "./Components/CourseAs/DomainsDetail";
+import AddDomain from "./Components/CourseAs/AddDomain";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
              <Route path="/reset" element={<Reset />} />
              <Route path="/reset/:id" element={<Forgot />} />
             <Route path="/DomainsAs" element={<DomainsAs />} />
+            <Route path="/ListDomainsAs" element={<AddDomain />} />
             <Route path="/domain/:id/:title" exact element={<DomainsDetail />} />
             <Route path="/AddCourseAS" element={<AddCourseAS />} />
             <Route path="/Chp/:id/:title" element={<CourseAsDetails/>}/>

@@ -16,6 +16,7 @@ const answerRoutes = require('./routes/answers.js');
 const commentRoutes = require('./routes/comments.js');
 const calenderASRoutes = require('./routes/calender');
 const courseASRoutes = require('./routes/courseAS');
+const contactRoutes = require('./routes/Contact');
 const domainASRoutes = require('./routes/domainAS');
 const chapterASRoutes =require('./routes/chapterAS');
 var apiRoutes = require('./routes/api')
@@ -92,6 +93,7 @@ app.use('/calendar',calenderASRoutes);
 app.use('/forums', forumRoutes);
 app.use('/answers', answerRoutes);
 app.use('/forums', commentRoutes);
+app.use('/contact',contactRoutes );
 
 app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);

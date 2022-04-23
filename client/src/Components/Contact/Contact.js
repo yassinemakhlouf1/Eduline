@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { sendInfo } from './ContactApi';
 
 export default function Contact() {
-  
+  const [status, setStatus] = useState();
+  const [cnt, setCnt] = useState({
+    Name: "",
+    Email: "",
+    Phone: "",
+    Msg:"",
+  });
+  const onSubmit=async(e)=>{
+    e.preventDefault();
+    try {
+await sendInfo(cnt).then(() => {
+  setStatus('success');
+}).catch((err)=>{
+  setStatus('Quelque chose ne va pas')
+}
+
+)
+
+      }
+      catch (error) {
+        console.log(error);
+      }
+  }
   return (
     <section class="contact_section">
     <div class="container">
@@ -26,21 +49,32 @@ export default function Contact() {
             </h5>
             <form action="">
               <div>
-                <input type="text" placeholder="Full Name " />
+                <input type="text" placeholder="Full Name " onChange={(e) =>
+                      setCnt({ ...cnt, Name: e.target.value })
+                    } />
               </div>
               <div>
-                <input type="text" placeholder="Phone Number" />
+                <input type="text" placeholder="Phone Number"  onChange={(e) =>
+                      setCnt({ ...cnt, Phone: e.target.value })
+                    }/>
               </div>
               <div>
-                <input type="email" placeholder="Email Address" />
+                <input type="email" placeholder="Email Address"  onChange={(e) =>
+                      setCnt({ ...cnt, Email: e.target.value })
+                    } />
               </div>
               <div>
-                <input type="text" placeholder="Message" class="input_message" />
+                <input type="text" placeholder="Message" class="input_message"  onChange={(e) =>
+                      setCnt({ ...cnt, Msg: e.target.value })
+                    } />
               </div>
               <div class="d-flex justify-content-center">
-                <button type="submit" class="btn_on-hover">
+              {status && <div className="error"> {status} </div>}
+                <button type="submit" class="btn_on-hover"  onClick={()=>onSubmit()}>
                   Send
                 </button>
+                
+           
               </div>
             </form>
           </div>

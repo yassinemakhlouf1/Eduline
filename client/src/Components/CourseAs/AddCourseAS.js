@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { getDomainAS,addCoursAS,getChapitreAS,addChapitreAS, uploadImg } from './CourseASApi';
+import { getDomainAS,addCoursAS, getCourseAS, DelCourse} from './CourseASApi';
 
 export default function AddCourseAS() {
   const [state,setState] = useState({ selectedFile: null })
   //  const user = await User.findByIdAndUpdate(req.params.idU,{ $push: { wishlist: req.params.idP }})
     const [domains,setDomains]=useState();
+    const [Courses,setCourses]=useState();
+    const fetchData1 = async () => {
+        const result = await getCourseAS();
+        setCourses(result);
+      };
     useEffect(()=>{
       const fetchData = async () => {
         const result = await getDomainAS();
         setDomains(result);
       };
       fetchData();
+      fetchData1();
     }, []);
     const [course, setCourse] = useState({
         Name: "",
@@ -24,34 +30,30 @@ export default function AddCourseAS() {
         Lien:"",
       });
       const onSubmit=async(e)=>{
+        e.preventDefault();
         try {
         // const resultChapitre=   addChapitreAS(chapitre);
         const data1 = new FormData();
     data1.append('file', state.selectedFile);
     const resultadd= await addCoursAS(course,course.idDomain,chapitre,data1) 
-  //         test=resultChapitre;
-  // await upload(data1);
-
-            // setCourse({...course,image:await upload(data1)});
-            // localStorage.setItem('aa',JSON.stringify(resultChapitre));
-            //  await addCourse(resultChapitre._id);
           }
           catch (error) {
             console.log(error);
           }
+          fetchData1();
       }
-      // const addCourse=async(iid)=>{
-      //   const resultadd= await addCoursAS(course,course.idDomain,iid)
-      //   .catch((error) => {
-      //       console.log(error);
-      //   });
-      // }
-      //   const upload =async (data11) => { 
-      //     const resultUp=  await uploadImg(data11)
-      // };
-      // setCourse({ ...course,image:resultUp.filename})
-      // localStorage.setItem('course',JSON.stringify(resultUp));}
-      
+      const onDelete=async(event,id)=>{
+        event.preventDefault();
+        try {
+        const data1 = new FormData();
+    data1.append('file', state.selectedFile);
+    const resultadd= await DelCourse(id) }
+          catch (error) {
+            console.log(error);
+          }
+          
+      fetchData1();
+      }
      
       
       
@@ -63,6 +65,29 @@ export default function AddCourseAS() {
     <section class="course_section layout_padding-bottom">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
     <div>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+  {Courses?.map((domain,index)=>(
+            
+    <tr>
+      <th scope="row">{index}</th>
+      <td>{domain._id}</td>
+      <td>{domain.Name}</td>
+      <td>{domain.Description}</td>
+      
+    <button name="add" className="btn  w-100 p-3" onClick={(event)=>onDelete(event,domain._id)}>Deleted</button>
+    </tr>
+    ))}
+  </tbody>
+</table>
         <form class="form-group " >
             <input   type="text" name="Name" placeholder='Name' onChange={(e) =>
                       setCourse({ ...course, Name: e.target.value })
