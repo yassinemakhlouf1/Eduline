@@ -1,11 +1,14 @@
 import axios from "axios";
 const url="http://localhost:3000/courseAS/"
-export const addCoursAS = async (cours,idDomain,idChapter) => {
+export const addCoursAS = async (cours,idDomain,Chapter,data11) => {
   
       try {
-    
+      
+        const chp =  await addChapitreAS(Chapter);
+        const resultUp=  await uploadImg(data11);
+        localStorage.setItem('course',resultUp.filename);
       const { data } = await axios.post(
-        url + "create/"+idDomain+"/"+idChapter,
+        url + "create/"+idDomain+"/"+chp._id+"/"+resultUp.filename,
         cours
       );
   

@@ -1,8 +1,15 @@
 var createError = require("http-errors");
 const CourseAS = require("../models/courseAS");
 const user = require("../models/user");
-
+const img =require('../controllers/img');
+const ChapterAS = require("../models/chapterAS");
 exports.create = async (req, res) => {
+  // const image =await img.uploadImg(a);
+  // const chapterAS = new ChapterAS({
+  //   Name:req.body.ChName,
+  //   Description:req.body.ChDescription,
+  //   Lien:req.body.Lien
+  // });
     if (!req.body) {
       res.status(400).send({ message: "Content can not be empty!" });
       return;
@@ -12,7 +19,7 @@ exports.create = async (req, res) => {
       Description:req.body.Description,
       Domain:req.params.idDomain,
       Chapter:req.params.idChapter,
-      image:req.params.image
+      image:req.params.img
     });
     courseAS.save(courseAS)
     .then((data) => {

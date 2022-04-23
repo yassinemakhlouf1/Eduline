@@ -11,7 +11,7 @@ exports.create = async (req, res) => {
     const chapterAS = new ChapterAS({
       Name:req.body.Name,
       Description:req.body.Description,
-      Liens:req.body.Lien
+      Lien:req.body.Lien
     });
     console.log(chapterAS)
     chapterAS.save(chapterAS)
