@@ -128,4 +128,15 @@ export const getChapterCId = async (id) => {
   } catch (error) {
     console.log(error);
   }}
+  export const pushChpCr = async (chapter,idC) => {
+    try {
+      
+      const chp=await addChapitreAS(chapter);
+      
+
+      const { data } = await axios.put("http://localhost:3000/courseAS/addChToCourse/"+idC+"/"+chp._id);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }}
 

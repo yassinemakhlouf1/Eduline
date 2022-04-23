@@ -74,11 +74,17 @@ module.exports.CoursesASFindOne = async (req, res) => {
 };
 module.exports.CoursesASDel = async (req, res) => {
   const id=req.params.id;
+  const cr=CoursesASFindOne(id);
   CourseAS.findByIdAndDelete(id).then((data) => {
      
+    
         if (!data){
           res.status(404).send({message:'connot delete with ${id}'})
         }else {
+          for (let i = 0; i < cr.Chapter.length; i++) {
+   
+             ChapterAS.findByIdAndDelete(cr.Chapter[i]);
+         }
           res.send({
             message:'del success'
           })
@@ -90,6 +96,7 @@ module.exports.CoursesASDel = async (req, res) => {
         err.message 
     });
   });  
+
 };
 exports.CoursesASUpdate = (req, res) => {
   if (!req.body) {
@@ -121,6 +128,7 @@ exports.CoursesASUpdate = (req, res) => {
     });
 };
 module.exports.addTolist = async (req, res) => {
+  console.log(req.params.idCor+' '+req.params.idCh)
   const domain = await CourseAS.findByIdAndUpdate(req.params.idCor,{ $push: { Chapter: req.params.idCh }})
   
   CourseAS.findById(req.params.idCor).then((data) => {
