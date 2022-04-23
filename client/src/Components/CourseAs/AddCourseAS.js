@@ -139,7 +139,7 @@ export default function AddCourseAS() {
                 setChapitre({ ...chapitre, Lien: e.target.value })}/>
                 
             <br/>
-            <button name="add" className="btn  w-100 p-3" onClick={()=>onSubmit()}>Add</button>
+            <button name="add" className="btn  w-100 p-3" onClick={(e)=>onSubmit(e)}>Add</button>
            
         </form>
         <form class="form-group " >

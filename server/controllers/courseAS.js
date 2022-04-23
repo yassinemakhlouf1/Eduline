@@ -72,19 +72,22 @@ module.exports.CoursesASFindOne = async (req, res) => {
     });
   });  
 };
+
 module.exports.CoursesASDel = async (req, res) => {
   const id=req.params.id;
-  const cr=CoursesASFindOne(id);
+  const cr = await CourseAS.findOne({_id:id});
+  console.log(cr)
+  for (let i = 0; i < cr.Chapter.length; i++) {
+   
+   await ChapterAS.findByIdAndDelete(cr.Chapter[i]);
+}
   CourseAS.findByIdAndDelete(id).then((data) => {
      
     
         if (!data){
           res.status(404).send({message:'connot delete with ${id}'})
         }else {
-          for (let i = 0; i < cr.Chapter.length; i++) {
-   
-             ChapterAS.findByIdAndDelete(cr.Chapter[i]);
-         }
+         
           res.send({
             message:'del success'
           })
