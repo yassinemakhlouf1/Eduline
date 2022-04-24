@@ -67,13 +67,22 @@ class Chatbot extends Component {
         }
     };
 
-    componentDidMount() {
+    resolveAfterXSeconds(x) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(x);
+            }, x * 1000 );
+        });
+    }
+
+    async  componentDidMount() {
         this.df_event_query('Welcome');
 
         if(window.location.pathname === '/course' && !this.state.shopWelcomeSent) {
+            await this.resolveAfterXSeconds(1);
             this.df_event_query('WELCOME_SHOP');
             this.setState({ shopWelcomeSent: true, showBot: true });
-        }
+    }
 
          /*
         this.props.history.listen(() => {
@@ -83,7 +92,7 @@ class Chatbot extends Component {
             }
         });
         */
-       
+
     }
 
     componentDidUpdate() {
