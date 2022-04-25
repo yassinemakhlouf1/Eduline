@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 export default function Header() {
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('user-info')));
+  const [isAdminn,setisAdmin] = useState();
   const navigate=useNavigate();
- 
+  
   
   const logout=()=>{
    navigate('home');
@@ -15,6 +16,22 @@ export default function Header() {
     
 
   }
+  
+   const Courseadd = () => {if (user?.user.isAdmin!=true) {
+    return <li className="nav-item"><a className="nav-link" href="/DomainsAs"> Courses </a> </li>;
+   }
+    
+  
+    else {           
+   return <> <li className="nav-item"><a className="nav-link" href="/ListDomainsAs"> AddDomain </a> </li>
+   <li className="nav-item"> <a className="nav-link" href="/AddCourseAS"> AddCourses </a></li>
+   <li className="nav-item"> <a className="nav-link" href="/DomainsAs"> Courses </a></li>
+   </>;
+
+    
+  
+  }
+}
   return (
 	  
 	  <><head>
@@ -60,9 +77,12 @@ export default function Header() {
                 <a className="nav-link" href="/home">Home</a>
               </li>
               
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a className="nav-link" href="/DomainsAs"> Courses </a>
-              </li>
+              </li> */}
+             
+              
+              {Courseadd()}
               <li className="nav-item">
                 <a className="nav-link" href="/course"> CoursesChatBot </a>
               </li>

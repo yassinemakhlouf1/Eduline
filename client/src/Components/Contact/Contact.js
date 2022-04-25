@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
 import { sendInfo } from './ContactApi';
-
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+const schema = yup.object().shape({
+  Name: yup.string().required("Name should be required please"),
+  Email: yup.string().email().required(),
+  Phone: yup.number().min(8).required(),
+  Msg: yup.string().required(),
+});
 export default function Contact() {
-  const [status, setStatus] = useState();
+ 
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const [cnt, setCnt] = useState({
     Name: "",
     Email: "",
@@ -10,13 +22,13 @@ export default function Contact() {
     Msg:"",
   });
   const onSubmit=async(e)=>{
-    e.preventDefault();
+   
+    console.log(JSON.stringify(e))
     try {
-await sendInfo(cnt).then(() => {
-  setStatus('success');
-}).catch((err)=>{
-  setStatus('Quelque chose ne va pas')
+await sendInfo(e).catch((err)=>{
+ console.log(err)
 }
+
 
 )
 
@@ -24,6 +36,7 @@ await sendInfo(cnt).then(() => {
       catch (error) {
         console.log(error);
       }
+      e.preventDefault();
   }
   return (
     <section class="contact_section">
@@ -47,30 +60,35 @@ await sendInfo(cnt).then(() => {
             <h5>
               Get In Touch
             </h5>
-            <form action="">
+            <form action="" >
               <div>
-                <input type="text" placeholder="Full Name " onChange={(e) =>
-                      setCnt({ ...cnt, Name: e.target.value })
-                    } />
+                <input type="text" placeholder="Full Name " name='Name'  onChange={(e) =>
+                      setCnt({ ...cnt, Name: e.target.value() }) } {...register('Name')}  />
+                    {errors.Name?.message && <p>{errors.Name?.message}</p>}
               </div>
               <div>
-                <input type="text" placeholder="Phone Number"  onChange={(e) =>
+                <input type="number" placeholder="Phone Number" name='Phone' onChange={(e) =>
                       setCnt({ ...cnt, Phone: e.target.value })
-                    }/>
+                    } {...register('Phone')}/>
+                    {errors.Phone?.message && <p>'8 number require'</p>}
+
               </div>
               <div>
-                <input type="email" placeholder="Email Address"  onChange={(e) =>
+                <input type="email" placeholder="Email Address" name='Email' onChange={(e) =>
                       setCnt({ ...cnt, Email: e.target.value })
-                    } />
+                    } {...register('Email')} />
+                    {errors.Email?.message && <p>{errors.Email?.message}</p>}
+
               </div>
               <div>
-                <input type="text" placeholder="Message" class="input_message"  onChange={(e) =>
+                <input type="text" placeholder="Message" class="input_message" name='Msg'  onChange={(e) =>
                       setCnt({ ...cnt, Msg: e.target.value })
-                    } />
+                    } {...register('Msg')}/>
+                    {errors.Msg?.message && <p>{errors.Msg?.message}</p>}
+
               </div>
               <div class="d-flex justify-content-center">
-              {status && <div className="error"> {status} </div>}
-                <button type="submit" class="btn_on-hover"  onClick={()=>onSubmit()}>
+                <button type="submit" class="btn_on-hover" onClick={handleSubmit((e)=>onSubmit(e))} >
                   Send
                 </button>
                 

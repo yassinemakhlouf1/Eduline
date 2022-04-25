@@ -78,10 +78,13 @@ export default function AddCourseAS() {
     
       
   return (
-    <section class="course_section layout_padding-bottom">
+    <section class="event_section layout_padding">
+      
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <div>
-    <table class="table">
+      <h3>List of Courses</h3>
+    <table class="table table-striped table-responsive-md">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -95,11 +98,11 @@ export default function AddCourseAS() {
             
     <tr>
       <th scope="row">{index}</th>
-      <td>{domain._id}</td>
-      <td>{domain.Name}</td>
-      <td>{domain.Description}</td>
+      <td class="text-info" >{domain._id}</td>
+      <td class="text-info">{domain.Name}</td>
+      <td class="text-info">{domain.Description}</td>
       
-    <button name="add" className="btn  w-100 p-3" onClick={(event)=>onDelete(event,domain._id)}>Deleted</button>
+    <button name="add" className='btn btn-info '  onClick={(event)=>onDelete(event,domain._id)}><i class="fa fa-trash"></i> </button>
     </tr>
     ))}
   </tbody>
@@ -113,7 +116,7 @@ export default function AddCourseAS() {
             <input type="text"  name="Description" placeholder='Description'
             onChange={(e) =>
                 setCourse({ ...course, Description: e.target.value })}/>
-            <select name='domain' className='btn '      onChange={(e) =>
+            <select name='domain' className='btn btn-info'      onChange={(e) =>
                       setCourse({ ...course, idDomain: e.target.value })}>
             {domains?.map((domain,index)=>(
                 <option key={index} value={domain._id}>{domain.Name}</option>
@@ -139,8 +142,9 @@ export default function AddCourseAS() {
                 setChapitre({ ...chapitre, Lien: e.target.value })}/>
                 
             <br/>
-            <button name="add" className="btn  w-100 p-3" onClick={(e)=>onSubmit(e)}>Add</button>
-           
+            <div class="d-flex justify-content-center">
+            <button name="add" className="btn btn-info  " onClick={(e)=>onSubmit(e)}>Add</button>
+           </div>
         </form>
         <form class="form-group " >
             <h3>Add Chapter to course</h3>
@@ -152,7 +156,7 @@ export default function AddCourseAS() {
             onChange={(e) =>
                 setChapitre1({ ...chapitre1, Description: e.target.value })}/>
                 <br/>
-                <select name='domain' className='btn '      onChange={(e) =>
+                <select name='domain' className='btn btn-info'      onChange={(e) =>
                       setIdC(e.target.value) }>
             {Courses?.map((domain,index)=>(
                 <option key={index} value={domain._id}>{domain.Name}</option>
@@ -163,8 +167,9 @@ export default function AddCourseAS() {
                 setChapitre1({ ...chapitre1, Lien: e.target.value })}/>
                 
             <br/>
-            <button name="add" className="btn  w-100 p-3" onClick={(ev)=>PushCh(ev)}>Add</button>
-           
+            <div class="d-flex justify-content-center">
+            <button name="add" className="btn btn-info  " onClick={(ev)=>PushCh(ev)}>Add</button>
+            </div>
         </form>
     </div>
     </section>

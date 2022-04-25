@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { getCourseASId, getDomainAS } from './CourseASApi';
 
 export default function DomainsDetail() {
@@ -7,6 +7,7 @@ export default function DomainsDetail() {
   //const user = (localStorage.getItem('user-info'));
   //const result = JSON.parse(user);
   //console.log(user.user);
+  const navigate=useNavigate();
   const [courses,setCourses]=useState();
   useEffect(()=>{
     const fetchData = async () => {
@@ -16,9 +17,12 @@ export default function DomainsDetail() {
     fetchData();
   }, []);
   return (
+    
     <section class="event_section layout_padding">
     <div class="container">
       <div class="heading_container">
+      
+
         <h3>
        {title} 
         </h3>

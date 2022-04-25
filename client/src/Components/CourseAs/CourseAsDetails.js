@@ -40,8 +40,8 @@ export default function CourseAsDetails() {
             </h6>
           </div>         
         </div>
-        
-           <div  className='player-wrapper'>
+        <div class="d-flex ">
+           <div  className='player-wrapper '>
            <ReactPlayer
              className='player'
              url={chp.Lien}
@@ -49,6 +49,7 @@ export default function CourseAsDetails() {
              
              muted
            />
+         </div>
          </div>
          </>
        ))}

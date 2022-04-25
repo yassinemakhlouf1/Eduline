@@ -52,11 +52,14 @@ const [state,setState] = useState({ selectedFile: null })
   return (
     <section class="course_section layout_padding-bottom">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
     <div>
-    <table class="table">
+      <h3>List of Domains</h3>
+    <table class="table table-striped table-responsive-md">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col" >#</th>
       <th scope="col">ID</th>
       <th scope="col">Name</th>
       <th scope="col">Description</th>
@@ -66,12 +69,12 @@ const [state,setState] = useState({ selectedFile: null })
   {domains?.map((domain,index)=>(
             
     <tr>
-      <th scope="row">{index}</th>
-      <td>{domain._id}</td>
-      <td>{domain.Name}</td>
-      <td>{domain.Description}</td>
+      <th scope="row" >{index}</th>
+      <td  class="text-info">{domain._id}</td>
+      <td class="text-info">{domain.Name}</td>
+      <td class="text-info">{domain.Description}</td>
       
-    <button name="add" className="btn  w-100 p-3" onClick={(event)=>onDelete(event,domain._id)}>Deleted</button>
+    <button  name="add" className='btn btn-info w-100'  onClick={(event)=>onDelete(event,domain._id)}><i class="fa fa-trash"></i> </button>
     </tr>
     ))}
   </tbody>
@@ -89,8 +92,9 @@ const [state,setState] = useState({ selectedFile: null })
                 </div>
             <br/>
             <br/>
-            <button name="add" className="btn  w-100 p-3" onClick={(e)=>onSubmit(e)}>Add</button>
-           
+            <div class="d-flex justify-content-center">
+            <button name="add" className="btn btn-info  " onClick={(e)=>onSubmit(e)}>Add</button>
+             </div>
         </form>
     </div>
     </section>
