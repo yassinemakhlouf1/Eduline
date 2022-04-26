@@ -9,13 +9,17 @@ const courseASSchema = new Schema({
     Description : {
         type: String
     },
-    Domain: {
+    Domain:{
+        type: mongoose.Schema.Types.ObjectId, ref: 'domainAS',
+      },
+    Chapter:[{
+        type: mongoose.Schema.Types.ObjectId, ref: 'chapterAS',
+      }],
+      image: {
         type: String,
-       
-    },
-    Chapter : {
-        type: String
-    },
+        default:null
+    }
+
  
 
 });

@@ -8,5 +8,6 @@ router.get('/allChaptersAS', chapterAS.ChapterASList);
 router.get('/ChaptersAS/:id', chapterAS.ChaptersASFindOne);
 router.delete('/DelChaptersAS/:id', chapterAS.ChaptersASDel);
 router.put('/UpdatChapterAS/:id', chapterAS.ChaptersASUpdate);
+router.get('/getCourseChp/:id', chapterAS.ChapterASListByC);
 
 module.exports = router;

@@ -9,6 +9,13 @@ const domainASSchema = new Schema({
     Description : {
         type: String
     },
+    courseAS:[{
+        type: mongoose.Schema.Types.ObjectId, ref: 'courseAS',
+      }],
+    image: {
+        type: String,
+        default:null
+    }
  
 
 });

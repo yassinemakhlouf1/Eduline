@@ -924,6 +924,22 @@ a:focus {
 .footer_section a {
   color: #787878;
 }
+/* coureAS*/
+.select-courseAS{
+  display: block !important;
+}
+/* Chp Video */
+.player-wrapper {
+  position: relative;
+  text-align: center;
+  padding-top: 30% /* Player ratio: 100 / (1280 / 720) */
+}
+
+.player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
