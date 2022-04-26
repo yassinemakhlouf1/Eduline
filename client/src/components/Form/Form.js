@@ -45,9 +45,9 @@ const Form = ({ currentId }) => {
         <Paper className={classes.paper} elevation={6} >
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">{currentId ? 'Editing' : 'Creating'} a Forum</Typography>
-                <TextField name="title" variant="outlined" label="Title" fullWidth value={forumData.title} onChange={(e) => setForumData({ ...forumData, title: e.target.value })} />
+                <TextField multiline name="title" variant="outlined" label="Title" fullWidth value={forumData.title} onChange={(e) => setForumData({ ...forumData, title: e.target.value })} />
                 <TextField multiline rows={8} name="description" variant="outlined" label="Description" fullWidth value={forumData.description} onChange={(e) => setForumData({ ...forumData, description: e.target.value })} />
-                <TextField name="tags" variant="outlined" label="Tags" fullWidth value={forumData.tags} onChange={(e) => setForumData({ ...forumData, tags: e.target.value.split(',') })} />
+                <TextField multiline name="tags" variant="outlined" label="Tags" fullWidth value={forumData.tags} onChange={(e) => setForumData({ ...forumData, tags: e.target.value.split(',') })} />
                 <div className={classes.fileInput}>
                     <FileBase type="file" multiple={false} onDone={({ base64 }) => setForumData({ ...forumData, selectedFile: base64 })} />
                 </div>

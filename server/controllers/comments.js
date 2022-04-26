@@ -17,6 +17,6 @@ module.exports.createComment = async (req, res) => {
 module.exports.deleteComment = async (req, res) => {
     const { id } = req.params;
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No comment with that id!!');
-    await Comment.findByIdAndRemove(id);
-    res.json({ message: 'Comment deleted successfully' });
+    const deletedComment = await Comment.findByIdAndRemove(id);
+    res.json(deletedComment);
 };

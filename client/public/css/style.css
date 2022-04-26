@@ -89,7 +89,7 @@ body {
 }
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
-  /*padding: 45px 15px 15px;*/
+  padding: 45px 15px 15px;
   color: #ffffff;
   text-align: center;
   position: relative;
@@ -132,12 +132,10 @@ a:focus {
 }
 
 .custom_nav-container .nav_search-btn {
-  position: relative;
-  bottom: 8px;
   background-image: url(../images/search-icon.png);
   background-size: 20px;
   background-repeat: no-repeat;
-  /*background-position-y: 7px;*/
+  background-position-y: 7px;
   width: 35px;
   height: 35px;
   padding: 0;
@@ -158,8 +156,6 @@ a:focus {
 }
 
 .navbar-brand h3 {
-  position:relative;
-  bottom: 6px;
   color: #ffffff;
   font-weight: bold;
   text-transform: uppercase;
@@ -927,6 +923,22 @@ a:focus {
 
 .footer_section a {
   color: #787878;
+}
+/* coureAS*/
+.select-courseAS{
+  display: block !important;
+}
+/* Chp Video */
+.player-wrapper {
+  position: relative;
+  text-align: center;
+  padding-top: 30% /* Player ratio: 100 / (1280 / 720) */
+}
+
+.player {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* end footer section*/

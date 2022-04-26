@@ -16,12 +16,14 @@ const answerRoutes = require('./routes/answers.js');
 const commentRoutes = require('./routes/comments.js');
 const calenderASRoutes = require('./routes/calender');
 const courseASRoutes = require('./routes/courseAS');
+const contactRoutes = require('./routes/Contact');
 const domainASRoutes = require('./routes/domainAS');
 const chapterASRoutes =require('./routes/chapterAS');
 var apiRoutes = require('./routes/api')
 var teacherRoutes = require('./routes/teacher')
 var studentRoutes = require('./routes/student')
 var adminRoutes = require('./routes/admin')
+var uploadImgRoutes = require('./routes/uploadImg')
 
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
@@ -84,18 +86,20 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use('/', userRoutes);
 
-app.use('/aa',courseASRoutes);
+app.use('/courseAS',courseASRoutes);
 app.use('/courseAS/domain',domainASRoutes);
 app.use('/courseAS/chapter',chapterASRoutes);
 app.use('/calendar',calenderASRoutes);
 app.use('/forums', forumRoutes);
 app.use('/answers', answerRoutes);
 app.use('/forums', commentRoutes);
+app.use('/contact',contactRoutes );
 
 app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);
 app.use('/student', studentRoutes);
 app.use('/teacher', teacherRoutes);
+app.use('/upload', uploadImgRoutes);
 
 const bodyParser = require('body-parser');
 

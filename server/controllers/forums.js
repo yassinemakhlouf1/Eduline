@@ -1,10 +1,10 @@
 const Forum = require("../models/forum.js");
 const mongoose = require("mongoose");
-/*
-export const getForums = async (req, res) => {
+
+module.exports.getForums = async (req, res) => {
     const { page } = req.query;
     try {
-        const LIMIT = 8;
+        const LIMIT = 6;
         const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
         const total = await Forum.countDocuments({});
         const forums =  await Forum.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
@@ -15,7 +15,7 @@ export const getForums = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
-
+/*
 export const getForum = async (req, res) => {
     const { id } = req.params;
     try {
@@ -25,58 +25,73 @@ export const getForum = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
-*/
+
 
 module.exports.getForums = async (req, res) => {
     const { page } = req.query;
     try {
-        const LIMIT = 8;
+        const LIMIT = 6;
         const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
         const total = await Forum.countDocuments({});
         const forums =  await Forum.aggregate([
             {
                 $lookup: {
                     from: "comments",
-                    let: { forumid: "$_id" },
-                    pipeline: [
-                        {
-                            $match: {
-                                $expr: {
-                                    $eq: ["$forumid", "$$forumid"],
-                                },
-                            },
-                        },
-                        {
-                            $project: {
-                                _id: 1,
-                                comment: 1,
-                                createdAt: 1,
-                            },
-                        },
-                    ],
+                    localField: '_id',
+                    foreignField: 'forumid',
                     as: "comments",
                 },
             },
             {
                 $lookup: {
                     from: "answers",
-                    let: { forumid: "$_id" },
-                    pipeline: [
-                        {
-                            $match: {
-                                $expr: {
-                                    $eq: ["$forumid", "$$forumid"],
-                                },
-                            },
-                        },
-                        {
-                            $project: {
-                                _id: 1,
-                                //comment: 1,
-                                //createdAt: 1,
-                            },
-                        },
-                    ],
+                    localField: '_id',
+                    foreignField: 'forumid',
+                    as: "answersDetails",
+                },
+            },
+            {
+                $sort: { _id: -1 },
+            },
+            {
+                $limit: LIMIT,
+            },
+            {
+                $skip: startIndex,
+            },
+            {
+                $project: {
+                    __v: 0,
+                },
+            },
+        ]).sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+        res.status(200).json({ data: forums, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
+
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
+*/
+module.exports.getForumsByUser = async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const forums =  await Forum.aggregate([
+            {
+                $match: { creator: userId },
+            },
+            {
+                $lookup: {
+                    from: "comments",
+                    localField: '_id',
+                    foreignField: 'forumid',
+                    as: "comments",
+                },
+            },
+            {
+                $lookup: {
+                    from: "answers",
+                    localField: '_id',
+                    foreignField: 'forumid',
                     as: "answersDetails",
                 },
             },
@@ -85,10 +100,8 @@ module.exports.getForums = async (req, res) => {
                     __v: 0,
                 },
             },
-        ]).sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
-        //console.log(Forum);
-        res.status(200).json({ data: forums, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
-
+        ]);
+        res.status(200).json({ data: forums });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -104,55 +117,16 @@ module.exports.getForum = async (req, res) => {
             {
                 $lookup: {
                     from: "answers",
-                    let: { forumid: "$_id" },
-                    pipeline: [
-                        {
-                            $match: {
-                                $expr: {
-                                    $eq: ["$forumid", "$$forumid"],
-                                },
-                            },
-                        },
-                        {
-                            $project: {
-                                _id: 1,
-                                creator: 1,
-                                name: 1,
-                                answer: 1,
-                                forumid: 1,
-                                votesPlus: 1,
-                                votesMoin: 1,
-                                createdAt: 1,
-                                votes: 1,
-                            },
-                        },
-                    ],
+                    localField: '_id',
+                    foreignField: 'forumid',
                     as: "answersDetails",
                 },
             },
             {
                 $lookup: {
                     from: "comments",
-                    let: { forumid: "$_id" },
-                    pipeline: [
-                        {
-                            $match: {
-                                $expr: {
-                                    $eq: ["$forumid", "$$forumid"],
-                                },
-                            },
-                        },
-                        {
-                            $project: {
-                                _id: 1,
-                                forumid:1,
-                                creator: 1,
-                                name: 1,
-                                content: 1,
-                                createdAt: 1,
-                            },
-                        },
-                    ],
+                    localField: '_id',
+                    foreignField: 'forumid',
                     as: "comments",
                 },
             },
@@ -232,7 +206,6 @@ module.exports.likeForum = async (req, res) => {
     } else {
         forum.likes = forum.likes.filter((id) => id !== String(value));
     }
-    //forum.likes.push(value);
     const updatedForum = await Forum.findByIdAndUpdate(id, forum, { new: true });
 
     res.json(updatedForum);
@@ -247,3 +220,4 @@ module.exports.commentForum = async (req, res) => {
 
     res.json(updatedForum);
 };
+

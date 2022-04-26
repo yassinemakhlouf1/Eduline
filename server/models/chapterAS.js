@@ -9,6 +9,11 @@ const chapterASSchema = new Schema({
     Description : {
         type: String
     },
+    Lien : {
+        type: String,
+        default:null
+    },
+    
  
 
 });

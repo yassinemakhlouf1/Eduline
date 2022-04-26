@@ -17,8 +17,10 @@ export const createComment = (comment, id) => async (dispatch) => {
 
 export const deleteComment = (id) => async (dispatch) => {
     try {
-        await api.deleteComment(id);
+        const { data } = await api.deleteComment(id);
         dispatch({ type: DELETE, payload: id });
+        const forum = await api.fetchForum(data.forumid);
+        return forum.data[0].comments;
     } catch (error) {
         console.log(error);
     }
