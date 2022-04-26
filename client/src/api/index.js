@@ -10,7 +10,8 @@ API.interceptors.request.use((req) => {
 //const url = 'http://localhost:5000/forums';
 
 export const fetchForums = (page) => API.get(`/forums?page=${page}`);
-export const fetchForum = (id) => API.get(`/forums/${id}`);
+export const fetchForum = (id) => API.get(`/forums/forum/${id}`);
+export const fetchForumsByUser = (userId) => API.get(`/forums/${userId}`);
 export const fetchForumsBySearch = (searchQuery) => API.get(`/forums/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
 export const createForum = (newForum) => API.post('/forums', newForum);
 export const updateForum = (id, updatedForum) => API.patch(`/forums/${id}`, updatedForum);

@@ -16,8 +16,11 @@ export const createAnswer = (answer) => async (dispatch) => {
 
 export const deleteAnswer = (id) => async (dispatch) => {
     try {
-        await api.deleteAnswer(id);
+        const { data } = await api.deleteAnswer(id);
         dispatch({ type: DELETE, payload: id });
+        const forum = await api.fetchForum(data.forumid);
+        console.log(forum.data[0].answersDetails);
+        return forum.data[0].answersDetails;
     } catch (error) {
         console.log(error);
     }

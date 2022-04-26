@@ -4,6 +4,7 @@ export const DELETE = 'DELETE';
 export const FETCH_ALL = 'FETCH_ALL';
 export const FETCH_FORUM = 'FETCH_FORUM';
 export const FETCH_BY_SEARCH = 'FETCH_BY_SEARCH';
+export const FETCH_BY_USER = 'FETCH_BY_USER';
 export const LIKE = 'LIKE';
 export const COMMENT = 'COMMENT';
 export const COMMENT2 = 'COMMENT2';
