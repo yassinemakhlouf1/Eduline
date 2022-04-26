@@ -13,7 +13,6 @@ import ForumsHome from './Components/ForumsHome/ForumsHome';
 import Form from './Components/Form/Form';
 import DomainsAs from "./Components/CourseAs/DomainsAs";
 import CoursASCH from "./Components/CourseAs/CoursASCH";
-import Course from './Components/course/Course';
 import Chatbot from "./Components/chatbot/chatbot";
 import Contact from "./Components/Contact/Contact";
 import AddCourseAS from "./Components/CourseAs/AddCourseAS";
@@ -64,7 +63,6 @@ function App() {
             <Route path="/forums/:userId" exact element={<ForumsHome />} />
             <Route path="/forums/forum/:id" element={<ForumDetails />} />
             <Route path="/form" exact element={<Form />} />
-            <Route path="/course" exact element={<Course />} />
             <Route path="/contact"  element={<Contact />} />
             {/* <div className="app" style={{ backgroundImage: 'url("/ques1.png")' }}> */}
         {/* <Header /> */}

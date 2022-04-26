@@ -932,7 +932,7 @@ a:focus {
 .player-wrapper {
   position: relative;
   text-align: center;
-  padding-top: 30% /* Player ratio: 100 / (1280 / 720) */
+  padding-top: 40% /* Player ratio: 100 / (1280 / 720) */
 }
 
 .player {

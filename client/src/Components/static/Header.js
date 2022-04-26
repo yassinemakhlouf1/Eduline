@@ -83,9 +83,7 @@ export default function Header() {
              
               
               {Courseadd()}
-              <li className="nav-item">
-                <a className="nav-link" href="/course"> CoursesChatBot </a>
-              </li>
+              
               <li className="nav-item">
                 <a className="nav-link" href="/Home1"> Quiz </a>
               </li>
