@@ -23,6 +23,8 @@ import CourseAsDetails from "./Components/CourseAs/CourseAsDetails";
 import Testimg from "./Components/CourseAs/Testimg";
 import DomainsDetail from "./Components/CourseAs/DomainsDetail";
 import AddDomain from "./Components/CourseAs/AddDomain";
+import AskStackoverflow from "./Components/Form/AskStackoverflow";
+import Answers from "./Components/Form/Answers/Answers";
 
 
 function App() {
@@ -49,6 +51,8 @@ function App() {
             <Route path="/forums/:userId" exact element={<ForumsHome />} />
             <Route path="/forums/forum/:id" element={<ForumDetails />} />
             <Route path="/form" exact element={<Form />} />
+            <Route path="/askstack" exact element={<AskStackoverflow />} />
+            {/*<Route path="/forums/stackoverflow/:query" exact element={<Answers />} />*/}
             <Route path="/course" exact element={<Course />} />
             <Route path="/contact"  element={<Contact />} />
           </Route>

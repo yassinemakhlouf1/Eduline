@@ -11,6 +11,7 @@ API.interceptors.request.use((req) => {
 
 export const fetchForums = (page) => API.get(`/forums?page=${page}`);
 export const fetchForum = (id) => API.get(`/forums/forum/${id}`);
+export const fetchStackoverflowAnswers = (query) => API.get(`/forums/stackoverflow/${query}`);
 export const fetchForumsByUser = (userId) => API.get(`/forums/${userId}`);
 export const fetchForumsBySearch = (searchQuery) => API.get(`/forums/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
 export const createForum = (newForum) => API.post('/forums', newForum);
