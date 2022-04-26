@@ -67,7 +67,6 @@ function App() {
             <Route path="/form" exact element={<Form />} />
             <Route path="/askstack" exact element={<AskStackoverflow />} />
             {/*<Route path="/forums/stackoverflow/:query" exact element={<Answers />} />*/}
-            <Route path="/course" exact element={<Course />} />
             <Route path="/contact"  element={<Contact />} />
             {/* <div className="app" style={{ backgroundImage: 'url("/ques1.png")' }}> */}
         {/* <Header /> */}
