@@ -59,7 +59,23 @@ module.exports = {
     },
 
 
+    //add a case, that switches between action name
     handleAction: function(responses){
+        let queryResult = responses[0].queryResult;
+        switch (queryResult.action) {
+            case 'Extracourses-yes':
+                //queryResult is set when all the parameters requires
+                if (queryResult.allRequiredParamsPresent) {  //read parameters
+                    
+                }
+                break;
+        }
+
+        console.log(queryResult.action);
+        //console.log(queryResult.allRequiredParamsPresent);
+        //console.log(queryResult.fulfillmentMessages);
+        //console.log(queryResult.parameters.fields);
+
         return responses;
     },
 }
