@@ -68,7 +68,7 @@ function App() {
             <Route path="/contact"  element={<Contact />} />
             {/* <div className="app" style={{ backgroundImage: 'url("/ques1.png")' }}> */}
         {/* <Header /> */}
-          <Route path="/Home1" exact
+          <Route path="/Home1" exact 
             element={<Home1
               name={name}
               setName={setName}
