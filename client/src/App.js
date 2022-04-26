@@ -1,9 +1,8 @@
 import {BrowserRouter,Routes,Route} from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import './App.css';
 import Home from './Components/Home';
-import Header from './Components/static/Header';
-import {Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Footer from './Components/static/Footer';
 import Login from './Components/login/Login';
 import Register from './Components/login/Register';
@@ -14,7 +13,6 @@ import ForumsHome from './Components/ForumsHome/ForumsHome';
 import Form from './Components/Form/Form';
 import DomainsAs from "./Components/CourseAs/DomainsAs";
 import CoursASCH from "./Components/CourseAs/CoursASCH";
-import Quiz from "./Components/quiz/Quiz";
 import Course from './Components/course/Course';
 import Chatbot from "./Components/chatbot/chatbot";
 import Contact from "./Components/Contact/Contact";
@@ -23,9 +21,27 @@ import CourseAsDetails from "./Components/CourseAs/CourseAsDetails";
 import Testimg from "./Components/CourseAs/Testimg";
 import DomainsDetail from "./Components/CourseAs/DomainsDetail";
 import AddDomain from "./Components/CourseAs/AddDomain";
+import axios from "axios";
+import Quiz from "./Pages/Quiz/Quiz";
+import Result from "./Pages/Result/Result";
+import Home1 from "./Pages/Home/Home1";
+import Header from "./Components/static/Header";
 
 
 function App() {
+  const [questions, setQuestions] = useState();
+  const [name, setName] = useState();
+  const [score, setScore] = useState(0);
+
+  const fetchQuestions = async (category = "", difficulty = "") => {
+    const { data } = await axios.get(
+      `https://opentdb.com/api.php?amount=10${
+        category && `&category=${category}`
+      }${difficulty && `&difficulty=${difficulty}`}&type=multiple`
+    );
+
+    setQuestions(data.results);
+  };
   return (
     <>
       <BrowserRouter>
@@ -33,7 +49,6 @@ function App() {
           <Route path="/" element={<Layout />} >
           <Route path="/CoursASCH/" element={<CoursASCH />} />
              <Route path="/img" element={<Testimg />} />
-             <Route path="/quiz" element={<Quiz />} />
              <Route path="/reset" element={<Reset />} />
              <Route path="/reset/:id" element={<Forgot />} />
             <Route path="/DomainsAs" element={<DomainsAs />} />
@@ -50,6 +65,25 @@ function App() {
             <Route path="/form" exact element={<Form />} />
             <Route path="/course" exact element={<Course />} />
             <Route path="/contact"  element={<Contact />} />
+            {/* <div className="app" style={{ backgroundImage: 'url("/ques1.png")' }}> */}
+        {/* <Header /> */}
+          <Route path="/Home1" exact
+            element={<Home1
+              name={name}
+              setName={setName}
+              fetchQuestions={fetchQuestions}
+            />} />
+          <Route path="/quiz"
+            element={<Quiz
+              name={name}
+              questions={questions}
+              score={score}
+              setScore={setScore}
+              setQuestions={setQuestions}
+            />} />
+          <Route path="/result"
+            element={<Result name={name} score={score} />} />
+      {/* </div> */}
           </Route>
 
         </Routes>
@@ -62,7 +96,7 @@ function App() {
 function Layout() {
   return (
     <>
-      <Header />
+       <Header /> 
       <div >
         <Outlet />
       </div>

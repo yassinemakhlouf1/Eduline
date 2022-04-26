@@ -10,7 +10,7 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^0.26.1",
+    "axios": "^0.21.1",
     "cross-spawn": "^7.0.3",
     "jwt-decode": "^3.1.2",
     "material-ui-chip-input": "^2.0.0-beta.2",
@@ -58,4 +58,6 @@
   "devDependencies": {
     "http-proxy-middleware": "^2.0.4"
   }
+
+  
 }
