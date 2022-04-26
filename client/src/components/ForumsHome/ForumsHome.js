@@ -27,7 +27,7 @@ const ForumsHome = () => {
     const [tags, setTags] = useState([]);
     const user = JSON.parse(localStorage.getItem('user-info'));
     const { forums } = useSelector((state) => state.forums);
-    const [all, setAll] = useState(false);
+    const [all, setAll] = useState(true);
     const [my, setMy] = useState(false);
     const [followed, setFollowed] = useState(false);
 
@@ -96,6 +96,7 @@ const ForumsHome = () => {
                                 </AppBar>
                                 <AppBar className={classes.appBarSearch} position="static" color="inherit">
                                     <TextField 
+                                        multiline
                                         name="search" 
                                         variant="outlined" 
                                         label="Search Forums" 

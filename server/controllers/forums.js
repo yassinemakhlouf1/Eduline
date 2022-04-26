@@ -1,6 +1,6 @@
 const Forum = require("../models/forum.js");
 const mongoose = require("mongoose");
-/*
+
 module.exports.getForums = async (req, res) => {
     const { page } = req.query;
     try {
@@ -15,7 +15,7 @@ module.exports.getForums = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
-
+/*
 export const getForum = async (req, res) => {
     const { id } = req.params;
     try {
@@ -25,7 +25,7 @@ export const getForum = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
-*/
+
 
 module.exports.getForums = async (req, res) => {
     const { page } = req.query;
@@ -71,7 +71,7 @@ module.exports.getForums = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
-
+*/
 module.exports.getForumsByUser = async (req, res) => {
     const { userId } = req.params;
     try {
@@ -220,3 +220,4 @@ module.exports.commentForum = async (req, res) => {
 
     res.json(updatedForum);
 };
+

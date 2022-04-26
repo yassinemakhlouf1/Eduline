@@ -58,8 +58,8 @@ const CommentSection = ({ forum }) => {
                     {user?.user?.username && (
                         <div style={{ marginLeft: '100px', width: '87%' }}>
                             <TextField 
+                                multiline
                                 fullWidth 
-                                rows={4} 
                                 variant="outlined" 
                                 label="Add comment" 
                                 value={commentData.content}
