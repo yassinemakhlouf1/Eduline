@@ -80,7 +80,7 @@ class Chatbot extends Component {
     async  componentDidMount() {
         this.df_event_query('Welcome');
 
-        if(window.location.pathname === '/course' && !this.state.shopWelcomeSent) {
+        if(window.location.pathname === '/DomainsAs' && !this.state.shopWelcomeSent) {
             await this.resolveAfterXSeconds(1);
             this.df_event_query('WELCOME_SHOP');
             this.setState({ shopWelcomeSent: true, showBot: true });
@@ -192,12 +192,14 @@ class Chatbot extends Component {
     }
 
     render() {
+        
         if (this.state.showBot) {
+            
             return (
-                <div style={{ minHeight: 500, maxHeight: 500, width:400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgray'}}>
+                <div style={{ backgroundColor:"white",minHeight: 500, maxHeight: 500, width:400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgray'}}>
                     <nav>
                         <div className="nav-wrapper">
-                            <a href="/" className="brand-logo">ChatBot</a>
+                            <a href="/home" className="brand-logo">ChatBot</a>
                             <ul id="nav-mobile" className="right hide-on-med-and-down">
                                 <li><a href="/" onClick={this.hide}>Close</a></li>
                             </ul>
@@ -224,12 +226,12 @@ class Chatbot extends Component {
             );
         } else {
             return (
-                <div style={{ minHeight: 40, maxHeight: 500, width:400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgray'}}>
+                <div style={{ minHeight: 40, maxHeight: 500, width:200, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgray'}}>
                     <nav>
                         <div className="nav-wrapper">
-                            <a href="/" className="brand-logo">ChatBot</a>
+                            <a href="/home" className="brand-logo">ChatBot</a>
                             <ul id="nav-mobile" className="right hide-on-med-and-down">
-                                <li><a href="/" onClick={this.show}>Show</a></li>
+                                <li><a href="/home" onClick={this.show}>Show</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -239,7 +241,7 @@ class Chatbot extends Component {
                     
                 </div>
             );
-        }
+        } 
     }
 }
 
