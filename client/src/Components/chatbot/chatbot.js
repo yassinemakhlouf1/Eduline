@@ -9,6 +9,8 @@ import Message from './Message';
 import Card from './Card';
 import QuickReplies from './QuickReplies';
 
+//import Autocomplete from './Autocomplete';
+
 class Chatbot extends Component {
 
     messagesEnd;
@@ -210,7 +212,13 @@ class Chatbot extends Component {
                         </div>
                     </div>
                     <div className="col s12">
-                        <input style={{margin: 0, paddingLeft: '1%', paddingRight: '1%', width: '98%'}} placeholder="type your message:" type="text" ref={(input) => { this.talkInput = input; }} onKeyPress={this._handleInputKeyPress}  />
+                        <input style={{margin: 0, paddingLeft: '1%', paddingRight: '1%', width: '98%'}} placeholder="type your message:" type="text" ref={(input) => { this.talkInput = input; }} onKeyPress={this._handleInputKeyPress}
+                        /*
+                         suggestions={[
+                            "hi","hello","extra", "courses","give","Tunisia","Ariana", "me ", "good day"
+                          ]}
+                        */
+                        />
                     </div>
                 </div>
             );
