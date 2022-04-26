@@ -1,15 +1,19 @@
 var createError = require("http-errors");
 const ChapterAS = require("../models/chapterAS");
+const CourseAs = require("../models/courseAS");
 
 exports.create = async (req, res) => {
     if (!req.body) {
       res.status(400).send({ message: "Content can not be empty!" });
       return;
     }
+    console.log(req.params.body)
     const chapterAS = new ChapterAS({
       Name:req.body.Name,
       Description:req.body.Description,
+      Lien:req.body.Lien
     });
+    console.log(chapterAS)
     chapterAS.save(chapterAS)
     .then((data) => {
       res.send(data);
@@ -75,6 +79,7 @@ exports.ChaptersASUpdate = (req, res) => {
   const chapterAS = new ChapterAS({
     Name:req.body.Name,
     Description:req.body.Description,
+    Lien:req.body.Lien,
     _id:id
   });
   ChapterAS.findByIdAndUpdate(id, chapterAS, { useFindAndModify: false })
@@ -90,4 +95,24 @@ exports.ChaptersASUpdate = (req, res) => {
         message: "Error updating DomainAS with id=" + id
       });
     });
+};
+module.exports.ChapterASListByC = async (req, res) => {
+  try {
+  const id=req.params.id;
+  const cr =await CourseAs.findById(id);
+  var tab=new Array()
+  for (let i = 0; i < cr.Chapter.length; i++) {
+   
+    tab[i]= await ChapterAS.findById(cr.Chapter[i]);
+  }
+     
+          res.send(tab);
+     
+  }
+  catch(err) {
+    res.status(500).send({
+      message:
+        err.message 
+    });
+  }  
 };

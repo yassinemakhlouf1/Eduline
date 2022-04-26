@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 export default function Header() {
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('user-info')));
+  const [isAdminn,setisAdmin] = useState();
   const navigate=useNavigate();
- 
+  
   
   const logout=()=>{
    navigate('home');
@@ -15,6 +16,22 @@ export default function Header() {
     
 
   }
+  
+   const Courseadd = () => {if (user?.user.isAdmin!=true) {
+    return <li className="nav-item"><a className="nav-link" href="/DomainsAs"> Courses </a> </li>;
+   }
+    
+  
+    else {           
+   return <> <li className="nav-item"><a className="nav-link" href="/ListDomainsAs"> AddDomain </a> </li>
+   <li className="nav-item"> <a className="nav-link" href="/AddCourseAS"> AddCourses </a></li>
+   <li className="nav-item"> <a className="nav-link" href="/DomainsAs"> Courses </a></li>
+   </>;
+
+    
+  
+  }
+}
   return (
 	  
 	  <><head>
@@ -44,7 +61,7 @@ export default function Header() {
       <header class="header_section">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/home">
               <h3>
                 EDULINE
               </h3>
@@ -59,17 +76,21 @@ export default function Header() {
               <li className="nav-item">
                 <a className="nav-link" href="/home">Home</a>
               </li>
+              
+              {/* <li className="nav-item">
+                <a className="nav-link" href="/DomainsAs"> Courses </a>
+              </li> */}
+             
+              
+              {Courseadd()}
               <li className="nav-item">
-                <a className="nav-link" href="about.html"> About </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/course"> Courses </a>
+                <a className="nav-link" href="/course"> CoursesChatBot </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/forums"> Forums </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="contact.html">Contact us</a>
+                <a className="nav-link" href="/contact">Contact us</a>
               </li>
              {user ? (
                
@@ -79,7 +100,7 @@ export default function Header() {
              )
               :(
                 <li className="nav-item" >
-                <a className="nav-link" href="login">Login</a>
+                <a className="nav-link" href="/login">Login</a>
               </li>)
               
               }
