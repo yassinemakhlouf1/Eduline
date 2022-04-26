@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_FORUM, COMMENT } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, FETCH_BY_USER, START_LOADING, END_LOADING, FETCH_FORUM, COMMENT } from '../constants/actionTypes';
 
 export default (state = { isLoading: true, forums: [] }, action) => {
     switch (action.type) {
@@ -14,6 +14,11 @@ export default (state = { isLoading: true, forums: [] }, action) => {
                 numberOfPages: action.payload.numberOfPages,
             };
         case FETCH_BY_SEARCH:
+            return {
+                ...state,
+                forums: action.payload,
+            };
+        case FETCH_BY_USER:
             return {
                 ...state,
                 forums: action.payload,

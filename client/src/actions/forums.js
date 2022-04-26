@@ -1,4 +1,4 @@
-import { FETCH_ALL, FETCH_FORUM, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE, START_LOADING, END_LOADING, COMMENT } from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_FORUM, FETCH_BY_SEARCH, FETCH_BY_USER, CREATE, UPDATE, DELETE, LIKE, START_LOADING, END_LOADING, COMMENT } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 // Action Creators
@@ -6,7 +6,6 @@ export const getForum = (id) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
         const { data } = await api.fetchForum(id);
-        //console.log(data[0].answersDetails);
         dispatch({ type: FETCH_FORUM, payload: data[0] });
         dispatch({ type: END_LOADING });
     } catch (error) {
@@ -28,12 +27,22 @@ export const getForums = (page) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
         const { data } = await api.fetchForums(page);
-        //console.log(data);
         dispatch({ type: FETCH_ALL, payload: data });
         dispatch({ type: END_LOADING });
     } catch (error) {
         console.log(error);
         console.log(page);
+    }
+};
+
+export const getForumsByUser = (userId) => async (dispatch) => {
+    try {
+        dispatch({ type: START_LOADING });
+        const { data: { data } } = await api.fetchForumsByUser(userId);
+        dispatch({ type: FETCH_BY_USER, payload: data });
+        dispatch({ type: END_LOADING });
+    } catch (error) {
+        console.log(error);
     }
 };
 
@@ -78,15 +87,6 @@ export const deleteForum = (id) => async (dispatch) => {
         console.log(error);
     }
 };
-/*
-export const likeForum = (id) => async (dispatch) => {
-    try {
-        const { data } = await api.likeForum(id);
-        dispatch({ type: LIKE, payload: data });
-    } catch (error) {
-        console.log(error);
-    }
-};*/
 
 export const likeForum = (value, id) => async (dispatch) => {
     try {

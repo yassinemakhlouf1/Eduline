@@ -3,7 +3,21 @@ const mongoose = require("mongoose");
 
 module.exports.getAnswers = async (req, res) => {
     try {
-        const answers =  await Answer.find();
+        const answers =  await Answer.aggregate([
+            {
+                $lookup: {
+                    from: "comments",
+                    localField: '_id',
+                    foreignField: 'answerid',
+                    as: "comments",
+                },
+            },
+            {
+                $project: {
+                    __v: 0,
+                },
+            },
+        ]);
         res.status(200).json({ data: answers });
 
     } catch (error) {
@@ -14,7 +28,6 @@ module.exports.getAnswers = async (req, res) => {
 module.exports.createAnswer = async (req, res) => {
     const answer = req.body;
     const newAnswer = new Answer({ ...answer, createdAt: new Date().toISOString() });
-    //console.log(req.body);
     try {
         await newAnswer.save();
         res.status(201).json(newAnswer);
@@ -23,8 +36,6 @@ module.exports.createAnswer = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 };
-
-//ajoter les controlleurs de votes et supprission
 
 module.exports.plusVote = async (req, res) => {
     
@@ -38,7 +49,6 @@ module.exports.plusVote = async (req, res) => {
     } else {
         answer.votesPlus = answer.votesPlus.filter((id) => id !== String(value));
     }
-    //answer.votesPlus.push(value);
     const updatedAnswer = await Answer.findByIdAndUpdate(id, answer, { new: true });
 
     res.json(updatedAnswer);
@@ -59,4 +69,11 @@ module.exports.moinVote = async (req, res) => {
     const updatedAnswer = await Answer.findByIdAndUpdate(id, answer, { new: true });
 
     res.json(updatedAnswer);
+};
+
+module.exports.deleteAnswer = async (req, res) => {
+    const { id } = req.params;
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No answer with that id!!');
+    const deletedAnswer = await Answer.findByIdAndRemove(id);
+    res.json(deletedAnswer);
 };

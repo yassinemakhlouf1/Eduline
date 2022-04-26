@@ -43,7 +43,7 @@ const Forum = ({ forum, setCurrentId }) => {
       };
 
       const openForum = () => {
-          history(`/forums/${forum._id}`);
+          history(`/forums/forum/${forum._id}`);
       };
 
       const truncate = (str, n) => {
@@ -59,8 +59,8 @@ const Forum = ({ forum, setCurrentId }) => {
                     <Typography variant="h6">{forum.name}</Typography>
                 </div>
                 <Typography variant="body2" style={{ color: 'white' }}>{moment(forum.createdAt).fromNow()}</Typography>
-                <Typography variant="body2" style={{ color: 'white' }}>{forum?.answersDetails?.length} Answers</Typography>
-                <Typography variant="body2" style={{ color: 'white' }}>{forum?.comments?.length} Comments</Typography>
+                {/*<Typography variant="body2" style={{ color: 'white' }}>{forum?.answersDetails?.length} Answers</Typography>
+                <Typography variant="body2" style={{ color: 'white' }}>{forum?.comments?.length} Comments</Typography>*/}
             </div>
             <ButtonBase className={classes.cardAction} onClick={openForum}>
                 <Typography className={classes.title} variant="h5" gutterBottom>{truncate(forum.title, 25)}</Typography>

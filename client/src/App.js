@@ -61,7 +61,8 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="/forums" exact element={<ForumsHome />} />
             <Route path="/forums/search" exact element={<ForumsHome />} />
-            <Route path="/forums/:id" element={<ForumDetails />} />
+            <Route path="/forums/:userId" exact element={<ForumsHome />} />
+            <Route path="/forums/forum/:id" element={<ForumDetails />} />
             <Route path="/form" exact element={<Form />} />
             <Route path="/course" exact element={<Course />} />
             <Route path="/contact"  element={<Contact />} />
