@@ -106,3 +106,13 @@ export const commentForum = (value, id) => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const getStackoverflowAnswers = (query) => async (dispatch) => {
+    try {
+        const { data } = await api.fetchStackoverflowAnswers(query);
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+};

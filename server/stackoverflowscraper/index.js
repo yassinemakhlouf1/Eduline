@@ -66,7 +66,7 @@ const getAnswerFromQuestion = async (website, query, page) => {
 (async () => {
   try {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
     });
 
     const page = await browser.newPage();
@@ -86,7 +86,7 @@ const getAnswerFromQuestion = async (website, query, page) => {
     const validUrls = await page.evaluate((queryUrl) => {
       const hrefElementsList = Array.from(
         document.querySelectorAll(
-          `div[data-async-context='query:${queryUrl}%20site%3Astackoverflow.com'] a[href]`
+          `div[data-async-context='query:${queryUrl}%20site%3Astackoverflow.com'] a[href]` //from google
         )
       );
 
@@ -146,7 +146,7 @@ const getAnswerFromQuestion = async (website, query, page) => {
         }
       }
 
-      //await browser.close();
+      await browser.close();
     })();
   } catch (error) {
     console.log("Error " + error.toString());

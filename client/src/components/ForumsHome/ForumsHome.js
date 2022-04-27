@@ -85,7 +85,7 @@ const ForumsHome = () => {
                                         fullWidth 
                                         variant="contained" 
                                         style={{ backgroundColor: '#133e3f', color: 'white' }}
-                                        component={Link} to="/form">
+                                        component={Link} to="/askstack">
                                             Ask Question
                                     </Button>
                                 </Grid>
