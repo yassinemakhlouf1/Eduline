@@ -3,7 +3,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('./config/keys');
 const passport = require('passport');
 const local_auth = require('passport-local');
 const session = require('express-session');
@@ -25,7 +24,6 @@ var teacherRoutes = require('./routes/teacher')
 var studentRoutes = require('./routes/student')
 var adminRoutes = require('./routes/admin')
 var uploadImgRoutes = require('./routes/uploadImg')
-
 
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
@@ -108,8 +106,6 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 require('./routes/dialogFlowRoutes')(app);
-
-require('./models/Registration');
 
 
 var server = require('http').Server(app);
