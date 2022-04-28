@@ -242,7 +242,14 @@ const getAnswerFromQuestion = async (website, query, page) => {
       acceptedAnswer2.find('.answercell.post-layout--right').each((i, element) => {
           const $element = $(element);
           const answer = {};
-          answer.answerer = $element.find('.user-details > a').text();
+          answer.avatar = $element.find('.gravatar-wrapper-32 > img').attr('src');
+          if($element.find('.user-details > a').length == 2){
+              answer.answerer = $($element.find('.user-details > a')[1]).text();
+              answer.date = $($element.find('.relativetime')[1]).text();
+          } else {
+            answer.answerer = $($element.find('.user-details > a')[0]).text();
+            answer.date = $($element.find('.relativetime')[0]).text();
+          }
           answer.content = $element.find('.s-prose.js-post-body').text();
           answers.push({answer});
       });

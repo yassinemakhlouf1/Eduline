@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Typography, Paper, Divider } from '@material-ui/core';
+import { TextField, Button, Typography, Paper, Divider, Avatar } from '@material-ui/core';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,6 @@ const AskStackoverflow = () => {
     const [ answers, setAnswers ] = useState();
 
     const Answers = () => {
-        const classes = useStyles();
         const user = JSON.parse(localStorage.getItem('user-info'));
         const dispatch = useDispatch();
         const history = useNavigate();
@@ -30,8 +29,8 @@ const AskStackoverflow = () => {
             );
         }
         return (
-            <div>
-            <h5>Here are some answers from people who have asked similar questions</h5>
+            <div style={{marginTop: '50px'}}>
+            <h3>Here are some answers from people who have asked similar questions:</h3>
             {answers.data?.map((answer, key) => (
                 <div key={key}>
                     <div style={{display: 'flex', marginRight: '100px', padding: '10px'}}>
@@ -40,7 +39,8 @@ const AskStackoverflow = () => {
                         </div>
                         <div style={{display: 'flex', width: '109%', flexDirection:'row', padding: '10px'}}>
                         {/*<Avatar alt={answer?.name}>{answer?.name?.charAt(0)}</Avatar>*/}
-                        <pre style={{ color: 'black', fontSize: '14px' }}><strong style={{ padding: '10px', color: '#133e3f', fontSize: '16px' }}>{answer?.answer?.answerer} : </strong> {answer?.answer?.content}</pre>
+                        <Avatar src={answer.answer.avatar} alt="user avatar" />
+                        <pre style={{ color: 'black', fontSize: '14px', marginTop: '10px' }}><strong style={{ padding: '10px', color: '#133e3f', fontSize: '16px' }}>{answer?.answer?.answerer} : </strong>{answer.answer.date} {answer?.answer?.content}</pre>
                         </div>
                     </div>
                 <Divider style={{ margin: '20px 0' }} />
