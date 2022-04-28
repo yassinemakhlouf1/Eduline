@@ -90,7 +90,7 @@ const ForumsHome = () => {
                                     </Button>
                                 </Grid>
                                 <AppBar className={classes.appBarSearch} position="static" style={{ display:'flex', flexDirection: 'row', justifyContent: 'space-around', backgroundColor: 'white', color: 'black', fontWeight: 'bold' }}>
-                                    <Button onClick={() => {setAll(true); setMy(false); setFollowed(false);}}>{all ? <strong>All</strong> : 'All'}</Button>
+                                    <Button onClick={() => {setAll(true); setMy(false); setFollowed(false); history('/forums')}}>{all ? <strong>All</strong> : 'All'}</Button>
                                     <Button onClick={MyForums}>{my ? <strong>My Forums</strong> : 'My Forums'}</Button>
                                     <Button onClick={() => {setAll(false); setMy(false); setFollowed(true);}}>Followed</Button>
                                 </AppBar>
