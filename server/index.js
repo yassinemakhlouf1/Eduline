@@ -11,6 +11,7 @@ const MongoDBStore = require('connect-mongodb-session')(session)
 const userRoutes = require('./routes/users');
 const mongoSanitize = require('express-mongo-sanitize');
 
+const roomRoutes = require('./routes/room');
 const forumRoutes = require('./routes/forums.js');
 const answerRoutes = require('./routes/answers.js');
 const commentRoutes = require('./routes/comments.js');
@@ -85,6 +86,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use('/', userRoutes);
+app.use('/', roomRoutes);
 
 app.use('/courseAS',courseASRoutes);
 app.use('/courseAS/domain',domainASRoutes);
@@ -126,6 +128,7 @@ io.on('connection', socket => {
     socket.emit("test event", "hey utsav");
 
 });
+
 
 
 
