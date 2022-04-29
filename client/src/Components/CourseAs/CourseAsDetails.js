@@ -3,8 +3,10 @@ import ReactPlayer from 'react-player/youtube'
 import { useParams } from 'react-router-dom';
 import { getChapterCId } from './CourseASApi';
 export default function CourseAsDetails() {
-
   const { id,title } = useParams();
+  const [user,setUser] = useState(JSON.parse(localStorage.getItem('user-info')));
+
+  
   //const user = (localStorage.getItem('user-info'));
   //const result = JSON.parse(user);
   //console.log(user.user);
@@ -15,12 +17,25 @@ export default function CourseAsDetails() {
       setChps(result);
     };
     fetchData();
-  }, []);
+  }, []);      
+
+  const onSubmit = () => {
+    window.location.assign(`/video/`+id);
+  };
   return (
 
 
     <section class="event_section layout_padding">
     <div class="container">
+      <div class="d-flex justify-content-end">
+    {user ? (
+            
+               <button name="add" className="btn btn-info  " onClick={(e)=>onSubmit(e)}>Join Meet</button>
+              
+            )
+             :(
+              <></> )}
+              </div>
       <div class="heading_container">
         <h3>
        {title} 

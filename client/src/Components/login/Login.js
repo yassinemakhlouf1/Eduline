@@ -11,7 +11,7 @@ export default function Login() {
 
     const navigate=useNavigate();
     useEffect(()=>  {if(localStorage.getItem('user-info')){
-      navigate('/home')}
+      navigate('/')}
     },[])
    
     const handleSubmit =async (e)=>{
