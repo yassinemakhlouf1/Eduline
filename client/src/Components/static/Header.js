@@ -8,7 +8,7 @@ export default function Header() {
   
   
   const logout=()=>{
-   navigate('home');
+   navigate('/');
     setUser(null);
     sessionStorage.clear();
     localStorage.clear();
@@ -61,7 +61,7 @@ export default function Header() {
       <header class="header_section">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="/home">
+            <a class="navbar-brand" href="/">
               <h3>
                 EDULINE
               </h3>
@@ -74,7 +74,7 @@ export default function Header() {
             <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
               <ul className="navbar-nav  ml-auto">
               <li className="nav-item">
-                <a className="nav-link" href="/home">Home</a>
+                <a className="nav-link" href="/">Home</a>
               </li>
               
               {/* <li className="nav-item">
