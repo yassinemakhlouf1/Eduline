@@ -71,8 +71,6 @@ const ForumsHome = () => {
                     <Container maxWidth="xl">
                         <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
                             <Grid item xs={12} sm={6} md={9}>
-                                {/*<AppBar className={classes.appBarSearch} position="static" style={{ backgroundColor: 'lightgrey', color: 'darkblue', fontWeight: 'bold' }}>All | My | Followed</AppBar>*/}
-                                {/*<Sidebar />*/}
                                 {
                                     (followed) ? <div></div> : (my) ? <Forums /> : <Forums />
                                 }
@@ -97,7 +95,7 @@ const ForumsHome = () => {
                                 <AppBar className={classes.appBarSearch} position="static" color="inherit">
                                     <TextField 
                                         multiline
-                                        name="search" 
+                                        name="search"
                                         variant="outlined" 
                                         label="Search Forums" 
                                         onKeyPress={handleKeyPress} 
