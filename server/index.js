@@ -112,6 +112,7 @@ require('./routes/fulfillmentRoutes')(app);
 
 require('./models/Registration');
 require('./models/Demand');
+require('./models/Coupons');
 
 
 var server = require('http').Server(app);
