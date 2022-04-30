@@ -111,6 +111,7 @@ require('./routes/dialogFlowRoutes')(app);
 require('./routes/fulfillmentRoutes')(app);
 
 require('./models/Registration');
+require('./models/Demand');
 
 
 var server = require('http').Server(app);
