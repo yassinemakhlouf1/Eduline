@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
-import { getForumsBySearch, getForumsByUser } from '../../actions/forums';
+import { getForums, getForumsBySearch, getForumsByUser } from '../../actions/forums';
 import Pagination from '../Pagination';
 
 import Forums from "../Forums/Forums";
@@ -36,7 +36,7 @@ const ForumsHome = () => {
             dispatch(getForumsBySearch({ search, tags: tags.join(',') }));
             history(`/forums/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
         } else {
-            history('/');
+            history('/forums');
         }
     };
 
@@ -71,8 +71,6 @@ const ForumsHome = () => {
                     <Container maxWidth="xl">
                         <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
                             <Grid item xs={12} sm={6} md={9}>
-                                {/*<AppBar className={classes.appBarSearch} position="static" style={{ backgroundColor: 'lightgrey', color: 'darkblue', fontWeight: 'bold' }}>All | My | Followed</AppBar>*/}
-                                {/*<Sidebar />*/}
                                 {
                                     (followed) ? <div></div> : (my) ? <Forums /> : <Forums />
                                 }
@@ -90,14 +88,14 @@ const ForumsHome = () => {
                                     </Button>
                                 </Grid>
                                 <AppBar className={classes.appBarSearch} position="static" style={{ display:'flex', flexDirection: 'row', justifyContent: 'space-around', backgroundColor: 'white', color: 'black', fontWeight: 'bold' }}>
-                                    <Button onClick={() => {setAll(true); setMy(false); setFollowed(false);}}>{all ? <strong>All</strong> : 'All'}</Button>
+                                    <Button onClick={() => {setAll(true); setMy(false); setFollowed(false); dispatch(getForums(page));}}>{all ? <strong>All</strong> : 'All'}</Button>
                                     <Button onClick={MyForums}>{my ? <strong>My Forums</strong> : 'My Forums'}</Button>
                                     <Button onClick={() => {setAll(false); setMy(false); setFollowed(true);}}>Followed</Button>
                                 </AppBar>
                                 <AppBar className={classes.appBarSearch} position="static" color="inherit">
                                     <TextField 
                                         multiline
-                                        name="search" 
+                                        name="search"
                                         variant="outlined" 
                                         label="Search Forums" 
                                         onKeyPress={handleKeyPress} 
