@@ -3,7 +3,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('./config/keys');
 const passport = require('passport');
 const local_auth = require('passport-local');
 const session = require('express-session');
@@ -12,6 +11,7 @@ const MongoDBStore = require('connect-mongodb-session')(session)
 const userRoutes = require('./routes/users');
 const mongoSanitize = require('express-mongo-sanitize');
 
+const roomRoutes = require('./routes/room');
 const forumRoutes = require('./routes/forums.js');
 const answerRoutes = require('./routes/answers.js');
 const commentRoutes = require('./routes/comments.js');
@@ -25,7 +25,6 @@ var teacherRoutes = require('./routes/teacher')
 var studentRoutes = require('./routes/student')
 var adminRoutes = require('./routes/admin')
 var uploadImgRoutes = require('./routes/uploadImg')
-
 
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
@@ -87,6 +86,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use('/', userRoutes);
+app.use('/', roomRoutes);
 
 app.use('/courseAS',courseASRoutes);
 app.use('/courseAS/domain',domainASRoutes);
@@ -110,9 +110,11 @@ app.use(bodyParser.json());
 require('./routes/dialogFlowRoutes')(app);
 require('./routes/fulfillmentRoutes')(app);
 
+
 require('./models/Registration');
 require('./models/Demand');
 require('./models/Coupons');
+
 
 
 var server = require('http').Server(app);
@@ -133,6 +135,7 @@ io.on('connection', socket => {
     socket.emit("test event", "hey utsav");
 
 });
+
 
 
 

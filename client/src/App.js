@@ -20,11 +20,15 @@ import CourseAsDetails from "./Components/CourseAs/CourseAsDetails";
 import Testimg from "./Components/CourseAs/Testimg";
 import DomainsDetail from "./Components/CourseAs/DomainsDetail";
 import AddDomain from "./Components/CourseAs/AddDomain";
+import AskStackoverflow from "./Components/Form/AskStackoverflow";
+import Answers from "./Components/Form/Answers/Answers";
 import axios from "axios";
 import Quiz from "./Pages/Quiz/Quiz";
 import Result from "./Pages/Result/Result";
 import Home1 from "./Pages/Home/Home1";
 import Header from "./Components/static/Header";
+import Join from "./Components/meet/Join";
+import Meeting from "./Components/meet/Meeting"
 
 
 function App() {
@@ -55,7 +59,7 @@ function App() {
             <Route path="/domain/:id/:title" exact element={<DomainsDetail />} />
             <Route path="/AddCourseAS" element={<AddCourseAS />} />
             <Route path="/Chp/:id/:title" element={<CourseAsDetails/>}/>
-            <Route path="home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="/forums" exact element={<ForumsHome />} />
@@ -63,6 +67,8 @@ function App() {
             <Route path="/forums/:userId" exact element={<ForumsHome />} />
             <Route path="/forums/forum/:id" element={<ForumDetails />} />
             <Route path="/form" exact element={<Form />} />
+            <Route path="/askstack" exact element={<AskStackoverflow />} />
+            {/*<Route path="/forums/stackoverflow/:query" exact element={<Answers />} />*/}
             <Route path="/contact"  element={<Contact />} />
             {/* <div className="app" style={{ backgroundImage: 'url("/ques1.png")' }}> */}
         {/* <Header /> */}
@@ -83,8 +89,15 @@ function App() {
           <Route path="/result"
             element={<Result name={name} score={score} />} />
       {/* </div> */}
+      
+      <Route  path="/meet" element={<Join/>} />
+     
           </Route>
-
+          <Route path="/" element={<Meet />} >
+          <Route  path="/video/:id" element={<Meeting/>} />
+          </Route>
+          
+          
         </Routes>
 
         
@@ -100,7 +113,17 @@ function Layout() {
         <Outlet />
       </div>
         <Chatbot />
-      <Footer />
+      < Footer />
+    </>
+  );
+}
+function Meet() {
+  return (
+    <>
+       <Header /> 
+      <div >
+        <Outlet />
+      </div>
     </>
   );
 }
