@@ -18,6 +18,20 @@ const AskStackoverflow = () => {
         const user = JSON.parse(localStorage.getItem('user-info'));
         const dispatch = useDispatch();
         const history = useNavigate();
+        const ReadMore = ({children = 100}) => {
+            const text = children;
+            const [isShow, setIsShowLess] = useState(true);
+            const result = (isShow) ? text.slice(0, 300) : text;
+            const toggleIsShow = () => {
+                setIsShowLess((!isShow));
+            };
+            return (
+                <pre style={{ color: 'black', fontSize: '14px', marginTop: '10px' }}>
+                    {result}
+                    {(text.length > 300) && (<span onClick={toggleIsShow} style={{ color: '#4bc5b8' }}>{isShow ? '\n...Show More' : 'Show Less'}</span>)}
+                </pre>
+            )
+        };
         
         if(!user?.user.username) {
             return (
@@ -40,7 +54,7 @@ const AskStackoverflow = () => {
                         <div style={{display: 'flex', width: '109%', flexDirection:'row', padding: '10px'}}>
                         {/*<Avatar alt={answer?.name}>{answer?.name?.charAt(0)}</Avatar>*/}
                         <Avatar src={answer.answer.avatar} alt="user avatar" />
-                        <pre style={{ color: 'black', fontSize: '14px', marginTop: '10px' }}><strong style={{ padding: '10px', color: '#133e3f', fontSize: '16px' }}>{answer?.answer?.answerer} : </strong>{answer.answer.date} {answer?.answer?.content}</pre>
+                        <pre style={{ color: 'black', fontSize: '14px', marginTop: '10px' }}><strong style={{ padding: '10px', color: '#133e3f', fontSize: '16px' }}>{answer?.answer?.answerer} : </strong>{answer.answer.date} <ReadMore>{answer?.answer?.content}</ReadMore></pre>
                         </div>
                     </div>
                 <Divider style={{ margin: '20px 0' }} />
