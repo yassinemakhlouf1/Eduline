@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Linkify from 'react-linkify';
+
 const Message = (props) => {
     return (
 
@@ -12,9 +14,11 @@ const Message = (props) => {
                     </div>
                     }
                     <div className="col s10">
-                      <span className="black-text">
-                        {props.text}
-                      </span>
+                        <Linkify>
+                            <span className="black-text">
+                            {props.text}
+                            </span>
+                        </Linkify>
                     </div>
                     {props.speaks==='me' &&
                     <div className="col s2">
