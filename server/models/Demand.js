@@ -6,4 +6,4 @@ const demandSchema = new Schema({
     counter: { type: Number, default: 1 }
 });
 
-mongoose.model('demand', demandSchema);
+module.exports =mongoose.model('demand', demandSchema);
