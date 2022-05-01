@@ -108,6 +108,13 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 require('./routes/dialogFlowRoutes')(app);
+require('./routes/fulfillmentRoutes')(app);
+
+
+require('./models/Registration');
+require('./models/Demand');
+require('./models/Coupons');
+
 
 
 var server = require('http').Server(app);
