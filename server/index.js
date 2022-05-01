@@ -26,6 +26,11 @@ var studentRoutes = require('./routes/student')
 var adminRoutes = require('./routes/admin')
 var uploadImgRoutes = require('./routes/uploadImg')
 
+const app = express();
+app.get('/', (req, res) => {
+    res.send('Hello to Eduline API');
+});
+
 const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
 
@@ -34,7 +39,7 @@ db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
     console.log("Database Connected");
 })
-const app = express();
+
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
 const store = new MongoDBStore({
