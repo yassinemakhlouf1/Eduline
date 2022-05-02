@@ -32,7 +32,7 @@ export default function DomainsAs() {
         <div class="course_content">
           {domains?.map((domain)=>(
             <div class="box">
-            <img src={"uploads/"+domain.image} alt="" />
+            <img src={"http://localhost:3000/uploads/"+domain.image} alt="" />
             <a href={"/domain/"+domain._id+"/"+domain.Name} class="">
               <img src="images/link.png" alt="" />
             </a>
