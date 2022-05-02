@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "actions-on-google": "^2.6.0",
     "async": "^3.2.3",
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
@@ -19,6 +20,7 @@
     "connect-mongodb-session": "^3.1.1",
     "cors": "^2.8.5",
     "dialogflow": "^1.2.0",
+    "dialogflow-fulfillment": "^0.6.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "express-mongo-sanitize": "^2.2.0",
