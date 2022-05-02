@@ -77,7 +77,7 @@ const Home1 = ({ name, setName, fetchQuestions }) => {
           </Button>
         </div>
       </div>
-      <img src="/uploads/apple-touch-icon.png" style={{width: "500px"}} className="banner" alt="quiz app" />
+      <img src="http://localhost:3000/uploads/apple-touch-icon.png" style={{width: "500px"}} className="banner" alt="quiz app" />
     </div>
   );
 };

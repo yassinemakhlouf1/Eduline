@@ -34,7 +34,7 @@ export default function DomainsDetail() {
       {courses?.map((course)=>(
         <div class="box">
           <div class="img-box">
-            <img src={"/uploads/"+course.image} alt="" />
+            <img src={"http://localhost:3000/uploads/"+course.image} alt="" />
           </div>
           <div class="detail-box">
             <h4>
