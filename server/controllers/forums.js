@@ -110,9 +110,7 @@ const getAnswerFromQuestion = async (website, query, page) => {
   };
   (async () => {
   try {
-    const browser = await puppeteer.launch({
-      headless: false,
-    });
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
 
     const page = await browser.newPage();
 
