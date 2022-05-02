@@ -8,7 +8,7 @@ export default function Meeting() {
     const domain = "https://eduline.daily.co/";
 
     axios
-      .get(`http://localhost:3000/video-call/${id}`)
+      .get(`https://eduline-technonet.herokuapp.com/video-call/${id}`)
       .then((res) => {
         if (res.status === 200) {
           const script = document.createElement("script");

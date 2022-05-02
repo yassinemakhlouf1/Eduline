@@ -1,5 +1,5 @@
 import axios from "axios";
-const url="http://localhost:3000/courseAS/"
+const url="https://eduline-technonet.herokuapp.com/courseAS/"
 export const addCoursAS = async (cours,idDomain,Chapter,data11) => {
   
       try {
@@ -112,7 +112,7 @@ export const getCourseASId = async (id) => {
 export const uploadImg = async (img) => {
  
   try {
-    const { data } = await axios.post("http://localhost:3000/upload/upload",img);
+    const { data } = await axios.post("https://eduline-technonet.herokuapp.com/upload/upload",img);
    
     return data;
     
@@ -134,7 +134,7 @@ export const getChapterCId = async (id) => {
       const chp=await addChapitreAS(chapter);
       
 
-      const { data } = await axios.put("http://localhost:3000/courseAS/addChToCourse/"+idC+"/"+chp._id);
+      const { data } = await axios.put("https://eduline-technonet.herokuapp.com/courseAS/addChToCourse/"+idC+"/"+chp._id);
       return data;
     } catch (error) {
       console.log(error);

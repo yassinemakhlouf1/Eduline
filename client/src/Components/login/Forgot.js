@@ -12,7 +12,7 @@ export default function Forgot() {
       console.log('test');
       let item={password};
       console.log(password);
-      let result=await fetch("http://localhost:3000/reset/"+id,{
+      let result=await fetch("https://eduline-technonet.herokuapp.com/reset/"+id,{
         method :"POST",
         headers:{"Content-Type":"application/json",
         "Accept":"application/json"

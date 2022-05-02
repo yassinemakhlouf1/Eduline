@@ -18,7 +18,7 @@ export default function Login() {
       e.preventDefault();
       console.log('test');
       let item={username,password};
-      let result=await fetch("http://localhost:3000/login",{
+      let result=await fetch("https://eduline-technonet.herokuapp.com/login",{
         method :"POST",
         headers:{"Content-Type":"application/json",
         "Accept":"application/json"

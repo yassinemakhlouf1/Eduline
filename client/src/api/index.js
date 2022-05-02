@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:3000' });
+const API = axios.create({ baseURL: 'https://eduline-technonet.herokuapp.com/' });
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('user-info')) {
         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('user-info')).token}`;

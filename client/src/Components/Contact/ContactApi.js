@@ -1,5 +1,5 @@
 import axios from "axios";
-const url="http://localhost:3000/contact/post";
+const url="https://eduline-technonet.herokuapp.com/contact/post";
   /* contact */
   export const sendInfo = async (data1) => {
     try {

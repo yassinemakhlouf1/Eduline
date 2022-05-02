@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
     res.send('Hello to Eduline API');
 });
 
-const dbUrl = process.env.DB_URL || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
+const dbUrl = process.env.DB_CONNECT || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
 
 const db = mongoose.connection;
@@ -42,29 +42,7 @@ db.once("open", () => {
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
-const store = new MongoDBStore({
-    url: dbUrl,
-    secret,
-    touchAfter: 24 * 60 * 60
-});
 
-store.on("error", function (e) {
-    console.log("SESSION STORE ERROR", e)
-})
-
-const sessionConfig = {
-    store,
-    name: 'session',
-    secret,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        // secure: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
-    }
-}
 
 
 const cors=require("cors");
@@ -78,10 +56,7 @@ app.use(cors(corsOptions)) // Use this after the variable declaration
 
 
 
-app.use(session(sessionConfig));
-app.use(passport.initialize());
-app.use(passport.session());
-
+var server = require('http').Server(app);
 app.set("view engine", "ejs");
 /*app.use(mongoSanitize());*/
 app.use(express.json());
@@ -115,7 +90,7 @@ app.use(bodyParser.json());
 require('./routes/dialogFlowRoutes')(app);
 
 
-var server = require('http').Server(app);
+
 var io = require('socket.io')(server,
     {
         cors:
@@ -135,10 +110,35 @@ io.on('connection', socket => {
 });
 
 
+const store = new MongoDBStore({
+    url: dbUrl,
+    secret,
+    touchAfter: 24 * 60 * 60
+});
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e)
+})
+
+const sessionConfig = {
+    store,
+    name: 'session',
+    secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        // secure: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
 
 
+app.use(session(sessionConfig));
 
-
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 

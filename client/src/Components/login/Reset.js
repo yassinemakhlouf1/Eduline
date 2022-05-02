@@ -6,7 +6,7 @@ export default function Reset() {
     e.preventDefault();
       console.log('test');
       let item={email};
-      let result=await fetch("http://localhost:3000/forgot",{
+      let result=await fetch("https://eduline-technonet.herokuapp.com/forgot",{
         method :"POST",
         headers:{"Content-Type":"application/json",
         "Accept":"application/json"

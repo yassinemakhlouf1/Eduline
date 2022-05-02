@@ -22,7 +22,7 @@ export default function Login() {
       e.preventDefault();
       try {
       let item={email, username, password ,name ,last_name,birth_date};
-      let result=await fetch("http://localhost:3000/register",{
+      let result=await fetch("https://eduline-technonet.herokuapp.com/register",{
         method :"POST",
         headers:{"Content-Type":"application/json",
         "Accept":"application/json"
