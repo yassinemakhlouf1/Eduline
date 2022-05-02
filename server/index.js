@@ -76,7 +76,7 @@ app.use('/forums', forumRoutes);
 app.use('/answers', answerRoutes);
 app.use('/forums', commentRoutes);
 app.use('/contact',contactRoutes );
-
+app.use('/uploads/', express.static('uploads'))
 app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);
 app.use('/student', studentRoutes);
