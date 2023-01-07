@@ -26,9 +26,6 @@ export default function DomainsDetail() {
         <h3>
        {title} 
         </h3>
-        <p>
-        Événements éducatifs à venir pour nourrir votre cerveau.
-        </p>
       </div>
       <div class="event_container">
       {courses?.map((course)=>(
@@ -46,7 +43,7 @@ export default function DomainsDetail() {
           </div>
           <div class="date-box">
             <h3>
-              <div className="login_form"> <a href={'/Chp/'+course._id+'/'+course.Name}>REJOINDRE</a></div>
+              <div className="login_form"> <a href={'/Chp/'+course._id+'/'+course.Name}>JOIN</a></div>
            
               
             </h3>

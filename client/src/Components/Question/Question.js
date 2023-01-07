@@ -3,6 +3,12 @@ import { useNavigate } from "react-router";
 import "./Question.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import React,{ useState } from "react";
+import DateTimeDisplay from './DateTimeDisplay';
+import { useCountdown } from './useCountdown';
+
+
+
+
 
 const Question = ({
   currQues,
@@ -13,7 +19,7 @@ const Question = ({
   setScore,
   score,
   setQuestions,
-  timer,
+  
 }) => {
   const [selected, setSelected] = useState();
   const [error, setError] = useState(false);
@@ -25,6 +31,11 @@ const Question = ({
     else if (selected === i && selected !== correct) return "wrong";
     else if (i === correct) return "select";
   };
+
+  const THREE_DAYS_IN_MS = 20 * 1000;
+  const NOW_IN_MS = new Date().getTime();
+
+  const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
 
   
 
@@ -69,25 +80,80 @@ const Question = ({
     }*/
 
   const handleCheck = (i) => {
+    
     setSelected(i);
     if (i === correct) setScore(score + 1);
     setError(false);
   };
 
-  const handleNext = () => {
+
+
+
+   const handleNext = () => {
+    
     if (currQues > 8) {
       Navigate("/result");
     } else if (selected) {
       setCurrQues(currQues + 1);
       setSelected();
     } else setError("Please select an option first");
+    
   };
+
+  const ExpiredNotice = () => {
+    setCurrQues(currQues + 1);
+    setSelected();
+    return (
+      <div className="expired-notice">
+        <span>Expired!!!</span>
+        <p>Ended</p>
+      </div>
+    );
+  };
+
+  const ShowCounter = ({ days, hours, minutes, seconds }) => {
+    return (
+      <div className="show-counter">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          className="countdown-link"
+        >
+          {/* <DateTimeDisplay value={days} type={'Days'} isDanger={days <= 3} />
+          <p>:</p>
+          <DateTimeDisplay value={hours} type={'Hours'} isDanger={false} />
+          <p>:</p>
+          <DateTimeDisplay value={minutes} type={'Mins'} isDanger={false} />
+          <p>:</p> */}
+         <h3> <DateTimeDisplay value={seconds} type={'Seconds'} isDanger={false} /> </h3>
+        </a>
+      </div>
+    );
+  };
+
+  const CountdownTimer = ({ targetDate }) => {
+    const [days, hours, minutes, seconds] = useCountdown(targetDate);
+  
+    if (days + hours + minutes + seconds <= 0) {
+      return <ExpiredNotice />;
+    } else {
+      return (
+        <ShowCounter
+          days={days}
+          hours={hours}
+          minutes={minutes}
+          seconds={seconds}
+        />
+      );
+    }
+  };
+  
 
   const handleQuit = () => {
     setCurrQues(0);
     setQuestions();
   };
-
+  
   return (
     <div className="question">
       <h1>Question {currQues + 1} :</h1>
@@ -126,12 +192,21 @@ const Question = ({
             style={{ width: 185 }}
             onClick={handleNext}
           >
+            
             {currQues > 20 ? "Submit" : "Next Question"}
           </Button>
+          <div>
+      <CountdownTimer targetDate={dateTimeAfterThreeDays} />
+    </div>
+          
         </div>
       </div>
     </div>
   );
 };
+//const handleNext = () => <span>You are good to go!</span>;
+
+// Renderer callback with condition
+
 
 export default Question;

@@ -1,7 +1,7 @@
 import 'materialize-css/dist/css/materialize.min.css';
 import React, {Component} from 'react';
 
-import axios from "axios/index";
+import axios from "axios";
 
 //import { withRouter } from 'react-router-dom';
 
@@ -43,7 +43,7 @@ class Chatbot extends Component {
             }
         };
         this.setState({ messages: [...this.state.messages, says]});
-        const res = await axios.post('/api/df_text_query',  {text});
+        const res = await axios.post('https://eduline-technonet.herokuapp.com/api/df_text_query',  {text});
 
         for (let msg of res.data.fulfillmentMessages) {
             console.log(JSON.stringify(msg));
@@ -57,7 +57,7 @@ class Chatbot extends Component {
 
     // event messages
     async df_event_query(event) {
-        const res = await axios.post('/api/df_event_query',  {event});
+        const res = await axios.post('https://eduline-technonet.herokuapp.com/api/df_event_query',  {event});
 
         for (let msg of res.data.fulfillmentMessages) {
             let says = {

@@ -7,6 +7,9 @@ const passport = require('passport');
 const local_auth = require('passport-local');
 const session = require('express-session');
 const User = require('./models/user');
+require('./models/Registration');
+require('./models/Demand');
+require('./models/Coupons');
 const MongoDBStore = require('connect-mongodb-session')(session)
 const userRoutes = require('./routes/users');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -27,9 +30,6 @@ var adminRoutes = require('./routes/admin')
 var uploadImgRoutes = require('./routes/uploadImg')
 
 const app = express();
-app.get('/', (req, res) => {
-    res.send('Hello to Eduline API');
-});
 
 const dbUrl = process.env.DB_CONNECT || 'mongodb+srv://EDULINE:EDULINESDIRI@cluster0.lcx2y.mongodb.net/test';
 mongoose.connect(dbUrl)
@@ -65,6 +65,8 @@ passport.use(new local_auth(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+require('./routes/dialogFlowRoutes')(app);
+require('./routes/fulfillmentRoutes')(app);
 app.use('/', userRoutes);
 app.use('/', roomRoutes);
 
@@ -87,15 +89,19 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-require('./routes/dialogFlowRoutes')(app);
-require('./routes/fulfillmentRoutes')(app);
 
 
-require('./models/Registration');
-require('./models/Demand');
-require('./models/Coupons');
 
+if (process.env.NODE_ENV === 'production') {
+    // js and css files
+    app.use(express.static('client/build'));
 
+    // index.html for all page routes
+    const path = require('path');
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
 
 
 var io = require('socket.io')(server,

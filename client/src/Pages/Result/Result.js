@@ -18,6 +18,7 @@ const Result = ({ name, score }) => {
   return (
     <div className="result">
       <span className="title">Final Score : {score}</span>
+      {score>5 ? (<h2>Felicitation</h2>) : (<h2>Try again</h2>)}
       <Button
         variant="contained"
         color="secondary"
